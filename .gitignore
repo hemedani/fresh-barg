@@ -45,3 +45,4 @@ libs/bc/dbs/schemas/deps.ts
 libs/bc/dbs/deps.ts
 apps/bc/core/deno.lock
 .nx/cache
+front/static/styles

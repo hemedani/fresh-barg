@@ -49,7 +49,7 @@ export const { selectStruct, getSchemas } = coreApp.schemas;
 dynamicSetup();
 
 coreApp.runServer({
-	port: 8000,
+	port: 1377,
 	typeGeneration: true,
 	playground: true,
 	staticPath: ["/upload"],

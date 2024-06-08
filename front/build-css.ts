@@ -4,7 +4,7 @@ import { config } from "./postcss.config.ts";
 import postcss from "postcss/mod.js";
 import stylus from "npm:stylus";
 
-const STYLES_INPUT_DIRECTORY = "styles";
+const STYLES_INPUT_DIRECTORY = "styles/index.styl";
 
 async function buildStyles(path: string) {
   try {
@@ -21,20 +21,6 @@ async function buildStyles(path: string) {
 
     const __dirname = resolve();
     const replacedPath = path.replace(".styl", ".css");
-    /*
-     * 	@LOG @DEBUG @INFO
-     * 	This log written by ::==> {{ `` }}
-     *
-     * 	Please remove your log after debugging
-     */
-    console.log(" ============= ");
-    console.group("path ------ ");
-    console.log();
-    console.info({ path, replacedPath }, " ------ ");
-    console.log();
-    console.groupEnd();
-    console.log(" ============= ");
-
     const outputPath = `./static/${relative(__dirname, replacedPath)}`;
     console.log(`Updating styles for ${outputPath}`);
     await Deno.writeTextFile(outputPath, outputCss);
@@ -56,10 +42,7 @@ try {
   }
 }
 
-const watcher = Deno.watchFs([`./${STYLES_INPUT_DIRECTORY}`]);
-for await (const event of watcher) {
-  const { paths } = event;
-  paths.forEach((path) => {
-    debouncedBuildStyles(path);
-  });
+const watcher = Deno.watchFs([`./styles`]);
+for await (const _event of watcher) {
+  debouncedBuildStyles("./styles/index.styl");
 }

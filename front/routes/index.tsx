@@ -1,25 +1,47 @@
-import { useSignal } from "@preact/signals";
-import Counter from "../islands/Counter.tsx";
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { createAppState } from "../states/mod.ts";
 
-export default function Home() {
-  const count = useSignal(3);
+export const handler: Handlers = {
+  async GET(_req, ctx) {
+    return await ctx.render({ phone: null });
+  },
+  async POST(req, ctx) {
+    const form = await req.formData();
+    const phone = form.get("phone")?.toString();
+    const code = form.get("code")?.toString();
+
+    const states = createAppState();
+
+    if (code) {
+      const login = await states.login(phone!, Number(code));
+      if (login.success) {
+        return await ctx.render({ phone });
+      } else {
+        return await ctx.render({ phone: null });
+      }
+    } else {
+      const loginReq = await states.loginRequest(phone!);
+      if (loginReq.success) {
+        return await ctx.render({ phone });
+      } else {
+        return await ctx.render({ phone: null });
+      }
+    }
+  },
+};
+
+interface User {
+  phone?: string;
+}
+
+export default function Login(props: PageProps<User>) {
   return (
-    <div class="px-4 py-8 mx-auto bg-[#86efac]">
-      <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-        <img
-          class="my-6"
-          src="/logo.svg"
-          width="128"
-          height="128"
-          alt="the Fresh logo: a sliced lemon dripping with juice"
-        />
-        <h1 class="text-4xl font-bold">Welcome to Fresh</h1>
-        <p class="my-4">
-          Try updating this message in the
-          <code class="mx-2">./routes/index.tsx</code> file, and refresh.
-        </p>
-        <Counter count={count} />
-      </div>
-    </div>
+    <>
+      <form method="post">
+        <input type="number" name="phone" value="" />
+        {props.data.phone && <input type="number" name="code" value="" />}
+        <button type="submit">login</button>
+      </form>
+    </>
   );
 }

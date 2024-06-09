@@ -10793,7 +10793,7 @@ categories: (0 | 1 );
     };
 
   
-type DeepPartial<T> = {
+export type DeepPartial<T> = {
 	[P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
 

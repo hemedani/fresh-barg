@@ -1,5 +1,4 @@
 import { lesan, MongoClient, Redis } from "deps";
-//"https://deno.land/x/lesan@v0.1.3/mod.ts";
 import {
 	cities,
 	forms,

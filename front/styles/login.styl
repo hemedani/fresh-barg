@@ -1,0 +1,62 @@
+@require('./variable.styl')
+@require('./fontSize.styl')
+.login-page 
+  display flex
+  justify-content center
+  align-items center
+  min-height 100dvh
+  height 100%
+  background-color #e1e1e1
+  .background
+    display none
+  .login
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    gap 20px
+    width 70vw 
+    background-color neutralLightest
+    padding 20px
+    border-radius 7px
+    overflow hidden
+    img
+      object-fit cover
+    h1
+      font-size large
+     p
+     text-align center
+     font-size small
+
+.login-form-wrapper
+  display flex
+  align-items center
+  flex-direction column
+  gap 10px
+  padding 20px 
+  border 1px solid neutralLighter
+  border-radius 7px
+  overflow hidden
+  text-align center
+  width 100%  
+  h2
+    font-size medium
+  p
+    color neutral
+    font-size smaller
+  .login-form
+    width 100%
+    display flex
+    flex-direction column
+    justify-content center
+    gap 10px
+    input
+      border 1px solid #B7B7B7
+      width 100%
+      border-radius 7px
+      padding 5px 5px 5px 0
+      font-size smaller
+  .resend-code-text
+    color Blue
+    font-size small
+

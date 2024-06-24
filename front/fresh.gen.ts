@@ -2,16 +2,22 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $Home from "./routes/Home.tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
-import * as $Counter from "./islands/Counter.tsx";
+import * as $MenuButton from "./islands/MenuButton.tsx";
+import * as $Sidebar from "./islands/Sidebar.tsx";
+import * as $UserProfile from "./islands/UserProfile.tsx";
+import * as $UserProfileInfo from "./islands/UserProfileInfo.tsx";
+import * as $mod from "./islands/mod.ts";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
+    "./routes/Home.tsx": $Home,
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/api/joke.ts": $api_joke,
@@ -19,7 +25,11 @@ const manifest = {
     "./routes/index.tsx": $index,
   },
   islands: {
-    "./islands/Counter.tsx": $Counter,
+    "./islands/MenuButton.tsx": $MenuButton,
+    "./islands/Sidebar.tsx": $Sidebar,
+    "./islands/UserProfile.tsx": $UserProfile,
+    "./islands/UserProfileInfo.tsx": $UserProfileInfo,
+    "./islands/mod.ts": $mod,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

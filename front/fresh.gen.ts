@@ -9,6 +9,7 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $MenuButton from "./islands/MenuButton.tsx";
+import * as $SearchBox from "./islands/SearchBox.tsx";
 import * as $Sidebar from "./islands/Sidebar.tsx";
 import * as $UserProfile from "./islands/UserProfile.tsx";
 import * as $UserProfileInfo from "./islands/UserProfileInfo.tsx";
@@ -26,6 +27,7 @@ const manifest = {
   },
   islands: {
     "./islands/MenuButton.tsx": $MenuButton,
+    "./islands/SearchBox.tsx": $SearchBox,
     "./islands/Sidebar.tsx": $Sidebar,
     "./islands/UserProfile.tsx": $UserProfile,
     "./islands/UserProfileInfo.tsx": $UserProfileInfo,

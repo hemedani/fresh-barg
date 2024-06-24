@@ -1,6 +1,5 @@
 @require('./variable.styl')
 @require('./fontSize.styl')
-
   .layout
     display grid 
     grid-template-rows 55px 1fr
@@ -76,9 +75,19 @@
             background-color darkerBlue
           svg
             fill white
-            width 30px;
-            height 30px;
-            stroke currentColor;
-
+            width 30px
+            height 30px
+            stroke currentColor
+      .search-box-wrapper
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        align-items: center
+        background: #ffffff
+        border-radius: 10px
+        box-sizing: border-box
+        padding: 10px 1rem
+        box-shadow: 0px 2px 4px 1px #b7b7b7
       
      

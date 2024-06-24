@@ -1,6 +1,7 @@
 export const SearchBox = () => {
   return (
-    <div>
+    <div className="search-box-wrapper">
+      searchbox
     </div>
   );
 };

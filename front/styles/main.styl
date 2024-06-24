@@ -1,17 +1,59 @@
+@font-face 
+  font-family IranSans_Black
+  src url(/fonts/iran-sans/IRANSansWeb_Black.woff)
+
+
+@font-face 
+  font-family IranSans_Bold
+  src url(/fonts/iran-sans/IRANSansWeb_Bold.woff)
+
+@font-face 
+  font-family IranSans_Light
+  src url(/fonts/iran-sans/IRANSansWeb_Light.woff)
+
+@font-face 
+  font-family IranSans_Medium
+  src url(/fonts/iran-sans/IRANSansWeb_Medium.woff)
+
+@font-face 
+  font-family IranSans_UltraLight
+  src url(/fonts/iran-sans/IRANSansWeb_UltraLight.woff)
+
+@font-face 
+  font-family IranSans_Web
+  src url(/fonts/iran-sans/IRANSansWeb.woff)
+
+@font-face {
+  font-family IranSans_Regular
+  src url(/fonts/iran-sans/IRANSansWeb.woff)
+}
+
+*
+  direction rtl
+  box-sizing border-box
+  font-family IranSans_Regular
+  margin 0
+  padding 0
+
 body
-  background-color: rgb(255,51,25)
-
-.nothing
-  color: red
-  display: flex
-  &:hover
-    backgroud-color: #fff
-    &:active
-      color: white
-
-.another
-  color: white
-  &:hover
-    color goldenrod
-    &:active
-      color: bisque
+  overflow-x hidden
+  min-height 100vh 
+  outline none
+  li
+    list-style none
+  a
+    text-decoration none
+  
+.default-btn
+  background-color #0053c0
+  color #F1FFFE
+  text-align center
+  border none
+  border-radius 10px
+  padding 5px 10px
+  cursor pointer
+  font-size small
+  
+.container
+  width 95%
+  margin 0 auto  

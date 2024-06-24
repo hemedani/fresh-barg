@@ -1,47 +1,26 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
-import { createAppState } from "../states/mod.ts";
+import { SignIn, SignUp } from "../components/mod.ts";
 
-export const handler: Handlers = {
-  async GET(_req, ctx) {
-    return await ctx.render({ phone: null });
-  },
-  async POST(req, ctx) {
-    const form = await req.formData();
-    const phone = form.get("phone")?.toString();
-    const code = form.get("code")?.toString();
-
-    const states = createAppState();
-
-    if (code) {
-      const login = await states.login(phone!, Number(code));
-      if (login.success) {
-        return await ctx.render({ phone });
-      } else {
-        return await ctx.render({ phone: null });
-      }
-    } else {
-      const loginReq = await states.loginRequest(phone!);
-      if (loginReq.success) {
-        return await ctx.render({ phone });
-      } else {
-        return await ctx.render({ phone: null });
-      }
-    }
-  },
-};
-
-interface User {
-  phone?: string;
-}
-
-export default function Login(props: PageProps<User>) {
+export default function LoginPage() {
+  const isOk = true;
   return (
-    <>
-      <form method="post">
-        <input type="number" name="phone" value="" />
-        {props.data.phone && <input type="number" name="code" value="" />}
-        <button type="submit">login</button>
-      </form>
-    </>
+    <div className="login-page">
+      <div className="login">
+        <img
+          src="/images/Logo.png"
+          loading="lazy"
+          alt="logo image"
+          width="55"
+          height="55"
+        />
+        <h1>ساتک</h1>
+        <p>
+          سامانه الکترونیک تهیه کالا
+        </p>
+        {isOk ? <SignUp /> : <SignIn />}
+      </div>
+      <div className="background">
+        <img src="/images/Login.png" alt="background image" loading="lazy" />
+      </div>
+    </div>
   );
 }

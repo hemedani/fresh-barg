@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export const Header: FunctionComponent<HeaderProps> = (props) => {
   return (
-    <header>
+    <header className="pages-header">
       <div className="container">
         <MenuButton {...props} />
         <UserProfile />

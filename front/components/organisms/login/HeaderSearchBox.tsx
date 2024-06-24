@@ -10,10 +10,9 @@ export const HeaderSearchBox: FunctionComponent<HeaderSearchBoxProps> = (
 ) => {
   return (
     <div className="header-search-box" style={{ flex: flex }}>
-      <SearchBox></SearchBox>
+      <SearchBox />
       <div className="number-letter">
         <span>تعداد :</span>
-
         <span>8</span>
       </div>
       <div className="pagination">

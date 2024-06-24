@@ -6,7 +6,7 @@
     grid-template-rows 55px 1fr
     background-color #fff
     position relative  
-    header
+    .pages-header
       display flex
       align-content center
       grid-column 1/span 3
@@ -55,7 +55,30 @@
             color Blue
     main
       grid-column: 1/span 3
-      padding 10px 0
+      padding 20px 0
+      .main-header
+        display flex
+        justify-content space-between
+        align-items center
+        .create-letter-btn
+          display flex
+          align-items center
+          justify-content center
+          background-color darkBlue
+          gap 0.5rem
+          color White
+          border 1px solid #89959f
+          border-radius 1.5rem
+          padding 0.7rem 2rem
+          font-size larger
+          cursor pointer
+          &:hover
+            background-color darkerBlue
+          svg
+            fill white
+            width 30px;
+            height 30px;
+            stroke currentColor;
 
       
      

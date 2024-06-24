@@ -1,5 +1,5 @@
 import { ComponentChildren, FunctionComponent } from "preact";
-import { Header } from "../mod.ts";
+import { Header, MainHeader } from "../mod.ts";
 import { useSignal } from "@preact/signals";
 import { Sidebar } from "../../islands/mod.ts";
 
@@ -13,6 +13,7 @@ export const Layout: FunctionComponent<{ children: ComponentChildren }> = (
       <Sidebar toggleMenu={toggleMenu} />
       <main>
         <div className="container">
+          <MainHeader />
           {children}
         </div>
       </main>

@@ -1,3 +1,4 @@
+import { SearchBox } from "../../islands/SearchBox.tsx";
 import { AddIcon } from "../mod.ts";
 
 export const MainHeader = () => {
@@ -7,6 +8,7 @@ export const MainHeader = () => {
         ایجاد‌نامه‌جدید
         <AddIcon />
       </a>
+      <SearchBox />
     </header>
   );
 };

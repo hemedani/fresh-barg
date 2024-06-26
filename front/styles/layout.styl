@@ -59,6 +59,8 @@
         display flex
         justify-content space-between
         align-items center
+        gap 25px
+        margin-bottom 10px
         .create-letter-btn
           display flex
           align-items center
@@ -79,15 +81,78 @@
             height 30px
             stroke currentColor
       .search-box-wrapper
-        width: 100%
-        display: flex
-        flex-wrap: wrap
-        justify-content: space-between
-        align-items: center
-        background: #ffffff
-        border-radius: 10px
-        box-sizing: border-box
-        padding: 10px 1rem
-        box-shadow: 0px 2px 4px 1px #b7b7b7
-      
-     
+        width 100%
+        display flex
+        justify-content space-between
+        align-items center
+        background #ffffff
+        border-radius 10px
+        padding 0.625rem 1rem
+        box-shadow 0px 2px 4px 1px neutralLighter
+        .search-form
+          display flex
+          align-items center
+          border 1px solid neutralLighter
+          border-radius 10px
+          overflow hidden
+          &:hover
+            border-color Blue
+          input
+            height 100%
+            padding: 7px 10px
+            border none
+          button
+            display flex
+            align-items center
+            justify-content center
+            background-color inherit
+            padding 7px 10px
+            border none
+            border-right 1px solid neutralLighter
+            cursor pointer
+            svg
+              width 24px
+              height 24px
+              fill neutralLighter
+        .page-info
+          font-weight 600
+          font-size small
+          .page-header-info
+            color Blue
+            margin-right 5px
+    .main-content
+      display flex
+      gap 20px
+      .user-card
+        display flex
+        flex-direction column
+        justify-content center
+        align-items center
+        gap 10px
+        background-color neutralLightest
+        padding 1.5rem 0.5rem
+        border-radius 10px
+        box-shadow 0px 2px 4px 1px neutralLighter
+        img
+          border-radius 100%
+          overflow hidden
+          margin-top 1rem
+          width 50%
+          height 50%
+          object-fit cover
+        .user-name
+          font-size large
+        .user-organ
+          display flex
+          justify-content center
+          align-items center
+          color darkBlue
+          background #c1daff
+          border-radius 0.9375rem
+          padding 5px 1.5rem  
+          text-overflow ellipsis
+          white-space nowrap
+          font-size small
+        .user-unit
+          color neutralLighter
+

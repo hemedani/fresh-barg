@@ -1,5 +1,5 @@
 import { ComponentChildren, FunctionComponent } from "preact";
-import { Header, MainHeader } from "../mod.ts";
+import { Header, MainHeader, UserCard } from "../mod.ts";
 import { useSignal } from "@preact/signals";
 import { Sidebar } from "../../islands/mod.ts";
 
@@ -14,7 +14,12 @@ export const Layout: FunctionComponent<{ children: ComponentChildren }> = (
       <main>
         <div className="container">
           <MainHeader />
-          {children}
+          <div className="main-content">
+            <div>
+              <UserCard />
+            </div>
+            {children}
+          </div>
         </div>
       </main>
     </div>

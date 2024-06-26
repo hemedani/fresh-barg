@@ -11,13 +11,13 @@ export const Layout: FunctionComponent<{ children: ComponentChildren }> = (
     <div className="layout">
       <Header toggleMenu={toggleMenu} />
       <Sidebar toggleMenu={toggleMenu} />
-      <main>
-        <div className="container">
-          <MainHeader />
-          <div className="main-content">
-            <div>
-              <UserCard />
-            </div>
+      <main className="container">
+        <MainHeader />
+        <div className="main-content">
+          <div>
+            <UserCard />
+          </div>
+          <div className="content">
             {children}
           </div>
         </div>

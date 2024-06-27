@@ -6,7 +6,7 @@ export const SatekIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width="40"
-      height="44.991"
+      height="40"
       viewBox="0 0 45 44.991"
     >
       <defs>

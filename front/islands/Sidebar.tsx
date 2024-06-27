@@ -40,10 +40,8 @@ export const Sidebar: FunctionComponent<SidebarProps> = ({ toggleMenu }) => {
       <div className="container">
         <ul className="sidebar-item">
           <li>
-            <a>
-              <a href="/">
-                <SatekIcon />
-              </a>
+            <a href="/">
+              <SatekIcon />
             </a>
           </li>
           {itemSidebar && itemSidebar.map((item) => <SidebarItem {...item} />)}

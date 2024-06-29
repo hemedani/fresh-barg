@@ -1,3 +1,5 @@
+@require('./variable.styl')
+@require('./fontSize.styl')
 @font-face 
   font-family IranSans_Black
   src url(/fonts/iran-sans/IRANSansWeb_Black.woff)
@@ -59,3 +61,23 @@ body
 .container
   width 95%
   margin 0 auto  
+.add-letter-form
+  label
+    font-size smaller
+    cursor pointer
+    user-select none
+  input ,textarea
+    border 1px solid neutralLighter
+    width 100%
+    border-radius 10px
+    text-align right
+    padding 5px 10px
+    width 100%
+    resize none
+    font-size small
+    &:hover
+      border-color blueAzure
+  textarea
+    min-height: 3rem  
+    height 10vh 
+    

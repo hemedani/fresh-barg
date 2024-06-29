@@ -1,62 +1,19 @@
-import { AsteriskIcon } from "../mod.ts";
+import { FunctionComponent } from "preact";
 
-// import { FormErrorMessage } from "../../atoms/error-message/FormErrorMessage";
-
-interface IInputFieldProps {
-  onChange?: () => void;
-  type: string;
-  value?: string;
-  name?: string;
-  placeholder?: string;
-  labelText?: string;
-  required?: boolean;
+interface InputFieldProps {
+  title?: string;
   htmlFor?: string;
-  className?: string;
-  // registerName: keyof TFieldValues;
-  // errors?: Partial<DeepMap<TFieldValues, FieldError>>;
-  // rules?: RegisterOptions;
+  placeholder?: string;
+  type?: string;
 }
 
-export const InputField = ({
-  onChange,
-  type,
-  value,
-  name,
-  placeholder,
-  labelText,
-  required,
-  htmlFor,
-  className,
-  // registerName,
-  // errors,
-  // rules,
-}: IInputFieldProps) => {
-  // const { register } = useForm();
+export const InputField: FunctionComponent<InputFieldProps> = (
+  { title, htmlFor, placeholder, type },
+) => {
   return (
-    <>
-      {labelText && (
-        <div>
-          <label htmlFor={htmlFor}>{labelText}</label>
-          {required ? <AsteriskIcon /> : null}
-        </div>
-      )}
-
-      <input
-        // {...register(registerName as string)}
-        onChange={onChange}
-        type={type}
-        value={value}
-        name={name}
-        placeholder={placeholder}
-        className={`input-style ${className ? className : ""}`}
-      />
-      {
-        /* <ErrorMessage
-        errors={errors}
-        name={name as any}
-        render={({ message }) => <FormErrorMessage text={message} />}
-      /> */
-      }
-    </>
+    <div className="group-inputs">
+      {htmlFor && <label htmlFor={htmlFor}>{title}</label>}
+      <input id={htmlFor} placeholder={placeholder} type={type} min={0} />
+    </div>
   );
 };

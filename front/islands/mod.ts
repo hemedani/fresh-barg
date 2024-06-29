@@ -3,3 +3,4 @@ export * from "./UserProfile.tsx";
 export * from "./UserProfileInfo.tsx";
 export * from "./Sidebar.tsx";
 export * from "./SearchBox.tsx";
+export * from "./SelectInput.tsx";

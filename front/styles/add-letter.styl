@@ -1,0 +1,116 @@
+@require('./variable.styl')
+@require('./fontSize.styl')
+  .new-letter-page
+    display flex
+    justify-content center
+    align-items center
+    flex-direction column
+    background-color Blue
+    background-color #c4c4c4
+    overflow-x hidden
+    height 100vh 
+    user-select none
+    .add-letter-content
+      position relative
+      border-top 3px solid Primary
+      width 80vw
+      margin 0 auto
+      background White
+      border-top 3px solid greenLighter
+      .letter-icon
+        display flex
+        justify-content center
+        align-items center
+        width 50px
+        height 50px
+        background-color #c4c4c4
+        border-radius 100%
+        position absolute
+        top -23px
+        right 50%
+        transform translateX(50%)
+        svg 
+          width 40px
+          height 40px
+          padding 5px
+          background-color Primary
+          border-radius 100%
+      h3
+        font-size smaller
+        font-weight 700
+        padding 20px 10px 15px 10px
+        border-bottom 1px solid neutralLighter
+    .add-letter-form
+      padding 10px 20px
+      display flex 
+      flex-wrap wrap
+      gap 20px
+      .select-inputs
+        min-width 31.74%
+        flex-grow 1
+        position relative
+        .select-wrapper
+          border 1px solid neutralLighter
+          display flex
+          align-items center
+          justify-content center
+          border-radius 4px
+          padding 5px 
+          &:hover
+            border-color  blueAzure
+          input
+            border none
+            border-left 1px solid neutralLighter
+            border-radius 0
+            height 15px
+            width 100%
+          svg 
+            width 25px
+            height 25px 
+            fill neutralLighter 
+          .inputs-options
+            width 100%
+            position absolute
+            right 0
+            top 67px
+            color neutralLight
+            text-align center
+            border 1px solid neutralLighter
+            background-color White
+            padding 7px 0
+            z-index 2
+            font-size small
+            display none
+            border-radius 4px
+          .select-active
+            display block
+              
+      .group-inputs
+        min-width 48%
+        flex-grow 1
+      .textarea-wrapper
+        min-width 100%  
+        flex-grow 1
+      .form-action-btn
+        width 100%
+        display flex
+        justify-content space-between
+        font-size small
+        button
+          color White
+          border none
+          display flex
+          align-items center
+          justify-content center
+          gap 0.5rem
+          background-color #fff
+          cursor pointer
+          border 1px solid #89959f
+          border-radius 1.5rem
+          padding 0.5rem 1rem
+          text-align center
+          font-size smaller
+          background-color #13bf74
+          &:last-child 
+            background-color redDark
+

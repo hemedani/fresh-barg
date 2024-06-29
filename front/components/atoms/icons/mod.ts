@@ -9,3 +9,4 @@ export * from "./DeleteLetter.tsx";
 export * from "./SearchIcon.tsx";
 export * from "./MenuIcon.tsx";
 export * from "./TimesIcon.tsx";
+export * from "./CityIcon.tsx";

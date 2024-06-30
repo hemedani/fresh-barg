@@ -1,33 +1,27 @@
 // ABOVE 480px (Smaller mobile) 
 // @media (min-width 480px)
 
-
-
-
-
 // ABOVE 704px (Smaller tablets) 
 @media (min-width 704px)
   .layout
-    grid-template-columns 4.5vw 1fr
     .menu-btn
       display none
     .pages-header
-      grid-column 2/-1
+      flex 0 0 auto
     .sidebar
-      width 4.5rem
-      grid-row 1/-1
-      grid-column 1/2
       display flex
+      flex 1
       justify-content center
       position static
       border-top-left-radius 20px
-      transform translateX(0)
-      background Blue
+      transform translateY(-3.5rem)
+      background-color Blue
+      height 101vh
       .sidebar-item
         display flex
         flex-direction column
-        gap 20px
         li
+          border-bottom none
           &:first-child 
             margin-bottom 20px
         a
@@ -40,10 +34,7 @@
           svg 
             fill White
       span
-        color white
-    main
-      grid-column 2/3
-        
+        color white  
 //ABOVE 944px (Tablets) 
 @media (min-width 944px)
   .login-page 
@@ -57,21 +48,7 @@
       justify-content center
       img
         max-width 100%
-       
-      
-
- 
-
-
-
 // ABOVE 1200px (Landscape Tablets) 
 // @media (min-width 1200px)
-  
-
 //ABOVE 1344px (Smaller desktops) 
 // @media (min-width 1344px)
-
-
-      
-    
-  

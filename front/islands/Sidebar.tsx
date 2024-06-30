@@ -37,16 +37,14 @@ const itemSidebar = [
 export const Sidebar: FunctionComponent<SidebarProps> = ({ toggleMenu }) => {
   return (
     <aside className={`sidebar ${toggleMenu.value ? "active" : ""}`}>
-      <div className="container">
-        <ul className="sidebar-item">
-          <li>
-            <a href="/">
-              <SatekIcon />
-            </a>
-          </li>
-          {itemSidebar && itemSidebar.map((item) => <SidebarItem {...item} />)}
-        </ul>
-      </div>
+      <ul className="sidebar-item">
+        <li>
+          <a href="/">
+            <SatekIcon />
+          </a>
+        </li>
+        {itemSidebar && itemSidebar.map((item) => <SidebarItem {...item} />)}
+      </ul>
     </aside>
   );
 };

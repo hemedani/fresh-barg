@@ -1,16 +1,20 @@
 @require('./variable.styl')
 @require('./fontSize.styl')
   .layout
-    display grid 
-    grid-template-rows 55px 1fr
+    display flex 
+    flex-direction column
+    height 100vh
     background-color #fff
     position relative  
+    overflow hidden
     .pages-header
       display flex
+      flex 0 0 auto
       align-content center
-      grid-column 1/span 3
       background-color neutralLightest
       padding 10px 0
+      height 3.4375rem
+      border-bottom 1px solid neutralLighter
       .container
         display flex
         justify-content space-between
@@ -24,41 +28,47 @@
         svg
           width 100%
           height 100%
-    .sidebar
+    .main-container
       display flex
-      width 100vw
-      height 100vh
-      max-height 100vh
-      grid-column 1/span 3
+      height 100%
+    .sidebar
+      width 100%
+      height 100%
       position absolute
-      padding: 10px 20px
-      top 45px
-      background neutralLightest
+      padding: 10px 0
+      top 55px
+      background-color blueAzure
       transform translateX(100%)
       transition transform 0.7s linear
       z-index 2
-    .active
-      transform translateX(0%)
-      .container
-        .sidebar-item
+      .sidebar-item
+        display flex
+        flex-direction column
+        font-size smaller 
+        user-select none
+        text-wrap nowrap
+        li 
           display flex
-          flex-direction column
-          gap 20px
-          font-size smaller 
-          li 
+          justify-content center
+          align-items center
+          width 100%
+          gap 5px
+          border-bottom 1px solid primaryLightest
+          &:first-child
+            svg
+              width 35px
+              height 35px
+          a
             display flex
-            flex-direction column
-            gap 10px
-            a
-              display flex
-              flex-direction column
-              justify-content center
-              align-items center
-              gap 5px
-              color Blue
+            width 100%
+            padding 10px
+            color White
+            svg 
+              width 15px
+              height 15px
+              fill White
     main
-      grid-column: 1/span 3
-      padding 25px 0
+      width 100%
       .main-header
         display flex
         justify-content space-between

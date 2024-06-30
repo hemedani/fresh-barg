@@ -1,11 +1,5 @@
-import { signal } from "@preact/signals";
+import { createUserState } from "./user/mod.ts";
 
-function createAppState() {
-  const todos = signal([]);
-
-  const completed = computed(() => {
-    return todos.value.filter(todo => todo.completed).length
-  });
-
-  return { todos, completed }
+export function createAppState() {
+  return { user: { ...createUserState() } };
 }

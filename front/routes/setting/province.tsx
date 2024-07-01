@@ -1,9 +1,14 @@
-import { Button, Layout, RegularCard } from "../../components/mod.ts";
+import { relative } from "$std/path/relative.ts";
+import { Button, Layout, Modal, RegularCard } from "../../components/mod.ts";
 
 const Province = () => {
   return (
     <Layout>
-      <div className="container" style={{ marginTop: "10px" }}>
+      <Modal />
+      <div
+        className="container"
+        style={{ marginTop: "10px", position: "relative" }}
+      >
         <Button className="default-btn">
           افزودن استان
         </Button>

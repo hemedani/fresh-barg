@@ -2,14 +2,16 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $Home from "./routes/Home.tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $addLetter from "./routes/addLetter.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
+import * as $home from "./routes/home.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $MenuButton from "./islands/MenuButton.tsx";
 import * as $SearchBox from "./islands/SearchBox.tsx";
+import * as $SelectInput from "./islands/SelectInput.tsx";
 import * as $Sidebar from "./islands/Sidebar.tsx";
 import * as $UserProfile from "./islands/UserProfile.tsx";
 import * as $UserProfileInfo from "./islands/UserProfileInfo.tsx";
@@ -18,16 +20,18 @@ import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
-    "./routes/Home.tsx": $Home,
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
+    "./routes/addLetter.tsx": $addLetter,
     "./routes/api/joke.ts": $api_joke,
     "./routes/greet/[name].tsx": $greet_name_,
+    "./routes/home.tsx": $home,
     "./routes/index.tsx": $index,
   },
   islands: {
     "./islands/MenuButton.tsx": $MenuButton,
     "./islands/SearchBox.tsx": $SearchBox,
+    "./islands/SelectInput.tsx": $SelectInput,
     "./islands/Sidebar.tsx": $Sidebar,
     "./islands/UserProfile.tsx": $UserProfile,
     "./islands/UserProfileInfo.tsx": $UserProfileInfo,

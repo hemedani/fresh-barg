@@ -1,11 +1,11 @@
 import { FunctionComponent } from "preact";
 
 interface RegularCardProps {
-  province: any;
+  data: any;
 }
 
 export const RegularCard: FunctionComponent<RegularCardProps> = (
-  { province },
+  { data },
 ) => {
   return (
     <div className="regular-card-wrapper">

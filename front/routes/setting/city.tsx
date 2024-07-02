@@ -5,17 +5,16 @@ import {
   SettingList,
 } from "../../components/mod.ts";
 
-const Province = () => {
+const city = () => {
   return (
     <Layout>
       <Modal />
-      <SettingList btnText="افزودن استان جدید">
+      <SettingList btnText="افزودن شهر جدید">
         {[{}, {}, {}, {}].map((province, index) => (
-          <RegularCard key={index + 1} province={province} />
+          <RegularCard key={index + 1} data={province} />
         ))}
       </SettingList>
     </Layout>
   );
 };
-
-export default Province;
+export default city;

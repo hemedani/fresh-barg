@@ -10,3 +10,4 @@ export * from "./SearchIcon.tsx";
 export * from "./MenuIcon.tsx";
 export * from "./TimesIcon.tsx";
 export * from "./CityIcon.tsx";
+export * from "./ProvinceIcon.tsx";

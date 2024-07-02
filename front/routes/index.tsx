@@ -44,9 +44,9 @@ export const handler: Handlers = {
       const loginReq = await states.user.loginRequest(phone!);
 
       if (loginReq.success) {
-        return await ctx.render({ phone });
+        return await ctx.render({ phone, errMsg: null });
       } else {
-        return await ctx.render({ phone: null });
+        return await ctx.render({ phone: null, errMsg: loginReq.body.message });
       }
     }
   },
@@ -54,6 +54,7 @@ export const handler: Handlers = {
 
 interface User {
   phone?: string;
+  errMsg?: string;
 }
 
 export default function LoginPage(props: PageProps<User>) {
@@ -68,6 +69,7 @@ export default function LoginPage(props: PageProps<User>) {
           height="55"
         />
         <h1>ساتک</h1>
+        {props.data.errMsg && <p>{props.data.errMsg}</p>}
         <p>
           سامانه الکترونیک تهیه کالا
         </p>

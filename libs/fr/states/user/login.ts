@@ -33,6 +33,10 @@ export const login = async (
             recievers: 1,
             content: 1,
           },
+          position: {
+            _id: 1,
+            level: 1,
+          },
         },
       },
     },

@@ -10,7 +10,10 @@ export const Card: FunctionComponent<CardProps> = (
   { children, cardIcon, cardTitle },
 ) => {
   return (
-    <div className="card">
+    <div
+      className="card"
+      onClick={(event) => event.stopPropagation()}
+    >
       <div className="card-icon">
         {cardIcon}
       </div>

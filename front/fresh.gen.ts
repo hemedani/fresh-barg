@@ -4,12 +4,17 @@
 
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $_middleware from "./routes/_middleware.ts";
 import * as $addLetter from "./routes/addLetter.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $home from "./routes/home.tsx";
 import * as $index from "./routes/index.tsx";
+import * as $setting_city from "./routes/setting/city.tsx";
+import * as $setting_province from "./routes/setting/province.tsx";
+import * as $IslandButton from "./islands/IslandButton.tsx";
 import * as $MenuButton from "./islands/MenuButton.tsx";
+import * as $Modal from "./islands/Modal.tsx";
 import * as $SearchBox from "./islands/SearchBox.tsx";
 import * as $SelectInput from "./islands/SelectInput.tsx";
 import * as $Sidebar from "./islands/Sidebar.tsx";
@@ -22,14 +27,19 @@ const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
+    "./routes/_middleware.ts": $_middleware,
     "./routes/addLetter.tsx": $addLetter,
     "./routes/api/joke.ts": $api_joke,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/home.tsx": $home,
     "./routes/index.tsx": $index,
+    "./routes/setting/city.tsx": $setting_city,
+    "./routes/setting/province.tsx": $setting_province,
   },
   islands: {
+    "./islands/IslandButton.tsx": $IslandButton,
     "./islands/MenuButton.tsx": $MenuButton,
+    "./islands/Modal.tsx": $Modal,
     "./islands/SearchBox.tsx": $SearchBox,
     "./islands/SelectInput.tsx": $SelectInput,
     "./islands/Sidebar.tsx": $Sidebar,

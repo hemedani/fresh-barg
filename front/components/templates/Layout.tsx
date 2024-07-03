@@ -1,5 +1,5 @@
 import { ComponentChildren, FunctionComponent } from "preact";
-import { Header, MainHeader, UserCard } from "../mod.ts";
+import { Header } from "../mod.ts";
 import { useSignal } from "@preact/signals";
 import { Sidebar } from "../../islands/mod.ts";
 

@@ -1,25 +1,24 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { Button, ReverseCounter } from "../components/mod.ts";
 import { createAppState } from "@libs";
-import { Cookie, getCookies, setCookie } from "$std/http/cookie.ts";
+import { Cookie, setCookie } from "$std/http/cookie.ts";
+import { MyContextStates } from "./_middleware.ts";
 
-export const handler: Handlers = {
+interface User {
+  phone?: string | null;
+  errMsg?: string | null;
+}
+
+export const handler: Handlers<User, MyContextStates> = {
   async GET(req, ctx) {
-    const cookieHeader = getCookies(req.headers);
-
-    /*
-     * 	@LOG @DEBUG @INFO
-     * 	This log written by ::==> {{ `` }}
-     *
-     * 	Please remove your log after debugging
-     */
-    console.log(" ============= ");
-    console.group("cookieHeader ------ ");
-    console.log();
-    console.info({ cookieHeader }, " ------ ");
-    console.log();
-    console.groupEnd();
-    console.log(" ============= ");
+    if (ctx.state.user) {
+      const headers = new Headers();
+      headers.set("location", "/setting/province");
+      return new Response(null, {
+        status: 303, // See Other
+        headers,
+      });
+    }
 
     return await ctx.render({ phone: null });
   },
@@ -34,9 +33,21 @@ export const handler: Handlers = {
       const login = await states.user.login(phone!, Number(code));
       if (login.success) {
         const headers = new Headers();
-        const cookie: Cookie = { name: "token", value: login.body.token };
-        setCookie(headers, cookie);
-        return await ctx.render({ phone }, { headers });
+        const tokeCookie: Cookie = { name: "token", value: login.body.token };
+        const positionCookie: Cookie = {
+          name: "activePosition",
+          value: login.body.user.position[0]._id,
+        };
+        setCookie(headers, tokeCookie);
+        setCookie(headers, positionCookie);
+
+        headers.set("location", "/setting/province");
+        return new Response(null, {
+          status: 303, // See Other
+          headers,
+        });
+
+        // return await ctx.render({ phone }, { headers });
       } else {
         return await ctx.render({ phone: null });
       }
@@ -51,11 +62,6 @@ export const handler: Handlers = {
     }
   },
 };
-
-interface User {
-  phone?: string;
-  errMsg?: string;
-}
 
 export default function LoginPage(props: PageProps<User>) {
   return (

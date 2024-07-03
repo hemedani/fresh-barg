@@ -7,6 +7,7 @@ import {
 import { loginRequest } from "./loginRequest.ts";
 import { login } from "./login.ts";
 import { getUser } from "./getUser.ts";
+import { getMe, GetMetGet, GetMetSet } from "./getMe.ts";
 
 export type User = DeepPartial<userSchema>;
 
@@ -21,6 +22,14 @@ export const createUserState = () => {
     users,
     loginRequest: async (phone: string) => await loginRequest(phone),
     login: async (phone: string, code: number) => await login(me, phone, code),
-    getUser: async (set: ReqType["main"]["user"]["getUser"]["set"], get: ReqType["main"]["user"]["getUser"]["get"]) => await getUser(user, set, get)
+    getUser: async (
+      set: ReqType["main"]["user"]["getUser"]["set"],
+      get: ReqType["main"]["user"]["getUser"]["get"],
+    ) => await getUser(user, set, get),
+    getMe: async (
+      set: GetMetSet,
+      get: GetMetGet,
+      token: string,
+    ) => await getMe(me, set, get, token),
   };
 };

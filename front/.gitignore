@@ -13,4 +13,4 @@ node_modules/
 # ignore all css files
 *.css
 fresh.gen.ts
-
+deno.lock

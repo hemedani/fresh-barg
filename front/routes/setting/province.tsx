@@ -4,13 +4,11 @@ import { Modal } from "../../islands/Modal.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { createAppState } from "@libs";
 import { getCookies } from "$std/http/cookie.ts";
-import {
-  DeepPartial,
-  provinceSchema,
-} from "../../../back/declarations/selectInp.ts";
+import { BargContext, createdBargAppStates } from "../_app.tsx";
+import { useContext } from "preact/hooks";
 
 interface IProvincesPage {
-  provinces: DeepPartial<provinceSchema[]>;
+  initBargContext?: typeof createdBargAppStates;
   modal: boolean;
   err: string | null;
 }
@@ -21,13 +19,18 @@ export const handler: Handlers<IProvincesPage> = {
 
     const token = getCookies(req.headers).token;
 
-    const provinces = await states.province.getProvinces(
+    await states.province.getProvinces(
       { page: 1, limit: 20 },
       { _id: 1, enName: 1, name: 1, abb: 1 },
       token,
+      false,
     );
 
-    return await ctx.render({ provinces, err: null, modal: false });
+    return await ctx.render({
+      initBargContext: states,
+      err: null,
+      modal: false,
+    });
   },
   async POST(req, ctx) {
     const form = await req.formData();
@@ -45,41 +48,22 @@ export const handler: Handlers<IProvincesPage> = {
       token,
     );
 
-    if (addedProvince.success) {
-      const headers = new Headers();
-      headers.set("location", "/setting/province");
-      return new Response(null, {
-        status: 303, // See Other
-        headers,
-      });
-    } else {
-      const states = createAppState();
-
-      const token = getCookies(req.headers).token;
-
-      const provinces = await states.province.getProvinces(
-        { page: 1, limit: 20 },
-        { _id: 1, enName: 1, name: 1, abb: 1 },
-        token,
-      );
-
-      return ctx.render({
-        provinces,
-        err: addedProvince.body.message,
-        modal: true,
-      });
-    }
+    return ctx.render({
+      err: addedProvince.body.message,
+      modal: addedProvince.success ? false : true,
+    });
   },
 };
 
 const Province = ({ data }: PageProps<IProvincesPage>) => {
   const toggleModal = useSignal<boolean>(data.modal);
+  const { province: { provinces } } = useContext(BargContext);
 
   return (
     <Layout>
       <Modal toggleModal={toggleModal} err={data.err} />
       <SettingList btnText="افزودن استان" toggleModal={toggleModal}>
-        {data.provinces.map((province) => (
+        {provinces.value.data.map((province) => (
           <RegularCard key={province?._id} data={province} />
         ))}
       </SettingList>

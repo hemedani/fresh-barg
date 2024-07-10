@@ -1,7 +1,12 @@
+import { createContext } from "preact";
 import { asset } from "$fresh/runtime.ts";
 import { type PageProps } from "$fresh/server.ts";
+import { createAppState } from "@libs";
 
-export default function App({ Component }: PageProps) {
+export const createdBargAppStates = createAppState();
+export const BargContext = createContext(createdBargAppStates);
+
+export default function App({ Component, data }: PageProps) {
   return (
     <html>
       <head>
@@ -12,7 +17,13 @@ export default function App({ Component }: PageProps) {
         <link rel="stylesheet" href="/styles.css" />
       </head>
       <body>
-        <Component />
+        <BargContext.Provider
+          value={data && data.initBargContext
+            ? data.initBargContext
+            : createdBargAppStates}
+        >
+          <Component />
+        </BargContext.Provider>
       </body>
     </html>
   );

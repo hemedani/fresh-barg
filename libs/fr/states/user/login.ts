@@ -1,13 +1,17 @@
-import { Signal } from "@preact/signals";
 import { bargApi } from "../../mod.ts";
-import { User } from "./mod.ts";
+import { user } from "./mod.ts";
 
 export const login = async (
-  user: Signal<User>,
+  signalInp: typeof user,
   phone: string,
   code: number,
 ) => {
-  const getUser = await bargApi.send({
+  signalInp.value = {
+    ...signalInp.value,
+    loader: true,
+    err: null,
+  };
+  const loggedUser = await bargApi.send({
     model: "user",
     act: "login",
     details: {
@@ -41,6 +45,14 @@ export const login = async (
       },
     },
   });
-  user.value = { ...user.value, ...getUser.user };
-  return getUser;
+  if (loggedUser.success) {
+    signalInp.value = {
+      data: { ...loggedUser.body },
+      loader: false,
+      err: null,
+    };
+  } else {
+    signalInp.value = { data: {}, loader: false, err: loggedUser.body };
+  }
+  return loggedUser;
 };

@@ -1,21 +1,25 @@
 import {
   DeepPartial,
   ReqType,
-  userSchema,
 } from "../../../../back/declarations/selectInp.ts";
 import { bargApi } from "../../mod.ts";
-import { Signal } from "@preact/signals";
+import { user } from "./mod.ts";
 
 export type GetMetSet = ReqType["main"]["user"]["getMe"]["set"];
 export type GetMetGet = DeepPartial<ReqType["main"]["user"]["getMe"]["get"]>;
 
 export const getMe = async (
-  me: Signal<DeepPartial<userSchema>>,
+  signalInp: typeof user,
   set: GetMetSet,
   get: GetMetGet,
   token: string,
 ) => {
-  const getMe = await bargApi.send({
+  signalInp.value = {
+    ...signalInp.value,
+    loader: true,
+    err: null,
+  };
+  const getData = await bargApi.send({
     model: "user",
     act: "getMe",
     details: {
@@ -23,6 +27,14 @@ export const getMe = async (
       get,
     },
   }, { token });
-  me.value = getMe;
-  return getMe;
+  if (getData.success) {
+    signalInp.value = {
+      data: { ...getData.body },
+      loader: false,
+      err: null,
+    };
+  } else {
+    signalInp.value = { data: {}, loader: false, err: getData.body };
+  }
+  return getData;
 };

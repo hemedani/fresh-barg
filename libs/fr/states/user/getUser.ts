@@ -1,10 +1,23 @@
-import { DeepPartial, ReqType, userSchema } from "../../../../back/declarations/selectInp.ts";
+import {
+  DeepPartial,
+  ReqType,
+} from "../../../../back/declarations/selectInp.ts";
 import { bargApi } from "../../mod.ts";
-import { Signal } from "@preact/signals";
-export type getUserSet = ReqType["main"]["user"]["getUser"]["set"]
-export type setUserSet = DeepPartial<ReqType["main"]["user"]["getUser"]["get"]>
+import { user } from "./mod.ts";
 
-export const getUser = async (user: Signal<DeepPartial<userSchema>>, set: getUserSet, get: setUserSet) => {
+export type GetUserSet = ReqType["main"]["user"]["getUser"]["set"];
+export type GetUserGet = DeepPartial<ReqType["main"]["user"]["getUser"]["get"]>;
+
+export const getUser = async (
+  signalInp: typeof user,
+  set: GetUserSet,
+  get: GetUserGet,
+) => {
+  signalInp.value = {
+    ...signalInp.value,
+    loader: true,
+    err: null,
+  };
   const getUser = await bargApi.send({
     model: "user",
     act: "getUser",
@@ -12,7 +25,15 @@ export const getUser = async (user: Signal<DeepPartial<userSchema>>, set: getUse
       set,
       get,
     },
-  })
-  user.value = getUser;
-  return getUser
-}
+  });
+  if (getUser.success) {
+    signalInp.value = {
+      data: { ...getUser.body },
+      loader: false,
+      err: null,
+    };
+  } else {
+    signalInp.value = { data: {}, loader: false, err: getUser.body };
+  }
+  return getUser;
+};

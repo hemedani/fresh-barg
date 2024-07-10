@@ -1,10 +1,9 @@
 import {
   DeepPartial,
-  provinceSchema,
   ReqType,
 } from "../../../../back/declarations/selectInp.ts";
 import { bargApi } from "../../mod.ts";
-import { Signal } from "@preact/signals";
+import { provinces } from "./mod.ts";
 
 export type GetProvincesSet = DeepPartial<
   ReqType["main"]["province"]["getProvinces"]["set"]
@@ -14,12 +13,18 @@ export type GetProvincesGet = DeepPartial<
 >;
 
 export const getProvinces = async (
-  provinces: Signal<DeepPartial<provinceSchema>[]>,
+  signalInp: typeof provinces,
   set: GetProvincesSet,
   get: GetProvincesGet,
   token: string,
+  added?: boolean,
 ) => {
-  const gettedProvinces = await bargApi.send({
+  signalInp.value = {
+    ...signalInp.value,
+    loader: true,
+    err: null,
+  };
+  const getData = await bargApi.send({
     model: "province",
     act: "getProvinces",
     details: {
@@ -27,6 +32,18 @@ export const getProvinces = async (
       get,
     },
   }, { token });
-  provinces.value = [...gettedProvinces.body, ...provinces.value];
-  return gettedProvinces.body;
+  if (getData.success) {
+    signalInp.value = {
+      err: null,
+      loader: false,
+      data: added ? [...signalInp.value.data, ...getData.body] : getData.body,
+    };
+  } else {
+    signalInp.value = {
+      ...signalInp.value,
+      err: getData.body,
+      loader: false,
+    };
+  }
+  return getData;
 };

@@ -23,6 +23,7 @@ export const getReffersFn: ActFn = async (body) => {
 
 	pipeline.push({ $skip: (page - 1) * take });
 	pipeline.push({ $limit: take });
+	pipeline.push({ $sort: { _id: -1 } });
 
 	number && pipeline.push({ $match: { number } });
 

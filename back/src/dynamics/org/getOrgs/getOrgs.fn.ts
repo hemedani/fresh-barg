@@ -18,6 +18,7 @@ export const getOrgsFn: ActFn = async (body) => {
 
 	pipeline.push({ $skip: (page - 1) * limit });
 	pipeline.push({ $limit: limit });
+	pipeline.push({ $sort: { _id: -1 } });
 
 	cityId && pipeline.push({ $match: { "city._id": new ObjectId(cityId) } });
 

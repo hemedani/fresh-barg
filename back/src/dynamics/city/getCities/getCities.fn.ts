@@ -12,6 +12,7 @@ export const getCitiessFn: ActFn = async (body) => {
 
 	pipeline.push({ $limit: limit });
 	pipeline.push({ $skip: (page - 1) * limit });
+	pipeline.push({ $sort: { _id: -1 } });
 	name && pipeline.push({ $match: { name } });
 	provinceId &&
 		pipeline.push({ $match: { "province._id": new ObjectId(provinceId) } });

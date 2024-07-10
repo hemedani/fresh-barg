@@ -17,6 +17,8 @@ export const getPositionsFn: ActFn = async (body) => {
 
 	pipeline.push({ $skip: (page - 1) * limit });
 	pipeline.push({ $limit: limit });
+	pipeline.push({ $sort: { _id: -1 } });
+
 	orgId && pipeline.push({ $match: { "org._id": new ObjectId(orgId) } });
 	unitId && pipeline.push({ $match: { "unit._id": new ObjectId(unitId) } });
 

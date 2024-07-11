@@ -1,20 +1,49 @@
-import { DeepPartial, ReqType, orgSchema, } from "../../../../back/declarations/selectInp.ts";
+import {
+  DeepPartial,
+  ReqType,
+} from "../../../../back/declarations/selectInp.ts";
 import { bargApi } from "../../mod.ts";
-import { Signal } from "@preact/signals";
+import { orgs } from "./mod.ts";
 
-export type RemoveOrgsSet = ReqType["main"]["org"]["removeOrg"]["set"]
-export type RemoveOrgsGet = DeepPartial<ReqType["main"]["org"]["removeOrg"]["get"]>
+export type RemoveOrgSet = ReqType["main"]["org"]["removeOrg"]["set"];
+export type RemoveOrgGet = DeepPartial<
+  ReqType["main"]["org"]["removeOrg"]["get"]
+>;
 
-export const removeOrg = async (orgs: Signal<DeepPartial<orgSchema>[]>, set: RemoveOrgsSet, get: RemoveOrgsGet) => {
-  const removeOrg = await bargApi.send({
+export const removeOrg = async (
+  signalInp: typeof orgs,
+  set: RemoveOrgSet,
+  get: RemoveOrgGet,
+  token: string,
+) => {
+  signalInp.value = {
+    ...signalInp.value,
+    loader: true,
+    err: null,
+  };
+  const getData = await bargApi.send({
     model: "org",
     act: "removeOrg",
     details: {
       set,
       get,
     },
-  })
-  if (removeOrg.success)
-    orgs.value = orgs.value.filter(org => org._id !== removeOrg._id)
-  return removeOrg
-}
+  }, { token });
+
+  if (getData.success) {
+    signalInp.value = {
+      loader: false,
+      err: null,
+      data: signalInp.value.data.filter((org) =>
+        org?._id !== getData.body._id
+      ),
+    };
+  } else {
+    signalInp.value = {
+      ...signalInp.value,
+      err: getData.body,
+      loader: false,
+    };
+  }
+  return getData;
+};

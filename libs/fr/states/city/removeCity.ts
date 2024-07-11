@@ -1,21 +1,49 @@
-import { DeepPartial, ReqType } from "../../../../back/declarations/selectInp.ts";
+import {
+  DeepPartial,
+  ReqType,
+} from "../../../../back/declarations/selectInp.ts";
 import { bargApi } from "../../mod.ts";
-import { Signal } from "@preact/signals";
-import { City } from "./mod.ts";
+import { cities } from "./mod.ts";
 
-export type RemoveCitySet = ReqType["main"]["city"]["removeCity"]["set"]
-export type RemoveCityGet = DeepPartial<ReqType["main"]["city"]["removeCity"]["get"]>
+export type RemoveCitySet = ReqType["main"]["city"]["removeCity"]["set"];
+export type RemoveCityGet = DeepPartial<
+  ReqType["main"]["city"]["removeCity"]["get"]
+>;
 
-export const removeCity = async (cities: Signal<City[]>, set: RemoveCitySet, get: RemoveCityGet) => {
-  const removeCity = await bargApi.send({
+export const removeCity = async (
+  signalInp: typeof cities,
+  set: RemoveCitySet,
+  get: RemoveCityGet,
+  token: string,
+) => {
+  signalInp.value = {
+    ...signalInp.value,
+    loader: true,
+    err: null,
+  };
+  const getData = await bargApi.send({
     model: "city",
     act: "removeCity",
     details: {
       set,
       get,
     },
-  })
-  if (removeCity.success)
-    cities.value = cities.value.filter(city => city._id !== removeCity._id);
-  return removeCity
-}
+  }, { token });
+
+  if (getData.success) {
+    signalInp.value = {
+      loader: false,
+      err: null,
+      data: signalInp.value.data.filter((city) =>
+        city?._id !== getData.body._id
+      ),
+    };
+  } else {
+    signalInp.value = {
+      ...signalInp.value,
+      err: getData.body,
+      loader: false,
+    };
+  }
+  return getData;
+};

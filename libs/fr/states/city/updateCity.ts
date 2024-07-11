@@ -1,23 +1,54 @@
-import { DeepPartial, ReqType, citySchema } from "../../../../back/declarations/selectInp.ts";
+import {
+  DeepPartial,
+  ReqType,
+} from "../../../../back/declarations/selectInp.ts";
 import { bargApi } from "../../mod.ts";
-import { Signal } from "@preact/signals";
+import { cities } from "./mod.ts";
 
-export type UpdateCitySet = ReqType["main"]["city"]["updateCity"]["set"]
-export type UpdateCityGet = DeepPartial<ReqType["main"]["city"]["updateCity"]["get"]>
+export type UpdateCitySet = ReqType["main"]["city"]["updateCity"]["set"];
+export type UpdateCityGet = DeepPartial<
+  ReqType["main"]["city"]["updateCity"]["get"]
+>;
 
-export const updateCity = async (cities: Signal<DeepPartial<citySchema>[]>, set: UpdateCitySet, get: UpdateCityGet) => {
-  const updateCity = await bargApi.send({
+export const updateCity = async (
+  signalInp: typeof cities,
+  set: UpdateCitySet,
+  get: UpdateCityGet,
+  token: string,
+) => {
+  signalInp.value = {
+    ...signalInp.value,
+    loader: true,
+    err: null,
+  };
+  const getData = await bargApi.send({
     model: "city",
     act: "updateCity",
     details: {
       set,
       get,
     },
-  })
-  if (updateCity.success) {
-    const updateCityIdx = cities.value.findIndex((city) => city._id === updateCity._id)
-    cities.value = [...cities.value.splice(0, updateCityIdx), updateCity, ...cities.value.splice(updateCityIdx + 1)]
+  }, { token });
+  if (getData.success) {
+    const updateCityIdx = signalInp.value.data.findIndex((city) =>
+      city?._id === getData.body._id
+    );
+    signalInp.value = {
+      err: null,
+      loader: false,
+      data: [
+        ...signalInp.value.data.splice(0, updateCityIdx),
+        getData.body,
+        ...signalInp.value.data.splice(updateCityIdx + 1),
+      ],
+    };
+  } else {
+    signalInp.value = {
+      ...signalInp.value,
+      err: getData.body,
+      loader: false,
+    };
   }
 
-  return updateCity
-}
+  return getData;
+};

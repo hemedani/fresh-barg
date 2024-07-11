@@ -13,7 +13,6 @@ export const province = signal<BargStates<provinceSchema>>({
   loader: false,
   err: null,
 });
-
 export const provinces = signal<BargStates<provinceSchema[]>>({
   data: [],
   loader: false,

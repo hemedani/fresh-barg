@@ -1,3 +1,4 @@
+import { createCityState } from "./city/mod.ts";
 import { createFormState } from "./form/mod.ts";
 import { createLetterState } from "./letter/mod.ts";
 import { createOrgsState } from "./org/mod.ts";
@@ -12,12 +13,13 @@ export function createAppState() {
   return {
     user: { ...createUserState() },
     province: { ...createProvinceState() },
+    city: { ...createCityState() },
     org: { ...createOrgsState() },
     unit: { ...createUnitState() },
     letter: { ...createLetterState() },
     position: { ...createPositionState() },
     preDefLetter: { ...createPreDefLetterState() },
     priority: { ...createPriorityState() },
-    form: { ...createFormState() }
+    form: { ...createFormState() },
   };
 }

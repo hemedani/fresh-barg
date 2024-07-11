@@ -41,7 +41,7 @@ export const getProvinces = async (
   } else {
     signalInp.value = {
       ...signalInp.value,
-      err: getData.body,
+      err: getData.body.message,
       loader: false,
     };
   }

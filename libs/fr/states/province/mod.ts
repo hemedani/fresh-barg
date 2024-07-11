@@ -7,6 +7,8 @@ import {
   GetProvincesSet,
 } from "./getProvinces.ts";
 import { BargStates } from "../../mod.ts";
+import { getProvince, GetProvinceGet, GetProvinceSet } from "./getProvince.ts";
+import { removeProvince, RemoveProvinceGet, RemoveProvinceSet } from "./removeProvince.ts";
 
 export const province = signal<BargStates<provinceSchema>>({
   data: {},
@@ -34,5 +36,7 @@ export const createProvinceState = () => {
       get: AddProvinceGet,
       token: string,
     ) => await addProvince(provinces, set, get, token),
+    getProvince: async (set: GetProvinceSet, get: GetProvinceGet, token: string) => await getProvince(province, set, get, token),
+    removeProvince: async (set: RemoveProvinceSet, get: RemoveProvinceGet, token: string) => await removeProvince(provinces, set, get, token)
   };
 };

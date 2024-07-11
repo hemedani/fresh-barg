@@ -10,6 +10,7 @@ import {
 export interface MyContextStates {
   user?: DeepPartial<userSchema>;
   activePosition?: DeepPartial<positionSchema>;
+  token?: string;
 }
 
 export async function handler(
@@ -33,6 +34,7 @@ export async function handler(
 
     if (getMe.success) {
       ctx.state.user = getMe.body;
+      ctx.state.token = cookieHeader.token;
       const foundedPosition = getMe.body.position.find((p) =>
         p._id === cookieHeader.activePosition
       );

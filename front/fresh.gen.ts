@@ -10,7 +10,7 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $home from "./routes/home.tsx";
 import * as $index from "./routes/index.tsx";
-import * as $setting_city from "./routes/setting/city.tsx";
+import * as $setting_cities from "./routes/setting/cities.tsx";
 import * as $setting_province from "./routes/setting/province.tsx";
 import * as $IslandButton from "./islands/IslandButton.tsx";
 import * as $MenuButton from "./islands/MenuButton.tsx";
@@ -33,7 +33,7 @@ const manifest = {
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/home.tsx": $home,
     "./routes/index.tsx": $index,
-    "./routes/setting/city.tsx": $setting_city,
+    "./routes/setting/cities.tsx": $setting_cities,
     "./routes/setting/province.tsx": $setting_province,
   },
   islands: {

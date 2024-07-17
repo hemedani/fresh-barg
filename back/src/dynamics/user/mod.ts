@@ -8,6 +8,7 @@ import { loginReqUserSetup } from "./loginReq/mode.ts";
 import { tempUserSetup } from "./tempUser/mod.ts";
 import { updateUserSetup } from "./updateUser/mod.ts";
 import { removeUserSetup } from "./removeUser/mod.ts";
+import { countUsersSetup } from "./countUsers/mod.ts";
 
 export const userSetup = () => {
 	addUserSetup();
@@ -20,6 +21,7 @@ export const userSetup = () => {
 	getUsersSetup();
 	addPosToUserSetup();
 	removeUserSetup();
+	countUsersSetup();
 };
 
 export * from "./addPosToUser/mod.ts";
@@ -32,3 +34,4 @@ export * from "./tempUser/mod.ts";
 export * from "./updateUser/mod.ts";
 export * from "./getMe/mod.ts";
 export * from "./removeUser/mod.ts";
+export * from "./countUsers/mod.ts";

@@ -3,6 +3,7 @@ import { getUnitSetup } from "./getUnit/mod.ts";
 import { getUnitsSetup } from "./getUnits/mod.ts";
 import { updateUnitSetup } from "./updateUnit/mod.ts";
 import { removeUnitSetup } from "./removeUnit/mod.ts";
+import { countUnitsSetup } from "./countUnits/mod.ts";
 
 export const unitSetup = () => {
 	addUnitSetup();
@@ -10,6 +11,7 @@ export const unitSetup = () => {
 	getUnitSetup();
 	getUnitsSetup();
 	removeUnitSetup();
+	countUnitsSetup();
 };
 
 export * from "./addUnit/mod.ts";
@@ -17,3 +19,4 @@ export * from "./getUnit/mod.ts";
 export * from "./getUnits/mod.ts";
 export * from "./updateUnit/mod.ts";
 export * from "./removeUnit/mod.ts";
+export * from "./countUnits/mod.ts";

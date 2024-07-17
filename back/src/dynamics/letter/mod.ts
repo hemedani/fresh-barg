@@ -3,6 +3,7 @@ import { getLetterSetup } from "./getLetter/mod.ts";
 import { getLettersSetup } from "./getLetters/mod.ts";
 import { updateLetterSetup } from "./updateLetter/mod.ts";
 import { removeLetterSetup } from "./removeLetter/mod.ts";
+import { countLettersSetup } from "./countLetters/mod.ts";
 
 export const letterSetup = () => {
 	addLetterSetup();
@@ -10,6 +11,7 @@ export const letterSetup = () => {
 	getLetterSetup();
 	getLettersSetup();
 	removeLetterSetup();
+	countLettersSetup();
 };
 
 export * from "./addLetter/mod.ts";
@@ -17,3 +19,4 @@ export * from "./getLetter/mod.ts";
 export * from "./getLetters/mod.ts";
 export * from "./updateLetter/mod.ts";
 export * from "./removeLetter/mod.ts";
+export * from "./countLetters/mod.ts";

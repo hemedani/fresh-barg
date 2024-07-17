@@ -6,7 +6,6 @@ import {
 	size,
 	string,
 } from "share/deps.ts";
-import { positionInp } from "../../../../declarations/selectInp.ts";
 import { selectStruct } from "../../../../mod.ts";
 import {
 	FeaturesEnum,
@@ -26,6 +25,6 @@ export const addPositionValidator = () => {
 			features: optional(array(FeaturesEnum)),
 			positionId: objectIdValidation,
 		}),
-		get: selectStruct<positionInp>("position", 2),
+		get: selectStruct("position", 2),
 	});
 };

@@ -1,5 +1,4 @@
 import { number, object, string } from "share/deps.ts";
-import { preDefLetterInp } from "../../../../declarations/selectInp.ts";
 import { selectStruct } from "../../../../mod.ts";
 
 export const addPredefletterValidator = () => {
@@ -10,6 +9,6 @@ export const addPredefletterValidator = () => {
 			number: number(),
 			orgId: string(),
 		}),
-		get: selectStruct<preDefLetterInp>("preDefLetter", 1),
+		get: selectStruct("preDefLetter", 1),
 	});
 };

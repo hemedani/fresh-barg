@@ -1,5 +1,4 @@
 import { enums, number, object, optional, size, string } from "share/deps.ts";
-import { orgInp } from "../../../../declarations/selectInp.ts";
 import { selectStruct } from "../../../../mod.ts";
 
 export const addOrgValidator = () => {
@@ -22,6 +21,6 @@ export const addOrgValidator = () => {
 			provinceId: size(string(), 24),
 			cityId: size(string(), 24),
 		}),
-		get: selectStruct<orgInp>("org", 2),
+		get: selectStruct("org", 2),
 	});
 };

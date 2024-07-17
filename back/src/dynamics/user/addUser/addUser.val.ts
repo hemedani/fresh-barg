@@ -9,7 +9,6 @@ import {
 	pattern,
 	string,
 } from "deps";
-import { userInp } from "../../../../declarations/selectInp.ts";
 import { selectStruct } from "../../../../mod.ts";
 
 const gender = enums(["Male", "Female"]);
@@ -38,6 +37,6 @@ export const addUserValidator = () => {
 			positionId: objectIdValidation,
 			position: array(objectIdValidation),
 		}),
-		get: selectStruct<userInp>("user", 1),
+		get: selectStruct("user", 1),
 	});
 };

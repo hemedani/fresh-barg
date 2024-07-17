@@ -1,5 +1,4 @@
 import { object, string } from "share/deps.ts";
-import { userInp } from "../../../../declarations/selectInp.ts";
 import { selectStruct } from "../../../../mod.ts";
 
 export const tempUserValidator = () => {
@@ -18,6 +17,6 @@ export const tempUserValidator = () => {
 			// features: array(ftu),
 			// userLevels: ul,
 		}),
-		get: selectStruct<userInp>("user", 1),
+		get: selectStruct("user", 1),
 	});
 };

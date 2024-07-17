@@ -1,10 +1,4 @@
-import {
-	boolean,
-	object,
-	objectIdValidation,
-	string
-} from "deps";
-import { formInp } from "../../../../declarations/selectInp.ts";
+import { boolean, object, objectIdValidation, string } from "deps";
 import { selectStruct } from "../../../../mod.ts";
 
 export const addFormValidator = () => {
@@ -13,10 +7,10 @@ export const addFormValidator = () => {
 			title: string(),
 			isActive: boolean(),
 
-			orgId: objectIdValidation, 
-			unitId: objectIdValidation, 
+			orgId: objectIdValidation,
+			unitId: objectIdValidation,
 			// tagIds: optional(array(FeaturesEnum)),
 		}),
-		get: selectStruct<formInp>("form", 1),
+		get: selectStruct("form", 1),
 	});
 };

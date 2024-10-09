@@ -34,25 +34,15 @@ export const loginUserFn: ActFn = async (body) => {
 	};
 
 	const checkCode = async (user: any) => {
-		const redisCode = await myRedis.get(user.phone.toString());
+		if (user.phone) {
+			const redisCode = await myRedis.get(user.phone.toString());
 
-		/*
-		 *  @LOG @DEBUG @WARN
-		 *  This log written by ::==> {{ syd }}
-		 *
-		 *  Please remove your log after debugging
-		 */
-		console.warn(" ============= ");
-		console.group("redisCode ------ ");
-		console.log();
-		console.warn({ redisCode }, " ------ ");
-		console.log();
-		console.groupEnd();
-		console.warn(" ============= ");
-
-		return code.toString() === redisCode
-			? await createToken(user)
-			: throwError("your code is incorect");
+			return code.toString() === redisCode
+				? await createToken(user)
+				: throwError("your code is incorect");
+		} else {
+			throwError("can not found user phone inside user object");
+		}
 	};
 
 	const foundedUser = await user.findOne({

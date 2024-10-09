@@ -10,7 +10,6 @@ export const updateUserValidator = () => {
 		set: object({
 			first_name: optional(string()),
 			last_name: optional(string()),
-			phone: optional(string()),
 			gender: optional(userGender),
 			birth_date: optional(
 				coerce(date(), string(), (value) => new Date(value)),

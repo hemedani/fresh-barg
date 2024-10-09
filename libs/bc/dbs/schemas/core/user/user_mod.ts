@@ -4,17 +4,38 @@ import {
   coerce,
   date,
   enums,
+  number,
   optional,
+  pattern,
   RelationDataType,
   RelationSortOrderType,
   string,
 } from "../../../deps.ts";
 export const userGender = enums(["Male", "Female"]);
 
+export const mobilePattern = coerce(
+  number(),
+  string(),
+  (value) => parseMobilePhone(value),
+);
+
+export const parseMobilePhone = (phone: string) => {
+  const mobileRegex = /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g;
+  if (mobileRegex.test(phone)) {
+    const parsedPhone = parseFloat(phone).toString();
+    if (parsedPhone.startsWith("98")) {
+      return parseFloat(parsedPhone);
+    } else {
+      return parseFloat(`98${parsedPhone}`);
+    }
+  }
+  throw new Error("you should send true iranian phone number");
+};
+
 export const userPure = {
   first_name: string(),
   last_name: string(),
-  phone: string(),
+  phone: mobilePattern,
   gender: userGender,
   birth_date: optional(coerce(date(), string(), (value) => new Date(value))),
   personnel_code: string(),

@@ -40,7 +40,7 @@ users: {
 _id?: string;
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -91,7 +91,7 @@ users: {
 _id?: string;
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -153,7 +153,7 @@ users: {
 _id?: string;
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -165,7 +165,7 @@ _id?: string;
 author: {
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -263,7 +263,7 @@ users: {
 _id?: string;
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -275,7 +275,7 @@ _id?: string;
 author: {
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -359,7 +359,7 @@ user: {
 _id?: string;
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -371,7 +371,7 @@ _id?: string;
 author: {
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -481,7 +481,7 @@ readedReffers?: number | refferInp
 _id?: string;
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -528,7 +528,7 @@ _id?: string;
 author: {
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -599,7 +599,7 @@ _id?: string;
 author: {
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -653,7 +653,7 @@ readByUsers?: {
 _id?: string;
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -750,7 +750,7 @@ _id?: string;
 author: {
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -802,7 +802,7 @@ readByUsers?: {
 _id?: string;
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -1989,6 +1989,18 @@ success?: (0 | 1 );
 };
 
           
+            countProvinces: {
+set: {
+name?: string;
+enName?: string;
+abb?: string;
+};
+get: {
+qty?: (0 | 1 );
+};
+};
+
+          
           }
 
         
@@ -3044,6 +3056,19 @@ success?: (0 | 1 );
 };
 
           
+            countCities: {
+set: {
+enName?: string;
+name?: string;
+abb?: string;
+provinceId?: string;
+};
+get: {
+qty?: (0 | 1 );
+};
+};
+
+          
           }
 
         
@@ -3054,7 +3079,7 @@ success?: (0 | 1 );
 set: {
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 gender: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code: string;
@@ -3572,7 +3597,6 @@ level?: (0 | 1 );
 set: {
 first_name?: string;
 last_name?: string;
-phone?: string;
 gender?: ("Male" | "Female" );
 birth_date?: Date;
 personnel_code?: string;
@@ -4086,7 +4110,7 @@ level?: (0 | 1 );
           
             login: {
 set: {
-phone: string;
+phone: number;
 code: number;
 };
 get?: {
@@ -4168,7 +4192,7 @@ reply?: (0 | 1 );
           
             loginReq: {
 set: {
-phone: string;
+phone: number;
 };
 get: {
 phone: (1 );
@@ -4180,7 +4204,7 @@ phone: (1 );
 set: {
 first_name: string;
 last_name: string;
-phone: string;
+phone: number;
 };
 get: {
 _id?: (0 | 1 );
@@ -4748,6 +4772,25 @@ _id: string;
 };
 get: {
 success?: (0 | 1 );
+};
+};
+
+          
+            countUsers: {
+set: {
+first_name?: string;
+last_name?: string;
+gender?: ("Male" | "Female" );
+birth_date?: Date;
+province?: string;
+city?: string;
+orgIds?: string[];
+unitIds?: string[];
+position?: string[];
+positionId: string;
+};
+get: {
+qty?: (0 | 1 );
 };
 };
 
@@ -5621,6 +5664,23 @@ success?: (0 | 1 );
 };
 
           
+            countOrgs: {
+set: {
+name?: string;
+address?: string;
+ownership?: ("private" | "government" | "semi-private" );
+type?: ("service" | "industrial" | "trading" | "technology" | "financial" | "healthcare" );
+longitude?: number;
+latitude?: number;
+provinceId?: string;
+cityId?: string;
+};
+get: {
+qty?: (0 | 1 );
+};
+};
+
+          
           }
 
         
@@ -6482,6 +6542,17 @@ success?: (0 | 1 );
 };
 
           
+            countUnits: {
+set: {
+name?: string;
+categories?: string[];
+};
+get: {
+qty?: (0 | 1 );
+};
+};
+
+          
           }
 
         
@@ -7316,6 +7387,30 @@ _id: string;
 };
 get: {
 success?: (0 | 1 );
+};
+};
+
+          
+            countLetters: {
+set: {
+positionId: string;
+authorId?: string;
+senderId?: string;
+recieversId?: string;
+subject?: string;
+is_end?: boolean;
+tags?: string[];
+leed?: string;
+content?: string;
+text?: string;
+orgId?: string;
+unitId?: string;
+readByUsers?: string;
+readByPositions?: string;
+refferIds?: string[];
+};
+get: {
+qty?: (0 | 1 );
 };
 };
 
@@ -8726,6 +8821,23 @@ level?: (0 | 1 );
 };
 
           
+            countPositions: {
+set: {
+name?: string;
+unitId?: string;
+orgId?: string;
+panel?: ("darya" | "johar" | "nameh" | "anbar" | "bita" );
+level?: ("Ghost" | "Orghead" | "Unithead" | "Staff" );
+userId?: string;
+features?: ("create unit" | "create chart" | "read letters" | "create letters" | "reffer letters" | "add staff" | "add position" | "add position to user" | "read positions" | "edit org" | "edit unit" )[];
+positionId: string;
+};
+get: {
+qty?: (0 | 1 );
+};
+};
+
+          
           }
 
         
@@ -8810,6 +8922,17 @@ _id?: (0 | 1 );
 title?: (0 | 1 );
 description?: (0 | 1 );
 number?: (0 | 1 );
+};
+};
+
+          
+            countPredefletters: {
+set: {
+title?: string;
+orgId?: string;
+};
+get: {
+qty?: (0 | 1 );
 };
 };
 
@@ -10152,6 +10275,20 @@ description?: (0 | 1 );
 reply?: (0 | 1 );
 };
 };
+};
+};
+
+          
+            countReffers: {
+set: {
+positionId: string;
+refferedId?: string;
+type?: ("inUnit" | "inOrg" | "outOrg" );
+deadline?: Date;
+isMoving?: boolean;
+};
+get: {
+qty?: (0 | 1 );
 };
 };
 

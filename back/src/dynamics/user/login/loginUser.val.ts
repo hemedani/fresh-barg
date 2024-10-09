@@ -1,10 +1,11 @@
-import { enums, number, object, optional, string } from "deps";
+import { enums, number, object, optional } from "deps";
 import { selectStruct } from "../../../../mod.ts";
+import { mobilePattern } from "share/schemas/mod.ts";
 
 export const loginUserValidator = () => {
   return object({
     set: object({
-      phone: string(),
+      phone: mobilePattern,
       code: number(),
     }),
     get: optional(object({

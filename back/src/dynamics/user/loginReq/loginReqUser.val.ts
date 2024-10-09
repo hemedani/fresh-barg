@@ -1,9 +1,10 @@
-import { enums, number, object, string } from "share/deps.ts";
+import { enums, object } from "share/deps.ts";
+import { mobilePattern } from "share/schemas/mod.ts";
 
 export const loginUserReqValidator = () => {
 	return object({
 		set: object({
-			phone: string(),
+			phone: mobilePattern,
 		}),
 		get: object({
 			phone: enums([1]),

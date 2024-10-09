@@ -8,6 +8,7 @@ export const loginUserSetup = () =>
     actName: "login",
     fn: loginUserFn,
     validator: loginUserValidator(),
+    validationRunType: "create",
   });
 
 export * from "./loginUser.fn.ts";

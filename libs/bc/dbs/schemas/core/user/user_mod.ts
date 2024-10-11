@@ -116,6 +116,12 @@ const userRelations = {
       },
     },
   },
+  avatar: {
+    schemaName: "file",
+    type: "single" as RelationDataType,
+    optional: true,
+    relatedRelations: {},
+  },
 };
 
 // const userOutRel: Record<string, InRelation> = {};
@@ -127,7 +133,7 @@ export const users = () =>
     userRelations,
     {
       createIndex: {
-        indexSpec: { "phone": 1, "personnel_code": 1, "email": 1 },
+        indexSpec: { "phone": 1 },
         options: { unique: true },
       },
     },

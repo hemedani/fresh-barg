@@ -472,7 +472,9 @@ city?: number | cityInp
 org?: number | orgInp
 unit?: number | unitInp
 position?: number | positionInp
-      readedLetter?: number | letterInp
+avatar?: number | fileInp
+      uploadedAssets?: number | fileInp
+readedLetter?: number | letterInp
 readedReffers?: number | refferInp
     }
 
@@ -522,6 +524,18 @@ name: string;
 panel: ("darya" | "johar" | "nameh" | "anbar" | "bita" );
 features: ("create unit" | "create chart" | "read letters" | "create letters" | "reffer letters" | "add staff" | "add position" | "add position to user" | "read positions" | "edit org" | "edit unit" )[];
 level: ("Ghost" | "Orghead" | "Unithead" | "Staff" );
+}[];
+avatar?: {
+_id?: string;
+name: string;
+type: string;
+size: number;
+};
+uploadedAssets: {
+_id?: string;
+name: string;
+type: string;
+size: number;
 }[];
 readedLetter: {
 _id?: string;
@@ -581,6 +595,32 @@ text: string;
 viewed: boolean;
 }[];
 }[];
+};
+;
+
+
+    export type fileInp = {
+      uploader?: number | userInp
+      
+    }
+
+
+    export type fileSchema = {
+_id?: string;
+name: string;
+type: string;
+size: number;
+uploader: {
+_id?: string;
+first_name: string;
+last_name: string;
+phone: number;
+gender: ("Male" | "Female" );
+birth_date?: Date;
+personnel_code: string;
+email?: string;
+is_active?: boolean;
+};
 };
 ;
 
@@ -1171,6 +1211,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -1431,6 +1483,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -1687,6 +1751,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -1946,6 +2022,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -2235,6 +2323,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -2495,6 +2595,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -2752,6 +2864,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -3014,6 +3138,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -3133,6 +3269,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -3471,6 +3619,40 @@ description?: (0 | 1 );
 reply?: (0 | 1 );
 };
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+uploader?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+uploader?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -3646,6 +3828,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -3986,6 +4180,40 @@ description?: (0 | 1 );
 reply?: (0 | 1 );
 };
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+uploader?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+uploader?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -4158,6 +4386,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -4248,6 +4488,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -4595,6 +4847,40 @@ description?: (0 | 1 );
 reply?: (0 | 1 );
 };
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+uploader?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+uploader?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -4791,6 +5077,96 @@ positionId: string;
 };
 get: {
 qty?: (0 | 1 );
+};
+};
+
+          
+            addAvatar: {
+set: {
+avatarId: string;
+};
+get: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+province?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+enName?: (0 | 1 );
+abb?: (0 | 1 );
+};
+city?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+enName?: (0 | 1 );
+abb?: (0 | 1 );
+};
+org?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+address?: (0 | 1 );
+ownership?: (0 | 1 );
+type?: (0 | 1 );
+location?: (0 | 1 );
+description?: (0 | 1 );
+};
+unit?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+categories?: (0 | 1 );
+};
+position?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+panel?: (0 | 1 );
+features?: (0 | 1 );
+level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+readedLetter?: {
+_id?: (0 | 1 );
+author?: (0 | 1 );
+sender?: (0 | 1 );
+recievers?: (0 | 1 );
+number?: (0 | 1 );
+subject?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+delivered?: (0 | 1 );
+is_end?: (0 | 1 );
+tags?: (0 | 1 );
+leed?: (0 | 1 );
+content?: (0 | 1 );
+};
+readedReffers?: {
+_id?: (0 | 1 );
+number?: (0 | 1 );
+delivered?: (0 | 1 );
+type?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+deadline?: (0 | 1 );
+isMoving?: (0 | 1 );
+description?: (0 | 1 );
+reply?: (0 | 1 );
+};
 };
 };
 
@@ -5087,6 +5463,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -5535,6 +5923,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -5968,6 +6368,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -6410,6 +6822,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -6764,6 +7188,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -7207,6 +7643,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -7616,6 +8064,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -8075,6 +8535,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -8552,6 +9024,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -9356,6 +9840,18 @@ panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
 };
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
 readedLetter?: {
 _id?: (0 | 1 );
 author?: (0 | 1 );
@@ -9755,6 +10251,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -10163,6 +10671,18 @@ name?: (0 | 1 );
 panel?: (0 | 1 );
 features?: (0 | 1 );
 level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
 };
 readedLetter?: {
 _id?: (0 | 1 );
@@ -10916,6 +11436,35 @@ unit?: {
 _id?: (0 | 1 );
 name?: (0 | 1 );
 categories?: (0 | 1 );
+};
+};
+};
+
+          
+          }
+
+        
+        file: {
+
+      
+            uploadImage: {
+set: {
+};
+get: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+uploader?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
 };
 };
 };

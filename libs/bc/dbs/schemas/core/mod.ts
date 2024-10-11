@@ -12,4 +12,4 @@ export * from "./question/question_mod.ts";
 export * from "./reffer/reffer_mod.ts";
 export * from "./unit/unit_mod.ts";
 export * from "./user/user_mod.ts";
-
+export * from "./file.ts";

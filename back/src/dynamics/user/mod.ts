@@ -9,6 +9,7 @@ import { tempUserSetup } from "./tempUser/mod.ts";
 import { updateUserSetup } from "./updateUser/mod.ts";
 import { removeUserSetup } from "./removeUser/mod.ts";
 import { countUsersSetup } from "./countUsers/mod.ts";
+import { addAvatarSetup } from "./addAvatar/mod.ts";
 
 export const userSetup = () => {
 	addUserSetup();
@@ -22,16 +23,5 @@ export const userSetup = () => {
 	addPosToUserSetup();
 	removeUserSetup();
 	countUsersSetup();
+	addAvatarSetup();
 };
-
-export * from "./addPosToUser/mod.ts";
-export * from "./addUser/mod.ts";
-export * from "./getUser/mod.ts";
-export * from "./getUsers/mod.ts";
-export * from "./login/mode.ts";
-export * from "./loginReq/mode.ts";
-export * from "./tempUser/mod.ts";
-export * from "./updateUser/mod.ts";
-export * from "./getMe/mod.ts";
-export * from "./removeUser/mod.ts";
-export * from "./countUsers/mod.ts";

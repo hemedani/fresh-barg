@@ -1,6 +1,7 @@
 import { lesan, MongoClient, Redis } from "deps";
 import {
 	cities,
+	files,
 	forms,
 	letters,
 	orgs,
@@ -33,6 +34,7 @@ export const unit = units();
 
 export const position = positions();
 export const user = users();
+export const file = files();
 export const letter = letters();
 export const preDefLetter = preDefLetters();
 export const reffer = reffers();
@@ -51,7 +53,7 @@ coreApp.runServer({
 	port: 1377,
 	typeGeneration: true,
 	playground: true,
-	staticPath: ["/upload"],
+	staticPath: ["/uploads"],
 	cors: [
 		"http://localhost:4200",
 		"http://localhost:4201",

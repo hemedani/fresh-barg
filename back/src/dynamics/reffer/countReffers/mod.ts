@@ -17,6 +17,3 @@ export const countReffersSetup = () =>
 		],
 		validator: countReffersValidator(),
 	});
-
-export * from "./countReffers.val.ts";
-export * from "./countReffers.fn.ts";

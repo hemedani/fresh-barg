@@ -20,6 +20,3 @@ export const countPositionsSetup = () =>
 		],
 		validator: countPositionsValidator(),
 	});
-
-export * from "./countPositions.val.ts";
-export * from "./countPositions.fn.ts";

@@ -50,6 +50,3 @@ export const getUsersSetup = () =>
 		],
 		validator: getUsersValidator(),
 	});
-
-export * from "./getUsers.fn.ts";
-export * from "./getUsers.val.ts";

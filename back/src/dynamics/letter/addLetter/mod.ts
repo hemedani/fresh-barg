@@ -20,6 +20,3 @@ export const addLetterSetup = () =>
 		],
 		validator: addLetterValidator(),
 	});
-
-export * from "./addLetter.fn.ts";
-export * from "./addLetter.val.ts";

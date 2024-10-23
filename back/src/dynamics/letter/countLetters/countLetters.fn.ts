@@ -44,7 +44,6 @@ export const countLettersFn: ActFn = async (body) => {
 
 	unitId &&
 		(filters["unit._id"] = new ObjectId(unitId));
-	console.log("===");
 	refferIds &&
 		(filters[
 			"reffer._id"

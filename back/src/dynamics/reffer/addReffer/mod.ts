@@ -12,7 +12,7 @@ const checkAddRefferAccess = async () => {
 	const { body, position }: MyContext = coreApp.contextFns
 		.getContextModel() as MyContext;
 
-	const { refferedId, pistionId, letterId } = body?.details.set!;
+	const { letterId } = body?.details.set!;
 
 	const foundedLetter = await letter.findOne({
 		filters: { _id: new ObjectId(letterId) },
@@ -49,6 +49,3 @@ export const addRefferSetup = () =>
 		],
 		validator: addRefferValidator(),
 	});
-
-export * from "./addReffer.fn.ts";
-export * from "./addReffer.val.ts";

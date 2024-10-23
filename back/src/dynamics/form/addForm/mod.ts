@@ -9,6 +9,3 @@ export const addFormSetup = () =>
 		actName: "addForm",
 		validator: addFormValidator(),
 	});
-
-export * from "./addForm.fn.ts";
-export * from "./addForm.val.ts";

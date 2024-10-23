@@ -13,6 +13,3 @@ export const addCitySetup = () =>
 		preAct: [setTokens, setUser, justGhost],
 		validator: addCityValidator(),
 	});
-
-export * from "./addCity.fn.ts";
-export * from "./addCity.val.ts";

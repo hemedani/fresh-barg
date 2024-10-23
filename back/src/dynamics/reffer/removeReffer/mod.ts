@@ -11,6 +11,3 @@ export const removeRefferSetup = () =>
 		preAct: [justGhost],
 		validator: removeRefferValidator(),
 	});
-
-export * from "./removeReffer.val.ts";
-export * from "./removeReffer.fn.ts";

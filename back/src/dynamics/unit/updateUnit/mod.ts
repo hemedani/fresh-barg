@@ -20,6 +20,3 @@ export const updateUnitSetup = () =>
 		],
 		validator: updateUnitValidator(),
 	});
-
-export * from "./updateUnit.fn.ts";
-export * from "./updateUnit.val.ts";

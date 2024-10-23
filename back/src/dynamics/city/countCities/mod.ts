@@ -17,6 +17,3 @@ export const countCitiesSetup = () =>
 		],
 		validator: countCitiesValidator(),
 	});
-
-export * from "./countCities.val.ts";
-export * from "./countCities.fn.ts";

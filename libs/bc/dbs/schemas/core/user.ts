@@ -1,4 +1,4 @@
-import { coreApp } from "../../../../../../back/mod.ts";
+import { coreApp } from "../../../../../back/mod.ts";
 import {
   boolean,
   coerce,
@@ -6,11 +6,10 @@ import {
   enums,
   number,
   optional,
-  pattern,
   RelationDataType,
   RelationSortOrderType,
   string,
-} from "../../../deps.ts";
+} from "../../deps.ts";
 export const userGender = enums(["Male", "Female"]);
 
 export const mobilePattern = coerce(

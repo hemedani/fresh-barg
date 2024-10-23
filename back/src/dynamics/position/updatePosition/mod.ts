@@ -15,6 +15,3 @@ export const updatePositionSetup = () =>
 		],
 		validator: updatePositionValidator(),
 	});
-
-export * from "./updatePosition.fn.ts";
-export * from "./updatePosition.val.ts";

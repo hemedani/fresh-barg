@@ -15,6 +15,3 @@ export const getProvinceSetup = () =>
 		],
 		validator: getProvinceValidator(),
 	});
-
-export * from "./getProvince.fn.ts";
-export * from "./getProvince.val.ts";

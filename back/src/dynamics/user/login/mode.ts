@@ -3,13 +3,10 @@ import { loginUserFn } from "./loginUser.fn.ts";
 import { loginUserValidator } from "./loginUser.val.ts";
 
 export const loginUserSetup = () =>
-  coreApp.acts.setAct({
-    schema: "user",
-    actName: "login",
-    fn: loginUserFn,
-    validator: loginUserValidator(),
-    validationRunType: "create",
-  });
-
-export * from "./loginUser.fn.ts";
-export * from "./loginUser.val.ts";
+	coreApp.acts.setAct({
+		schema: "user",
+		actName: "login",
+		fn: loginUserFn,
+		validator: loginUserValidator(),
+		validationRunType: "create",
+	});

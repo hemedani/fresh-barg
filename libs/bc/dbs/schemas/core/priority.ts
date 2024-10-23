@@ -1,10 +1,10 @@
-import { coreApp } from "../../../../../../back/mod.ts";
+import { coreApp } from "../../../../../back/mod.ts";
 import {
   RelationDataType,
   RelationSortOrderType,
   string,
   TRelation,
-} from "../../../deps.ts";
+} from "../../deps.ts";
 
 export const priorityPure = {
   name: string(),

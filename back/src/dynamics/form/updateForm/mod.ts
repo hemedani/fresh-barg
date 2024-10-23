@@ -9,6 +9,3 @@ export const updateFormSetup = () =>
 		actName: "updateForm",
 		validator: updateFormValidator(),
 	});
-
-export * from "./updateForm.fn.ts";
-export * from "./updateForm.val.ts";

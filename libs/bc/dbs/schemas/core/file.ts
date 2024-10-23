@@ -1,10 +1,9 @@
 import {
   number,
-  optional,
   RelationDataType,
   RelationSortOrderType,
   string,
-} from "deps";
+} from "../../deps.ts";
 import { coreApp } from "../../../../../back/mod.ts";
 
 export const pureFile = {

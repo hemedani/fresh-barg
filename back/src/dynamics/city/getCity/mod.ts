@@ -43,6 +43,3 @@ export const getCitySetup = () =>
 		],
 		validator: getCityValidator(),
 	});
-
-export * from "./getCity.fn.ts";
-export * from "./getCity.val.ts";

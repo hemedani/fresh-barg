@@ -13,6 +13,3 @@ export const getLettersSetup = () =>
 		preAct: [setTokens, setUser, isPositionInUser],
 		validator: getLettersValidator(),
 	});
-
-export * from "./getLetters.fn.ts";
-export * from "./getLetters.val.ts";

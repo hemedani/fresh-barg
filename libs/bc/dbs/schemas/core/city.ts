@@ -1,9 +1,5 @@
-import {
-  RelationDataType,
-  RelationSortOrderType,
-  string,
-} from "../../../deps.ts";
-import { coreApp } from "../../../../../../back/mod.ts";
+import { RelationDataType, RelationSortOrderType, string } from "../../deps.ts";
+import { coreApp } from "../../../../../back/mod.ts";
 
 export const cityPure = {
   name: string(),

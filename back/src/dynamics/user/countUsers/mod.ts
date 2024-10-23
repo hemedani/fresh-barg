@@ -22,6 +22,3 @@ export const countUsersSetup = () =>
 		],
 		validator: countUsersValidator(),
 	});
-
-export * from "./countUsers.val.ts";
-export * from "./countUsers.fn.ts";

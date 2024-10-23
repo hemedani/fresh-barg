@@ -17,6 +17,3 @@ export const countProvincesSetup = () =>
 		],
 		validator: countProvincesValidator(),
 	});
-
-export * from "./countProvinces.fn.ts";
-export * from "./countProvinces.val.ts";

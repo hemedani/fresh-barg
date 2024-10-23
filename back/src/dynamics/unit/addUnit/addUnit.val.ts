@@ -1,11 +1,5 @@
-import {
-	object,
-	objectIdValidation,
-	optional,
-	size,
-	string,
-} from "share/deps.ts";
-import { unitPure } from "share/schemas/core/mod.ts";
+import { object, objectIdValidation, size, string } from "share/deps.ts";
+import { unitPure } from "share/schemas/mod.ts";
 import { selectStruct } from "../../../../mod.ts";
 
 export const addUnitValidator = () => {

@@ -12,6 +12,3 @@ export const getCitiesSetup = () =>
 		preAct: [setTokens, setUser],
 		validator: getCitiesValidator(),
 	});
-
-export * from "./getCities.fn.ts";
-export * from "./getCities.val.ts";

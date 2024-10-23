@@ -1,6 +1,6 @@
 import { object, size, string } from "share/deps.ts";
 import { selectStruct } from "../../../../mod.ts";
-import { cityPure } from "share/schemas/core/mod.ts";
+import { cityPure } from "share/schemas/mod.ts";
 
 export const addCityValidator = () => {
 	return object({

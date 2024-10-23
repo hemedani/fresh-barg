@@ -37,6 +37,3 @@ export const addReplyToRefferSetup = () =>
 		],
 		validator: addReplyToRefferValidator(),
 	});
-
-export * from "./addReplyToReffer.fn.ts";
-export * from "./addReplyToReffer.val.ts";

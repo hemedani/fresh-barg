@@ -11,6 +11,3 @@ export const removeLetterSetup = () =>
 		preAct: [justGhost],
 		validator: removeLetterValidator(),
 	});
-
-export * from "./removeLetter.val.ts";
-export * from "./removeLetter.fn.ts";

@@ -21,6 +21,3 @@ export const addUnitSetup = () =>
 		],
 		validator: addUnitValidator(),
 	});
-
-export * from "./addUnit.fn.ts";
-export * from "./addUnit.val.ts";

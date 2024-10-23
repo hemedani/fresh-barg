@@ -1,13 +1,13 @@
 import {
   date,
   number,
+  object,
   optional,
   RelationDataType,
   RelationSortOrderType,
   string,
-} from "../../../deps.ts";
-import { coreApp } from "../../../../../../back/mod.ts";
-import { object } from "../../../deps.ts";
+} from "../../deps.ts";
+import { coreApp } from "../../../../../back/mod.ts";
 import { QuestionType } from "../mod.ts";
 
 export const questionAnswerPure = {

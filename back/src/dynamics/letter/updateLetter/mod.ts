@@ -15,6 +15,3 @@ export const updateLetterSetup = () =>
 		],
 		validator: updateLetterValidator(),
 	});
-
-export * from "./updateLetter.fn.ts";
-export * from "./updateLetter.val.ts";

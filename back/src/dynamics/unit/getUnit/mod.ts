@@ -45,6 +45,3 @@ export const getUnitSetup = () =>
 		],
 		validator: getUnitValidator(),
 	});
-
-export * from "./getUnit.fn.ts";
-export * from "./getUnit.val.ts";

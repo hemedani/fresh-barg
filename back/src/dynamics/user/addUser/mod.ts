@@ -166,6 +166,3 @@ export const addUserSetup = () =>
 		validator: addUserValidator(),
 		validationRunType: "create",
 	});
-
-export * from "./addUser.fn.ts";
-export * from "./addUser.val.ts";

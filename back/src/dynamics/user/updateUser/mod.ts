@@ -17,6 +17,3 @@ export const updateUserSetup = () =>
 		],
 		validator: updateUserValidator(),
 	});
-
-export * from "./updateUser.fn.ts";
-export * from "./updateUser.val.ts";

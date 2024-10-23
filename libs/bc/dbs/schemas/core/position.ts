@@ -1,4 +1,4 @@
-import { coreApp } from "../../../../../../back/mod.ts";
+import { coreApp } from "../../../../../back/mod.ts";
 import {
   array,
   enums,
@@ -7,7 +7,7 @@ import {
   RelationDataType,
   RelationSortOrderType,
   string,
-} from "../../../deps.ts";
+} from "../../deps.ts";
 
 export const PanelsEnum = enums(["darya", "johar", "nameh", "anbar", "bita"]);
 export const FeaturesEnum = enums([

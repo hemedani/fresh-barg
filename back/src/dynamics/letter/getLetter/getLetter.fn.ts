@@ -8,7 +8,7 @@ import {
 import { throwError } from "utils/throwError.ts";
 import { coreApp, letter } from "../../../../mod.ts";
 import { MyContext } from "interfaces/context.ts";
-import { positionPure, userPure } from "share/schemas/core/mod.ts";
+import { positionPure, userPure } from "share/schemas/mod.ts";
 
 export const getLetterFn: ActFn = async (body) => {
 	const {

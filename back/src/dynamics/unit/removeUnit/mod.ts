@@ -11,6 +11,3 @@ export const removeUnitSetup = () =>
 		preAct: [justGhost],
 		validator: removeUnitValidator(),
 	});
-
-export * from "./removeUnit.val.ts";
-export * from "./removeUnit.fn.ts";

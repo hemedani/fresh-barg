@@ -48,6 +48,3 @@ export const getLetterSetup = () =>
 		],
 		validator: getLetterValidator(),
 	});
-
-export * from "./getLetter.fn.ts";
-export * from "./getLetter.val.ts";

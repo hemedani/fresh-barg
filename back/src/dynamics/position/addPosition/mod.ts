@@ -6,7 +6,7 @@ import { setUser } from "utils/setUser.ts";
 import { grantAccess } from "utils/grantAccess.ts";
 import { MyContext } from "interfaces/context.ts";
 import { throwError } from "utils/throwError.ts";
-import { ObjectId, TLesanBody } from "deps";
+import { ObjectId, TLesanBody } from "share/deps.ts";
 
 const checkPositionValidationForAddPostition = async () => {
 	const { user, body }: MyContext = coreApp.contextFns
@@ -121,6 +121,3 @@ export const addPositionSetup = () =>
 		],
 		validator: addPositionValidator(),
 	});
-
-export * from "./addPosition.fn.ts";
-export * from "./addPosition.val.ts";

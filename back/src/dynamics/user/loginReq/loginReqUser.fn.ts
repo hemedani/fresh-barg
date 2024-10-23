@@ -24,13 +24,6 @@ export const loginReqUserFn: ActFn = async (body) => {
 	 *
 	 *  Please remove your log after debugging
 	 */
-	console.log(" ============= ");
-	console.group("env: Deno.env.get env", " ------ ");
-	console.log();
-	console.error({ env: Deno.env.get("ENV"), generatedCode }, " ------ ");
-	console.log();
-	console.groupEnd();
-	console.debug(" ============= ");
 
 	const sendSms = async () => {
 	};

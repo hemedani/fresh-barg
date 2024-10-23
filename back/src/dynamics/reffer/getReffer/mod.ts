@@ -17,6 +17,3 @@ export const getRefferSetup = () =>
 		],
 		validator: getRefferValidator(),
 	});
-
-export * from "./getReffer.fn.ts";
-export * from "./getReffer.val.ts";

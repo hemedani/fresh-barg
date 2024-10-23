@@ -11,6 +11,3 @@ export const removePredefLetterSetup = () =>
 		preAct: [justGhost],
 		validator: removePredefLetterValidator(),
 	});
-
-export * from "./removePredefLetter.val.ts";
-export * from "./removePredefLetter.fn.ts";

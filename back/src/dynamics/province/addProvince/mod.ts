@@ -13,5 +13,3 @@ export const addProvinceSetup = () =>
 		preAct: [setTokens, setUser, justGhost],
 		validator: addProvinceValidator(),
 	});
-export * from "./addProvince.fn.ts";
-export * from "./addProvince.val.ts";

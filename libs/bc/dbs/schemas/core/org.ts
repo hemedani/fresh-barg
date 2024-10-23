@@ -1,4 +1,4 @@
-import { coreApp } from "../../../../../../back/mod.ts";
+import { coreApp } from "../../../../../back/mod.ts";
 import {
   enums,
   number,
@@ -7,7 +7,7 @@ import {
   RelationDataType,
   RelationSortOrderType,
   string,
-} from "../../../deps.ts";
+} from "../../deps.ts";
 
 const orgPure = {
   name: string(),

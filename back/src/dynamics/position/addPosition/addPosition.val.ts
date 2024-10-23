@@ -3,15 +3,10 @@ import {
 	object,
 	objectIdValidation,
 	optional,
-	size,
 	string,
 } from "share/deps.ts";
 import { selectStruct } from "../../../../mod.ts";
-import {
-	FeaturesEnum,
-	LevelsEnum,
-	PanelsEnum,
-} from "share/schemas/core/mod.ts";
+import { FeaturesEnum, LevelsEnum, PanelsEnum } from "share/schemas/mod.ts";
 
 export const addPositionValidator = () => {
 	return object({

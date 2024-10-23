@@ -8,10 +8,11 @@ import {
   RelationDataType,
   RelationSortOrderType,
   string,
-} from "../../../deps.ts";
-import { coreApp } from "../../../../../../back/mod.ts";
-import { positionPure } from "../position/position_mod.ts";
-import { userPure } from "../user/user_mod.ts";
+} from "../../deps.ts";
+
+import { coreApp } from "../../../../../back/mod.ts";
+import { positionPure } from "./position.ts";
+import { userPure } from "./user.ts";
 
 export const letterPure = {
   author: object(userPure),

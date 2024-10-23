@@ -9,6 +9,3 @@ export const getPredeflettersSetup = () =>
 		actName: "getPredefletters",
 		validator: getPredeflettersValidator(),
 	});
-
-export * from "./getPredefLetters.fn.ts";
-export * from "./getPredefLetters.val.ts";

@@ -9,6 +9,3 @@ export const updateRefferSetup = () =>
 		actName: "updateReffer",
 		validator: updateRefferValidator(),
 	});
-
-export * from "./updateReffer.fn.ts";
-export * from "./updateReffer.val.ts";

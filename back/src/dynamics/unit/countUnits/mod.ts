@@ -17,6 +17,3 @@ export const countUnitsSetup = () =>
 		],
 		validator: countUnitsValidator(),
 	});
-
-export * from "./countUnits.val.ts";
-export * from "./countUnits.fn.ts";

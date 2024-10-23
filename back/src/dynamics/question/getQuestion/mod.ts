@@ -9,6 +9,3 @@ export const getQuestionSetup = () =>
 		actName: "getQuestion",
 		validator: getQuestionValidator(),
 	});
-
-export * from "./getQuestion.fn.ts";
-export * from "./getQuestion.val.ts";

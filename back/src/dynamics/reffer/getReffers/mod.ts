@@ -17,6 +17,3 @@ export const getReffersSetup = () =>
 		],
 		validator: getReffersValidator(),
 	});
-
-export * from "./getReffers.fn.ts";
-export * from "./getReffers.val.ts";

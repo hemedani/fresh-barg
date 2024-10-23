@@ -15,6 +15,3 @@ export const countPredeflettersSetup = () =>
 		],
 		validator: countPredeflettersValidator(),
 	});
-
-export * from "./countPredefletters.fn.ts";
-export * from "./countPredefletters.val.ts";

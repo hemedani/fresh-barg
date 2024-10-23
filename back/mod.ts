@@ -1,4 +1,4 @@
-import { lesan, MongoClient, Redis } from "deps";
+import { lesan, MongoClient, Redis } from "share/deps.ts";
 import {
 	cities,
 	files,
@@ -14,8 +14,8 @@ import {
 	reffers,
 	units,
 	users,
-} from "share/schemas/core/mod.ts";
-import { dynamicSetup } from "./src/dynamics/mod.ts";
+} from "share/schemas/mod.ts";
+import * as modTs from "./src/dynamics/mod.ts";
 
 export const myRedis = await Redis.connect({
 	hostname: "127.0.0.1",
@@ -47,7 +47,7 @@ export const { setAct, setService, getAtcsWithServices } = coreApp.acts;
 
 export const { selectStruct, getSchemas } = coreApp.schemas;
 
-dynamicSetup();
+modTs.dynamicSetup();
 
 coreApp.runServer({
 	port: 1377,

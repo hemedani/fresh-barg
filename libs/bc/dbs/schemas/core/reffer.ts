@@ -9,8 +9,8 @@ import {
   RelationDataType,
   RelationSortOrderType,
   string,
-} from "../../../deps.ts";
-import { coreApp } from "../../../../../../back/mod.ts";
+} from "../../deps.ts";
+import { coreApp } from "../../../../../back/mod.ts";
 
 const refferTypes = enums(["inUnit", "inOrg", "outOrg"]);
 

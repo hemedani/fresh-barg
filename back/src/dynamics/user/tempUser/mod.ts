@@ -10,6 +10,3 @@ export const tempUserSetup = () =>
 		validator: tempUserValidator(),
 		validationRunType: "create",
 	});
-
-export * from "./tempUser.fn.ts";
-export * from "./tempUser.val.ts";

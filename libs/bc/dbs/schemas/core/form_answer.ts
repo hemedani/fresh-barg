@@ -5,9 +5,9 @@ import {
   optional,
   RelationDataType,
   string,
-} from "../../../deps.ts";
-import { coreApp } from "../../../../../../back/mod.ts";
-import { RelationSortOrderType } from "../../../deps.ts";
+} from "../../deps.ts";
+import { coreApp } from "../../../../../back/mod.ts";
+import { RelationSortOrderType } from "../../deps.ts";
 
 export const formAnswerPure = {
   order: number(),

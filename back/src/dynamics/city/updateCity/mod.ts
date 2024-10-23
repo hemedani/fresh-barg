@@ -17,5 +17,3 @@ export const updateCitySetup = () =>
 		],
 		validator: updateCityValidator(),
 	});
-export * from "./updateCity.fn.ts";
-export * from "./updateCity.val.ts";

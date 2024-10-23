@@ -11,6 +11,3 @@ export const removeProvinceSetup = () =>
 		preAct: [justGhost],
 		validator: removeProvinceValidator(),
 	});
-
-export * from "./removeProvince.val.ts";
-export * from "./removeProvince.fn.ts";

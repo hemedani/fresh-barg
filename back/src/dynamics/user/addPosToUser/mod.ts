@@ -22,8 +22,6 @@ const checkAddPosRules = async () => {
 
 	if (!foundedInsertedPosition) throwError("can not find this position");
 
-	console.log({ foundedInsertedPosition });
-
 	const set: Record<string, any> = { ...body?.details.set };
 
 	if (requesterPosition!.level === "Ghost") {
@@ -137,6 +135,3 @@ export const addPosToUserSetup = () =>
 		],
 		validator: addPosToUserValidator(),
 	});
-
-export * from "./addPosToUser.fn.ts";
-export * from "./addPosToUser.val.ts";

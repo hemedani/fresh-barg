@@ -20,6 +20,3 @@ export const countLettersSetup = () =>
 		],
 		validator: countLettersValidator(),
 	});
-
-export * from "./countLetters.val.ts";
-export * from "./countLetters.fn.ts";

@@ -9,7 +9,7 @@ import { throwError } from "utils/throwError.ts";
 import { reffer } from "../../../../mod.ts";
 import { MyContext } from "interfaces/context.ts";
 import { coreApp } from "../../../../mod.ts";
-import { positionPure, userPure } from "share/schemas/core/mod.ts";
+import { positionPure, userPure } from "share/schemas/mod.ts";
 
 export const getRefferFn: ActFn = async (body) => {
 	const {

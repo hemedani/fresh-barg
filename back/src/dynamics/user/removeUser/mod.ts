@@ -11,6 +11,3 @@ export const removeUserSetup = () =>
 		preAct: [justGhost],
 		validator: removeUserValidator(),
 	});
-
-export * from "./removeUser.fn.ts";
-export * from "./removeUser.val.ts";

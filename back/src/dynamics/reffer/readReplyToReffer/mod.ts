@@ -16,6 +16,3 @@ export const readReplyToRefferSetup = () =>
 		],
 		validator: readReplyToRefferValidator(),
 	});
-
-export * from "./readReplyToReffer.fn.ts";
-export * from "./readReplyToReffer.val.ts";

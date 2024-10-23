@@ -11,6 +11,3 @@ export const removeCitySetup = () =>
 		preAct: [justGhost],
 		validator: removeCityValidator(),
 	});
-
-export * from "./removeCity.val.ts";
-export * from "./removeCity.fn.ts";

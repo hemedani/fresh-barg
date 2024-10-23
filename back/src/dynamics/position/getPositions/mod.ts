@@ -15,6 +15,3 @@ export const getPositionsSetup = () =>
 		],
 		validator: getPositionsValidator(),
 	});
-
-export * from "./getPositions.fn.ts";
-export * from "./getPositions.val.ts";

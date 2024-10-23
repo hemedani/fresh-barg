@@ -11470,6 +11470,29 @@ is_active?: (0 | 1 );
 };
 
           
+            uploadFile: {
+set: {
+};
+get: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+uploader?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+};
+};
+
+          
           }
 
         

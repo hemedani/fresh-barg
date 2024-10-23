@@ -1,3 +1,21 @@
+#####   Create Temp User ############################
+POST http://localhost:1377/lesan
+{
+  "service":"main",
+  "model":"user",
+  "act":"tempUser",
+  "details": {
+    "set": {
+      "first_name": "Maryam",
+      "last_name": "Ragheb",
+      "phone": "9107447219"
+    },
+    "get": {
+        "phone": 1
+    }
+  }
+}
+
 #####   Login User ############################
 POST http://localhost:1377/lesan
 {
@@ -6,7 +24,7 @@ POST http://localhost:1377/lesan
   "act":"loginReq",
   "details": {
     "set": {
-      "phone": "9381028800"
+      "phone": "9107447219"
     },
     "get": {
         "phone": 1
@@ -22,7 +40,7 @@ POST http://localhost:1377/lesan
   "act":"login",
   "details": {
     "set": {
-      "phone": "9381028800",
+      "phone": "9107447219",
       "code": 11111
     },
     "get": {
@@ -46,4 +64,12 @@ token:{{token}}
 [MultipartFormData]
 lesan-body: {"service":"main","model":"file","act":"uploadImage","details":{"get":{"name":1},"set":{}}}
 image: file,sample.jpeg; image/jpeg
+
+##### Upload File ############################
+POST http://localhost:1377/lesan
+token:{{token}}
+
+[MultipartFormData]
+lesan-body: {"service":"main","model":"file","act":"uploadFile","details":{"get":{"name":1},"set":{}}}
+file: file,sample.pdf; file/pdf
 

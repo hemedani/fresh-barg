@@ -1,0 +1,187 @@
+[
+  {
+    "id": "m3b5gmfh40olgx1x5em",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": 9189187676\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "tempPhone", "value": "[body][phone]" }]
+  },
+  {
+    "id": "m3b5h1nxgolq5t0v4bs",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{tempPhone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "tempToken", "value": "[body][token]" }]
+  },
+  {
+    "id": "m3nc50n66ueexb1l0w8",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"getMe\",\n    \"details\": {\n      \"get\": {\n        \"position\": {\n          \"_id\": 1\n        }\n      },\n      \"set\": {}\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "tempPosid", "value": "[body][position][0][_id]" }]
+  },
+  {
+    "id": "m3jtwrgzcgpfnj85lxq",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"province\",\n    \"act\": \"getProvinces\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "provinceId", "value": "[body][0][_id]" }]
+  },
+  {
+    "id": "m3jwgexiozpqywh4zxh",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"city\",\n    \"act\": \"getCities\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1,\n        \"enName\": 1,\n        \"abb\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1\n        }\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"positionId\": \"{tempPosid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "cityId", "value": "[body][0][_id]" }]
+  },
+  {
+    "id": "m3kdurwtzzy05iu7o4",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"org\",\n    \"act\": \"getOrgs\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"positionId\": \"{tempPosid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "orgid", "value": "[body][0][_id]" }]
+  },
+  {
+    "id": "m3n2da4uxkrj03eed2o",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"unit\",\n    \"act\": \"getUnits\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1\n      },\n      \"set\": {\n        \"positionId\": \"{tempPosid}\",\n        \"page\": 1,\n        \"limit\": 10\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "unitid", "value": "[body][0][_id]" },
+      { "key": "unit2id", "value": "[body][1][_id]" }
+    ]
+  },
+  {
+    "id": "m3rdvjecpi8kj9pkld9",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"getUsers\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"phone\": 1,\n        \"position\": {\n          \"_id\": 1,\n          \"name\": 1\n        },\n        \"first_name\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"gender\": \"Male\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "user1id", "value": "[body][0][_id]" },
+      { "key": "user2id", "value": "[body][1][_id]" },
+      { "key": "user3id", "value": "[body][2][_id]" },
+      { "key": "user1phone", "value": "[body][0][phone]" },
+      { "key": "user2phone", "value": "[body][1][phone]" },
+      { "key": "user3phone", "value": "[body][2][phone]" }
+    ]
+  },
+  {
+    "id": "m3s976hrhzdj2yxll5s",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{user1phone}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3s9764w794rdk1qcsk",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{user2phone}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3s97yuoxgshmurr64",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{user3phone}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3s98ntxb1xwqncyolt",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1,\n          \"position\": {\n            \"_id\": 1\n          }\n        }\n      },\n      \"set\": {\n        \"phone\": \"{user1phone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "user1token", "value": "[body][token]" },
+      { "key": "user1pos", "value": "[body][user][position][0][_id]" }
+    ]
+  },
+  {
+    "id": "m3s98ningom3dmxwu5d",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1,\n          \"position\": {\n            \"_id\": 1\n          }\n        }\n      },\n      \"set\": {\n        \"phone\": \"{user2phone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "user2token", "value": "[body][token]" },
+      { "key": "user2pos", "value": "[body][user][position][0][_id]" }
+    ]
+  },
+  {
+    "id": "m3nbsa4kvbgp3pc7r6",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1,\n          \"position\": {\n            \"_id\": 1\n          }\n        }\n      },\n      \"set\": {\n        \"phone\": \"{user3phone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "user3token", "value": "[body][token]" },
+      { "key": "user3pos", "value": "[body][user][position][0][_id]" }
+    ]
+  },
+  {
+    "id": "m3sav3kqse5blet1oim",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"addPredefletter\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1,\n        \"description\": 1,\n        \"number\": 1\n      },\n      \"set\": {\n        \"title\": \"njgj\",\n        \"description\": \"djejew\",\n        \"number\": 5,\n        \"orgId\": \"{orgid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sav34aie92xolh11",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user1token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"addPredefletter\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1,\n        \"description\": 1,\n        \"number\": 1\n      },\n      \"set\": {\n        \"title\": \"njgj\",\n        \"description\": \"djejew\",\n        \"number\": 1,\n        \"orgId\": \"{orgid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sav2zbj8d433g3p1",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user2token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"addPredefletter\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1,\n        \"description\": 1,\n        \"number\": 1\n      },\n      \"set\": {\n        \"title\": \"njgj\",\n        \"description\": \"djejew\",\n        \"number\": 5,\n        \"orgId\": \"{orgid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3qvej6eato2grb2ytp",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user3token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"addPredefletter\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1,\n        \"description\": 1,\n        \"number\": 1\n      },\n      \"set\": {\n        \"title\": \"ddd\",\n        \"description\": \"djejew\",\n        \"number\": 3,\n        \"orgId\": \"{orgid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sawsgoh0qpzb6p4be",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"getPredefletters\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3saws0l28osiwj97rp",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user1token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"getPredefletters\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sawrq9vlwxkfmz9p",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user2token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"getPredefletters\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sawg3m7kuzpxbts9n",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user3token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"getPredefletters\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "predefLetter1id", "value": "[body][0][_id]" },
+      { "key": "predefLetter2id", "value": "[body][1][_id]" },
+      { "key": "predefLette3id", "value": "[body][2][_id]" }
+    ]
+  },
+  {
+    "id": "m3saxml3hpikhvy5q67",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user3token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"getPredefletters\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"title\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"title\": \"d\",\n        \"number\": 1\n      }\n    }\n  }\n",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sb0q6zo45x7z70ywn",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user3token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"getPredefletter\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"number\": 1\n      },\n      \"set\": {\n        \"_id\": \"{predefLetter1id}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sb3tkhlol8cqpw5k",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user2token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"updatePredefletter\",\n    \"details\": {\n      \"get\": {\n        \"number\": 1,\n        \"_id\": 1\n      },\n      \"set\": {\n        \"_id\": \"{predefLette2id}\",\n        \"number\": 9\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sb65oepx5kutufmy",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user1token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"removePredefLetter\",\n    \"details\": {\n      \"get\": {\n        \"success\": 1\n      },\n      \"set\": {\n        \"_id\": \"{predefLette3id}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3sb46w6pxmivmlbes",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"preDefLetter\",\n    \"act\": \"removePredefLetter\",\n    \"details\": {\n      \"get\": {\n        \"success\": 1\n      },\n      \"set\": {\n        \"_id\": \"{predefLette3id}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  }
+]

@@ -11,9 +11,6 @@ export const addPosToUserFn: ActFn = async (body) => {
 		get,
 	} = body.details;
 
-	console.log("came into fn");
-	//const ObjPosition = pos.map((p: string) => new ObjectId(p));
-
 	const foundedUser = await user.findOne({
 		filters: { _id: new ObjectId(userId) },
 		projection: get,

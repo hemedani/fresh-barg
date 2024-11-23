@@ -10,13 +10,16 @@ export const updateUnitFn: ActFn = async (body) => {
 		},
 		get,
 	} = body.details;
+
+	const updateObj: Record<string, any> = {};
+
+	name && (updateObj.name = name);
+	categories && (updateObj.categories = categories);
+
 	return await unit.findOneAndUpdate({
 		filter: { _id: new ObjectId(_id) },
 		update: {
-			$set: {
-				name,
-				categories,
-			},
+			$set: updateObj,
 		},
 		projection: get,
 	});

@@ -6956,7 +6956,7 @@ categories?: (0 | 1 );
 };
 
           
-            removeCity: {
+            removeUnit: {
 set: {
 _id: string;
 };
@@ -7378,17 +7378,14 @@ level?: (0 | 1 );
             updateLetter: {
 set: {
 _id: string;
-number: number;
-subject: string;
-created_at?: Date;
-updated_at?: Date;
-delivered: boolean;
-is_end: {
+subject?: string;
+delivered?: boolean;
+is_end?: {
 text: string;
 done: boolean;
 };
-tags: string[];
-lid: string;
+tags?: string[];
+lid?: string;
 positionId: string;
 };
 get: {
@@ -7859,6 +7856,391 @@ refferIds?: string[];
 };
 get: {
 qty?: (0 | 1 );
+};
+};
+
+          
+            addReplyToLetter: {
+set: {
+_id: string;
+positionId: string;
+text: string;
+};
+get: {
+_id?: (0 | 1 );
+author?: (0 | 1 );
+sender?: (0 | 1 );
+recievers?: (0 | 1 );
+number?: (0 | 1 );
+subject?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+delivered?: (0 | 1 );
+is_end?: (0 | 1 );
+tags?: (0 | 1 );
+leed?: (0 | 1 );
+content?: (0 | 1 );
+org?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+address?: (0 | 1 );
+ownership?: (0 | 1 );
+type?: (0 | 1 );
+location?: (0 | 1 );
+description?: (0 | 1 );
+province?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+enName?: (0 | 1 );
+abb?: (0 | 1 );
+};
+city?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+enName?: (0 | 1 );
+abb?: (0 | 1 );
+};
+units?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+categories?: (0 | 1 );
+};
+positions?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+panel?: (0 | 1 );
+features?: (0 | 1 );
+level?: (0 | 1 );
+};
+users?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+letters?: {
+_id?: (0 | 1 );
+author?: (0 | 1 );
+sender?: (0 | 1 );
+recievers?: (0 | 1 );
+number?: (0 | 1 );
+subject?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+delivered?: (0 | 1 );
+is_end?: (0 | 1 );
+tags?: (0 | 1 );
+leed?: (0 | 1 );
+content?: (0 | 1 );
+};
+preDefLetters?: {
+_id?: (0 | 1 );
+title?: (0 | 1 );
+description?: (0 | 1 );
+number?: (0 | 1 );
+};
+priorities?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+};
+};
+unit?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+categories?: (0 | 1 );
+province?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+enName?: (0 | 1 );
+abb?: (0 | 1 );
+};
+city?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+enName?: (0 | 1 );
+abb?: (0 | 1 );
+};
+org?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+address?: (0 | 1 );
+ownership?: (0 | 1 );
+type?: (0 | 1 );
+location?: (0 | 1 );
+description?: (0 | 1 );
+};
+positions?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+panel?: (0 | 1 );
+features?: (0 | 1 );
+level?: (0 | 1 );
+};
+users?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+letters?: {
+_id?: (0 | 1 );
+author?: (0 | 1 );
+sender?: (0 | 1 );
+recievers?: (0 | 1 );
+number?: (0 | 1 );
+subject?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+delivered?: (0 | 1 );
+is_end?: (0 | 1 );
+tags?: (0 | 1 );
+leed?: (0 | 1 );
+content?: (0 | 1 );
+};
+forms?: {
+_id?: (0 | 1 );
+order?: (0 | 1 );
+title?: (0 | 1 );
+isActive?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+};
+};
+readByUsers?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+province?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+enName?: (0 | 1 );
+abb?: (0 | 1 );
+};
+city?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+enName?: (0 | 1 );
+abb?: (0 | 1 );
+};
+org?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+address?: (0 | 1 );
+ownership?: (0 | 1 );
+type?: (0 | 1 );
+location?: (0 | 1 );
+description?: (0 | 1 );
+};
+unit?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+categories?: (0 | 1 );
+};
+position?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+panel?: (0 | 1 );
+features?: (0 | 1 );
+level?: (0 | 1 );
+};
+avatar?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+uploadedAssets?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+type?: (0 | 1 );
+size?: (0 | 1 );
+};
+readedLetter?: {
+_id?: (0 | 1 );
+author?: (0 | 1 );
+sender?: (0 | 1 );
+recievers?: (0 | 1 );
+number?: (0 | 1 );
+subject?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+delivered?: (0 | 1 );
+is_end?: (0 | 1 );
+tags?: (0 | 1 );
+leed?: (0 | 1 );
+content?: (0 | 1 );
+};
+readedReffers?: {
+_id?: (0 | 1 );
+number?: (0 | 1 );
+delivered?: (0 | 1 );
+type?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+deadline?: (0 | 1 );
+isMoving?: (0 | 1 );
+description?: (0 | 1 );
+reply?: (0 | 1 );
+};
+};
+readByPositions?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+panel?: (0 | 1 );
+features?: (0 | 1 );
+level?: (0 | 1 );
+org?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+address?: (0 | 1 );
+ownership?: (0 | 1 );
+type?: (0 | 1 );
+location?: (0 | 1 );
+description?: (0 | 1 );
+};
+unit?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+categories?: (0 | 1 );
+};
+user?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+readedLetter?: {
+_id?: (0 | 1 );
+author?: (0 | 1 );
+sender?: (0 | 1 );
+recievers?: (0 | 1 );
+number?: (0 | 1 );
+subject?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+delivered?: (0 | 1 );
+is_end?: (0 | 1 );
+tags?: (0 | 1 );
+leed?: (0 | 1 );
+content?: (0 | 1 );
+};
+sendReffer?: {
+_id?: (0 | 1 );
+number?: (0 | 1 );
+delivered?: (0 | 1 );
+type?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+deadline?: (0 | 1 );
+isMoving?: (0 | 1 );
+description?: (0 | 1 );
+reply?: (0 | 1 );
+};
+recievedReffer?: {
+_id?: (0 | 1 );
+number?: (0 | 1 );
+delivered?: (0 | 1 );
+type?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+deadline?: (0 | 1 );
+isMoving?: (0 | 1 );
+description?: (0 | 1 );
+reply?: (0 | 1 );
+};
+readedReffers?: {
+_id?: (0 | 1 );
+number?: (0 | 1 );
+delivered?: (0 | 1 );
+type?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+deadline?: (0 | 1 );
+isMoving?: (0 | 1 );
+description?: (0 | 1 );
+reply?: (0 | 1 );
+};
+};
+reffers?: {
+_id?: (0 | 1 );
+number?: (0 | 1 );
+delivered?: (0 | 1 );
+type?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+deadline?: (0 | 1 );
+isMoving?: (0 | 1 );
+description?: (0 | 1 );
+reply?: (0 | 1 );
+letter?: {
+_id?: (0 | 1 );
+author?: (0 | 1 );
+sender?: (0 | 1 );
+recievers?: (0 | 1 );
+number?: (0 | 1 );
+subject?: (0 | 1 );
+created_at?: (0 | 1 );
+updated_at?: (0 | 1 );
+delivered?: (0 | 1 );
+is_end?: (0 | 1 );
+tags?: (0 | 1 );
+leed?: (0 | 1 );
+content?: (0 | 1 );
+};
+refferer?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+panel?: (0 | 1 );
+features?: (0 | 1 );
+level?: (0 | 1 );
+};
+reffered?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+panel?: (0 | 1 );
+features?: (0 | 1 );
+level?: (0 | 1 );
+};
+readByUsers?: {
+_id?: (0 | 1 );
+first_name?: (0 | 1 );
+last_name?: (0 | 1 );
+phone?: (0 | 1 );
+gender?: (0 | 1 );
+birth_date?: (0 | 1 );
+personnel_code?: (0 | 1 );
+email?: (0 | 1 );
+is_active?: (0 | 1 );
+};
+readByPositions?: {
+_id?: (0 | 1 );
+name?: (0 | 1 );
+panel?: (0 | 1 );
+features?: (0 | 1 );
+level?: (0 | 1 );
+};
+};
 };
 };
 
@@ -10382,7 +10764,7 @@ reply?: (0 | 1 );
             getReffers: {
 set: {
 page: number;
-take: number;
+limit: number;
 positionId: string;
 number?: number;
 readByUsers?: string;

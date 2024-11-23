@@ -10,11 +10,7 @@ export const updateLetterFn: ActFn = async (body) => {
 	const {
 		set: {
 			_id,
-			number,
 			subject,
-			created_at,
-			updated_at,
-			delivered,
 			is_end,
 			tags,
 			lid,
@@ -22,19 +18,17 @@ export const updateLetterFn: ActFn = async (body) => {
 		get,
 	} = body.details;
 
+	const updateObj: Record<string, any> = {};
+
+	is_end && (updateObj.is_end = is_end);
+	subject && (updateObj.subject = subject);
+	tags && (updateObj.tags = tags);
+	lid && (updateObj.lid = lid);
+
 	return await letter.findOneAndUpdate({
 		filter: { _id: new ObjectId(_id) },
 		update: {
-			$set: {
-				number,
-				subject,
-				created_at,
-				updated_at,
-				delivered,
-				is_end,
-				tags,
-				lid,
-			},
+			$set: updateObj,
 		},
 		projection: get,
 	});

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "m3b5fkkbv7bvyfesypa",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"tempUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"last_name\": 1,\n        \"phone\": 1\n      },\n      \"set\": {\n        \"first_name\": \"amirMasoud\",\n        \"last_name\": \"hosseini\",\n        \"phone\": 9189187676\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "tempPhone", "value": "[body][phone]" }]
+  },
+  {
+    "id": "m3b5gmfh40olgx1x5em",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{tempPhone}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3b5h1nxgolq5t0v4bs",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{tempPhone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "tempToken", "value": "[body][token]" }]
+  }
+]

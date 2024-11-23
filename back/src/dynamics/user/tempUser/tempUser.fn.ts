@@ -1,5 +1,6 @@
 import { ActFn, ObjectId } from "share/deps.ts";
 import { city, org, position, province, unit, user } from "../../../../mod.ts";
+import { throwError } from "https://deno.land/x/lesan@v0.1.13/src/utils/throwError.ts";
 
 export const tempUserFn: ActFn = async (body) => {
 	const {
@@ -10,6 +11,12 @@ export const tempUserFn: ActFn = async (body) => {
 		},
 		get,
 	} = body.details;
+
+	const tempExist = await user.find({ filters: {} }).limit(1).toArray();
+
+	if (tempExist.length > 0) {
+		return throwError("can't do this.");
+	}
 
 	const provinceId = await province.insertOne({
 		doc: {
@@ -156,7 +163,7 @@ export const tempUserFn: ActFn = async (body) => {
 			position: {
 				_ids: [positionId!._id as ObjectId],
 				relatedRelations: {
-					users: true,
+					user: true,
 				},
 			},
 		},

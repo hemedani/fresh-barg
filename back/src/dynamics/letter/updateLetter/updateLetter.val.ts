@@ -14,17 +14,14 @@ export const updateLetterValidator = () => {
 	return object({
 		set: object({
 			_id: string(),
-			number: number(),
-			subject: string(),
-			created_at: optional(date()),
-			updated_at: optional(date()),
-			delivered: boolean(),
-			is_end: object({
+			subject: optional(string()),
+			delivered: optional(boolean()),
+			is_end: optional(object({
 				text: string(), // text || des ??
 				done: boolean(),
-			}),
-			tags: array(string()),
-			lid: string(),
+			})),
+			tags: optional(array(string())),
+			lid: optional(string()),
 			positionId: objectIdValidation,
 		}),
 		get: selectStruct("letter", { letter: 1 }),

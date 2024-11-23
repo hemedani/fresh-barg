@@ -11,6 +11,3 @@ export const removeOrgSetup = () =>
 		preAct: [justGhost],
 		validator: removeOrgValidator(),
 	});
-
-export * from "./removeOrg.val.ts";
-export * from "./removeOrg.fn.ts";

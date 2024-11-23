@@ -1,4 +1,5 @@
-import { ActFn, ObjectId } from "share/deps.ts";
+import { ActFn } from "share/deps.ts";
+import { ObjectId } from "https://deno.land/x/lesan@v0.1.1/mod.ts";
 import { reffer } from "../../../../mod.ts";
 export const addRefferFn: ActFn = async (body) => {
 	const {

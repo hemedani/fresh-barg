@@ -12,14 +12,16 @@ export const updateCityFn: ActFn = async (body) => {
 		get,
 	} = body.details;
 
+	const updateObj: Record<string, any> = {};
+
+	name && (updateObj.name = name);
+	enName && (updateObj.enName = enName);
+	abb && (updateObj.abb = abb);
+
 	return await city.findOneAndUpdate({
 		filter: { _id: new ObjectId(_id) },
 		update: {
-			$set: {
-				name,
-				enName,
-				abb,
-			},
+			$set: updateObj,
 		},
 		projection: get,
 	});

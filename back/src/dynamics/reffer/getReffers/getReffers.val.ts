@@ -13,7 +13,7 @@ export const getReffersValidator = () => {
 	return object({
 		set: object({
 			page: number(),
-			take: number(),
+			limit: number(),
 			positionId: objectIdValidation,
 			number: optional(number()),
 			readByUsers: optional(objectIdValidation),

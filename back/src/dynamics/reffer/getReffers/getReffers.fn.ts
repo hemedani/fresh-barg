@@ -5,7 +5,7 @@ export const getReffersFn: ActFn = async (body) => {
 	const {
 		set: {
 			page,
-			take,
+			limit,
 			number,
 			type,
 			letter,
@@ -21,8 +21,8 @@ export const getReffersFn: ActFn = async (body) => {
 
 	const pipeline = [];
 
-	pipeline.push({ $skip: (page - 1) * take });
-	pipeline.push({ $limit: take });
+	pipeline.push({ $skip: (page - 1) * limit });
+	pipeline.push({ $limit: limit });
 	pipeline.push({ $sort: { _id: -1 } });
 
 	number && pipeline.push({ $match: { number } });

@@ -1,0 +1,257 @@
+[
+  {
+    "id": "m3b5gmfh40olgx1x5em",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": 9189187676\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "tempPhone", "value": "[body][phone]" }]
+  },
+  {
+    "id": "m3b5h1nxgolq5t0v4bs",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{tempPhone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "tempToken", "value": "[body][token]" }]
+  },
+  {
+    "id": "m3nc50n66ueexb1l0w8",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"getMe\",\n    \"details\": {\n      \"get\": {\n        \"position\": {\n          \"_id\": 1\n        }\n      },\n      \"set\": {}\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "tempPosid", "value": "[body][position][0][_id]" }]
+  },
+  {
+    "id": "m3jtwrgzcgpfnj85lxq",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"province\",\n    \"act\": \"getProvinces\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "provinceId", "value": "[body][0][_id]" }]
+  },
+  {
+    "id": "m3jwgexiozpqywh4zxh",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"city\",\n    \"act\": \"getCities\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1,\n        \"enName\": 1,\n        \"abb\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1\n        }\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"positionId\": \"{tempPosid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "cityId", "value": "[body][0][_id]" }]
+  },
+  {
+    "id": "m3kdurwtzzy05iu7o4",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"org\",\n    \"act\": \"getOrgs\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"positionId\": \"{tempPosid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "orgid", "value": "[body][0][_id]" }]
+  },
+  {
+    "id": "m3n2da4uxkrj03eed2o",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"unit\",\n    \"act\": \"getUnits\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1\n      },\n      \"set\": {\n        \"positionId\": \"{tempPosid}\",\n        \"page\": 1,\n        \"limit\": 10\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "unitid", "value": "[body][0][_id]" },
+      { "key": "unit2id", "value": "[body][1][_id]" }
+    ]
+  },
+  {
+    "id": "loelt1041gtogicz57i",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"position\",\n    \"act\": \"addPosition\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"name\": 1,\n        \"panel\": 1,\n        \"features\": 1,\n        \"level\": 1,\n        \"org\": {\n          \"_id\": 1\n        },\n        \"unit\": {\n          \"_id\": 1\n        }\n      },\n      \"set\": {\n        \"name\": \"رئیس سازمان\",\n        \"orgId\": \"{orgid}\",\n        \"unitId\": \"{unitid}\",\n        \"panel\": \"johar\",\n        \"features\": [\n          \"create chart\",\n          \"read letters\",\n          \"reffer letters\"\n        ],\n        \"level\": \"Orghead\",\n        \"positionId\": \"{tempPosid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "orgheadPos", "value": "[body][_id]" },
+      { "key": "joharP", "value": "[body][panel]" }
+    ]
+  },
+  {
+    "id": "lvgqx316nskxnt3yuc",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"position\",\n    \"act\": \"addPosition\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"level\": 1,\n        \"org\": {\n          \"_id\": 1\n        },\n        \"unit\": {\n          \"_id\": 1\n        }\n      },\n      \"set\": {\n        \"name\": \"رئیس واحد\",\n        \"orgId\": \"{orgid}\",\n        \"unitId\": \"{unit2id}\",\n        \"panel\": \"{joharP}\",\n        \"features\": [\n          \"create chart\",\n          \"read letters\",\n          \"reffer letters\",\n          \"create unit\"\n        ],\n        \"level\": \"Unithead\",\n        \"positionId\": \"{tempPosid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "unitheadPos", "value": "[body][_id]" }]
+  },
+  {
+    "id": "lvgr4mmesjsgsxwhv2",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"position\",\n    \"act\": \"addPosition\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"level\": 1,\n        \"org\": {\n          \"_id\": 1\n        },\n        \"unit\": {\n          \"_id\": 1\n        }\n      },\n      \"set\": {\n        \"name\": \"کارمند\",\n        \"orgId\": \"{orgid}\",\n        \"unitId\": \"{unitid}\",\n        \"panel\": \"{joharP}\",\n        \"features\": [\n          \"read letters\",\n          \"reffer letters\"\n        ],\n        \"level\": \"Staff\",\n        \"positionId\": \"{tempPosid}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "staffJPos", "value": "[body][_id]" }]
+  },
+  {
+    "id": "lvgre7wf03y0ivx17yie",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"addUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"last_name\": 1,\n        \"phone\": 1,\n        \"gender\": 1,\n        \"birth_date\": 1,\n        \"personnel_code\": 1,\n        \"email\": 1,\n        \"is_active\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"city\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"org\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"address\": 1,\n          \"ownership\": 1,\n          \"type\": 1,\n          \"location\": 1,\n          \"description\": 1\n        },\n        \"unit\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"categories\": 1\n        },\n        \"position\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"panel\": 1,\n          \"features\": 1,\n          \"level\": 1\n        },\n        \"avatar\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"uploadedAssets\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"readedLetter\": {\n          \"_id\": 1,\n          \"author\": 1,\n          \"sender\": 1,\n          \"recievers\": 1,\n          \"number\": 1,\n          \"subject\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"delivered\": 1,\n          \"is_end\": 1,\n          \"tags\": 1,\n          \"leed\": 1,\n          \"content\": 1\n        },\n        \"readedReffers\": {\n          \"_id\": 1,\n          \"number\": 1,\n          \"delivered\": 1,\n          \"type\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"deadline\": 1,\n          \"isMoving\": 1,\n          \"description\": 1,\n          \"reply\": 1\n        }\n      },\n      \"set\": {\n        \"first_name\": \"aa\",\n        \"last_name\": \"aaa\",\n        \"phone\": 9189876156,\n        \"gender\": \"Male\",\n        \"birth_date\": \"2024-04-25T09:49:39.524+00:00\",\n        \"personnel_code\": \"111111111\",\n        \"email\": \"{faker.internet.email()}\",\n        \"province\": \"{provinceId}\",\n        \"city\": \"{cityId}\",\n        \"positionId\": \"{tempPosid}\",\n        \"orgIds\": [\n          \"{orgid}\"\n        ],\n        \"unitIds\": [\n          \"{unitid}\"\n        ],\n        \"position\": [\n          \"{staffJPos}\"\n        ]\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "staffJPhone", "value": "[body][phone]" }]
+  },
+  {
+    "id": "m3nbsa4kvbgp3pc7r6",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"addUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"last_name\": 1,\n        \"phone\": 1,\n        \"gender\": 1,\n        \"birth_date\": 1,\n        \"personnel_code\": 1,\n        \"email\": 1,\n        \"is_active\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"city\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"org\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"address\": 1,\n          \"ownership\": 1,\n          \"type\": 1,\n          \"location\": 1,\n          \"description\": 1\n        },\n        \"unit\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"categories\": 1\n        },\n        \"position\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"panel\": 1,\n          \"features\": 1,\n          \"level\": 1\n        },\n        \"avatar\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"uploadedAssets\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"readedLetter\": {\n          \"_id\": 1,\n          \"author\": 1,\n          \"sender\": 1,\n          \"recievers\": 1,\n          \"number\": 1,\n          \"subject\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"delivered\": 1,\n          \"is_end\": 1,\n          \"tags\": 1,\n          \"leed\": 1,\n          \"content\": 1\n        },\n        \"readedReffers\": {\n          \"_id\": 1,\n          \"number\": 1,\n          \"delivered\": 1,\n          \"type\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"deadline\": 1,\n          \"isMoving\": 1,\n          \"description\": 1,\n          \"reply\": 1\n        }\n      },\n      \"set\": {\n        \"first_name\": \"aa\",\n        \"last_name\": \"aaa\",\n        \"phone\": 9309872132,\n        \"gender\": \"Male\",\n        \"birth_date\": \"2024-04-25T09:49:39.524+00:00\",\n        \"personnel_code\": \"111111111\",\n        \"email\": \"{faker.internet.email()}\",\n        \"province\": \"{provinceId}\",\n        \"city\": \"{cityId}\",\n        \"positionId\": \"{tempPosid}\",\n        \"orgIds\": [\n          \"{orgid}\"\n        ],\n        \"unitIds\": [\n          \"{unitid}\"\n        ],\n        \"position\": [\n          \"{unitheadPos}\"\n        ]\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "unitheadJPhone", "value": "[body][phone]" }]
+  },
+  {
+    "id": "lvgrgejjj57hziih17",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"addUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"last_name\": 1,\n        \"phone\": 1,\n        \"gender\": 1,\n        \"birth_date\": 1,\n        \"personnel_code\": 1,\n        \"email\": 1,\n        \"is_active\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"city\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"org\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"address\": 1,\n          \"ownership\": 1,\n          \"type\": 1,\n          \"location\": 1,\n          \"description\": 1\n        },\n        \"unit\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"categories\": 1\n        },\n        \"position\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"panel\": 1,\n          \"features\": 1,\n          \"level\": 1\n        },\n        \"avatar\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"uploadedAssets\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"readedLetter\": {\n          \"_id\": 1,\n          \"author\": 1,\n          \"sender\": 1,\n          \"recievers\": 1,\n          \"number\": 1,\n          \"subject\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"delivered\": 1,\n          \"is_end\": 1,\n          \"tags\": 1,\n          \"leed\": 1,\n          \"content\": 1\n        },\n        \"readedReffers\": {\n          \"_id\": 1,\n          \"number\": 1,\n          \"delivered\": 1,\n          \"type\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"deadline\": 1,\n          \"isMoving\": 1,\n          \"description\": 1,\n          \"reply\": 1\n        }\n      },\n      \"set\": {\n        \"first_name\": \"aa\",\n        \"last_name\": \"aaa\",\n        \"phone\": 9056565622,\n        \"gender\": \"Male\",\n        \"birth_date\": \"2024-04-25T09:49:39.524+00:00\",\n        \"personnel_code\": \"111111111\",\n        \"email\": \"{faker.internet.email()}\",\n        \"province\": \"{provinceId}\",\n        \"city\": \"{cityId}\",\n        \"positionId\": \"{tempPosid}\",\n        \"orgIds\": [\n          \"{orgid}\"\n        ],\n        \"unitIds\": [\n          \"{unitid}\"\n        ],\n        \"position\": [\n          \"{orgheadPos}\"\n        ]\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "orgheadJPhone", "value": "[body][phone]" }]
+  },
+  {
+    "id": "m3nc0zlzyq8bvevp2kg",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{unitheadJPhone}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3nc0zdlv0zhp216et",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{orgheadJPhone}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rcz0kt0e0og7yf16fv",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{staffJPhone}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3nc130175adhx9jx62",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{unitheadJPhone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "unitheadJToken", "value": "[body][token]" },
+      { "key": "unitheadJId", "value": "[body][user][_id]" }
+    ]
+  },
+  {
+    "id": "m3nc12tua8eal76dixq",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{orgheadJPhone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "orgheadJToken", "value": "[body][token]" },
+      { "key": "orgheadJId", "value": "[body][user][_id]" }
+    ]
+  },
+  {
+    "id": "lvgrnvgm47c7yb8by0r",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{staffJPhone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "staffJToken", "value": "[body][token]" },
+      { "key": "staffJId", "value": "[body][user][_id]" }
+    ]
+  },
+  {
+    "id": "m3nc69tdl6zqew5tw7p",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{unitheadJToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"getMe\",\n    \"details\": {\n      \"get\": {\n        \"position\": {\n          \"_id\": 1\n        }\n      },\n      \"set\": {}\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "unitheadPosid", "value": "[body][position][0][_id]" }
+    ]
+  },
+  {
+    "id": "m3nc6jmalzagreycwgj",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{orgheadJToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"getMe\",\n    \"details\": {\n      \"get\": {\n        \"position\": {\n          \"_id\": 1\n        }\n      },\n      \"set\": {}\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "orgheadPosid", "value": "[body][position][0][_id]" }]
+  },
+  {
+    "id": "m3jwlafxu9xwva1nvtc",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\",\n    \"token\": \"{staffJToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"getMe\",\n    \"details\": {\n      \"get\": {\n        \"position\": {\n          \"_id\": 1\n        }\n      },\n      \"set\": {}\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "staffJPosid", "value": "[body][position][0][_id]" }]
+  },
+  {
+    "id": "m3nd16bfmd84h8d27s",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{staffJToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"addUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"last_name\": 1,\n        \"phone\": 1,\n        \"gender\": 1,\n        \"birth_date\": 1,\n        \"personnel_code\": 1,\n        \"email\": 1,\n        \"is_active\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"city\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"org\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"address\": 1,\n          \"ownership\": 1,\n          \"type\": 1,\n          \"location\": 1,\n          \"description\": 1\n        },\n        \"unit\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"categories\": 1\n        },\n        \"position\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"panel\": 1,\n          \"features\": 1,\n          \"level\": 1\n        },\n        \"avatar\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"uploadedAssets\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"readedLetter\": {\n          \"_id\": 1,\n          \"author\": 1,\n          \"sender\": 1,\n          \"recievers\": 1,\n          \"number\": 1,\n          \"subject\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"delivered\": 1,\n          \"is_end\": 1,\n          \"tags\": 1,\n          \"leed\": 1,\n          \"content\": 1\n        },\n        \"readedReffers\": {\n          \"_id\": 1,\n          \"number\": 1,\n          \"delivered\": 1,\n          \"type\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"deadline\": 1,\n          \"isMoving\": 1,\n          \"description\": 1,\n          \"reply\": 1\n        }\n      },\n      \"set\": {\n        \"first_name\": \"aa\",\n        \"last_name\": \"aaa\",\n        \"phone\": 9309304354,\n        \"gender\": \"Male\",\n        \"birth_date\": \"2024-04-25T09:49:39.524+00:00\",\n        \"personnel_code\": \"53123125\",\n        \"email\": \"ehuiwuihdjk\",\n        \"province\": \"{provinceId}\",\n        \"city\": \"{cityId}\",\n        \"positionId\": \"{staffJPosid}\",\n        \"orgIds\": [\n          \"{orgid}\"\n        ],\n        \"unitIds\": [\n          \"{unitid}\"\n        ],\n        \"position\": [\n          \"{orgheadPosid}\"\n        ]\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3nd15i6nd6m7xta9ne",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{orgheadJToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"addUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"last_name\": 1,\n        \"phone\": 1,\n        \"gender\": 1,\n        \"birth_date\": 1,\n        \"personnel_code\": 1,\n        \"email\": 1,\n        \"is_active\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"city\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"org\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"address\": 1,\n          \"ownership\": 1,\n          \"type\": 1,\n          \"location\": 1,\n          \"description\": 1\n        },\n        \"unit\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"categories\": 1\n        },\n        \"position\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"panel\": 1,\n          \"features\": 1,\n          \"level\": 1\n        },\n        \"avatar\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"uploadedAssets\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"readedLetter\": {\n          \"_id\": 1,\n          \"author\": 1,\n          \"sender\": 1,\n          \"recievers\": 1,\n          \"number\": 1,\n          \"subject\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"delivered\": 1,\n          \"is_end\": 1,\n          \"tags\": 1,\n          \"leed\": 1,\n          \"content\": 1\n        },\n        \"readedReffers\": {\n          \"_id\": 1,\n          \"number\": 1,\n          \"delivered\": 1,\n          \"type\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"deadline\": 1,\n          \"isMoving\": 1,\n          \"description\": 1,\n          \"reply\": 1\n        }\n      },\n      \"set\": {\n        \"first_name\": \"aa\",\n        \"last_name\": \"aaa\",\n        \"phone\": 9309304354,\n        \"gender\": \"Male\",\n        \"birth_date\": \"2024-04-25T09:49:39.524+00:00\",\n        \"personnel_code\": \"6743686437\",\n        \"email\": \"ehuiwuihdjk\",\n        \"province\": \"{provinceId}\",\n        \"city\": \"{cityId}\",\n        \"positionId\": \"{orgheadPosid}\",\n        \"orgIds\": [\n          \"{orgid}\"\n        ],\n        \"unitIds\": [\n          \"{unitid}\"\n        ],\n        \"position\": [\n          \"{staffJPosid}\"\n        ]\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rcxyjh1ipsar5vg8r",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{unitheadJToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"addUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"last_name\": 1,\n        \"phone\": 1,\n        \"gender\": 1,\n        \"birth_date\": 1,\n        \"personnel_code\": 1,\n        \"email\": 1,\n        \"is_active\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"city\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"org\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"address\": 1,\n          \"ownership\": 1,\n          \"type\": 1,\n          \"location\": 1,\n          \"description\": 1\n        },\n        \"unit\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"categories\": 1\n        },\n        \"position\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"panel\": 1,\n          \"features\": 1,\n          \"level\": 1\n        },\n        \"avatar\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"uploadedAssets\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"readedLetter\": {\n          \"_id\": 1,\n          \"author\": 1,\n          \"sender\": 1,\n          \"recievers\": 1,\n          \"number\": 1,\n          \"subject\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"delivered\": 1,\n          \"is_end\": 1,\n          \"tags\": 1,\n          \"leed\": 1,\n          \"content\": 1\n        },\n        \"readedReffers\": {\n          \"_id\": 1,\n          \"number\": 1,\n          \"delivered\": 1,\n          \"type\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"deadline\": 1,\n          \"isMoving\": 1,\n          \"description\": 1,\n          \"reply\": 1\n        }\n      },\n      \"set\": {\n        \"first_name\": \"aa\",\n        \"last_name\": \"aaa\",\n        \"phone\": 9309304354,\n        \"gender\": \"Male\",\n        \"birth_date\": \"2024-04-25T09:49:39.524+00:00\",\n        \"personnel_code\": \"52632535\",\n        \"email\": \"ehuiwuihdjk\",\n        \"province\": \"{provinceId}\",\n        \"city\": \"{cityId}\",\n        \"positionId\": \"{unitheadPosid}\",\n        \"orgIds\": [\n          \"{orgid}\"\n        ],\n        \"unitIds\": [\n          \"{unitid}\"\n        ],\n        \"position\": [\n          \"{orgheadPosid}\"\n        ]\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "userid", "value": "[body][_id]" }]
+  },
+  {
+    "id": "m3rcdz60f6hczo2yru",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"updateUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"personnel_code\": 1\n      },\n      \"set\": {\n        \"first_name\": \"sydamir\",\n        \"positionId\": \"{tempPosid}\",\n        \"personnel_code\": \"876876572\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rcftv83lgf0085s3y",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"getUsers\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"gender\": \"Male\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rch5pbm6so8te51i",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"getUsers\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"position\": {\n          \"name\": 1,\n          \"_id\": 1\n        },\n        \"phone\": 1\n      },\n      \"set\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"gender\": \"Male\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [
+      { "key": "user1Id", "value": "[body][0][_id]" },
+      { "key": "user2Id", "value": "[body][1][_id]" },
+      { "key": "user3Id", "value": "[body][2][_id]" },
+      { "key": "user1Posid", "value": "[body][0][position][_id]" },
+      { "key": "user2Posid", "value": "[body][1][position][_id]" },
+      { "key": "user3Posid", "value": "[body][1][position][_id]" },
+      { "key": "user1Phone", "value": "[body][0][phone]" },
+      { "key": "user2Phone", "value": "[body][1][phone]" },
+      { "key": "user3Phone", "value": "[body][2][phone]" }
+    ]
+  },
+  {
+    "id": "m3rczlhuk6mjjisttei",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{user1Phone}\"\n      }\n    }\n  }",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rd0jzlqzft3i2azk",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{user1Phone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "user1Token", "value": "[body][token]" }]
+  },
+  {
+    "id": "m3rd31ut4uzh0z8kmtv",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user1Token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"addUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"last_name\": 1,\n        \"phone\": 1,\n        \"gender\": 1,\n        \"birth_date\": 1,\n        \"personnel_code\": 1,\n        \"email\": 1,\n        \"is_active\": 1,\n        \"province\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"city\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"enName\": 1,\n          \"abb\": 1\n        },\n        \"org\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"address\": 1,\n          \"ownership\": 1,\n          \"type\": 1,\n          \"location\": 1,\n          \"description\": 1\n        },\n        \"unit\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"categories\": 1\n        },\n        \"position\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"panel\": 1,\n          \"features\": 1,\n          \"level\": 1\n        },\n        \"avatar\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"uploadedAssets\": {\n          \"_id\": 1,\n          \"name\": 1,\n          \"type\": 1,\n          \"size\": 1\n        },\n        \"readedLetter\": {\n          \"_id\": 1,\n          \"author\": 1,\n          \"sender\": 1,\n          \"recievers\": 1,\n          \"number\": 1,\n          \"subject\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"delivered\": 1,\n          \"is_end\": 1,\n          \"tags\": 1,\n          \"leed\": 1,\n          \"content\": 1\n        },\n        \"readedReffers\": {\n          \"_id\": 1,\n          \"number\": 1,\n          \"delivered\": 1,\n          \"type\": 1,\n          \"created_at\": 1,\n          \"updated_at\": 1,\n          \"deadline\": 1,\n          \"isMoving\": 1,\n          \"description\": 1,\n          \"reply\": 1\n        }\n      },\n      \"set\": {\n        \"first_name\": \"aa\",\n        \"last_name\": \"aaa\",\n        \"phone\": 9309304354,\n        \"gender\": \"Male\",\n        \"birth_date\": \"2024-04-25T09:49:39.524+00:00\",\n        \"personnel_code\": \"52632535\",\n        \"email\": \"ehuiwuihdjk\",\n        \"province\": \"{provinceId}\",\n        \"city\": \"{cityId}\",\n        \"positionId\": \"{user1Posid}\",\n        \"orgIds\": [\n          \"{orgid}\"\n        ],\n        \"unitIds\": [\n          \"{unitid}\"\n        ],\n        \"position\": [\n          \"{orgheadPosid}\"\n        ]\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rd3k4o1fet39x2jvn",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{user2Phone}\"\n      }\n    }\n  }",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rd4oelma1wkbad0e",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{user2Phone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "user2Token", "value": "[body][token]" }]
+  },
+  {
+    "id": "m3nc3aucbbib78xdlq",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user2Token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"updateUser\",\n    \"details\": {\n      \"get\": {\n        \"_id\": 1,\n        \"first_name\": 1,\n        \"personnel_code\": 1\n      },\n      \"set\": {\n        \"first_name\": \"sydmasoud\",\n        \"positionId\": \"{user2Posid}\",\n        \"personnel_code\": \"876876572\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rd8gxlnmn1xnyx19c",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"loginReq\",\n    \"details\": {\n      \"get\": {\n        \"phone\": 1\n      },\n      \"set\": {\n        \"phone\": \"{user3Phone}\"\n      }\n    }\n  }",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rd7yn2sjp0pma6",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"login\",\n    \"details\": {\n      \"get\": {\n        \"token\": 1,\n        \"user\": {\n          \"phone\": 1\n        }\n      },\n      \"set\": {\n        \"phone\": \"{user3Phone}\",\n        \"code\": 11111\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": [{ "key": "user3Token", "value": "[body][token]" }]
+  },
+  {
+    "id": "m3rd7k9ulw6ltrvzuff",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{user3Token}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"removeUser\",\n    \"details\": {\n      \"get\": {\n        \"success\": 1\n      },\n      \"set\": {\n        \"_id\": \"{user1Id}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  },
+  {
+    "id": "m3rdb8bbwvk6f8xhzlh",
+    "bodyHeaders": "{\n  \"headers\": {\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{tempToken}\"\n  },\n  \"body\": {\n    \"service\": \"main\",\n    \"model\": \"user\",\n    \"act\": \"addPosToUser\",\n    \"details\": {\n      \"get\": {},\n      \"set\": {\n        \"positionId\": \"{tempPosid}\",\n        \"position\": \"{orgheadJPosid}\",\n        \"userId\": \"{user2Id}\"\n      }\n    }\n  }\n}",
+    "repeat": 1,
+    "captures": []
+  }
+]

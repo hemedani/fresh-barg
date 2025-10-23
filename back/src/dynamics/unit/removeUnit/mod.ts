@@ -6,7 +6,7 @@ import { removeUnitValidator } from "./removeUnit.val.ts";
 export const removeUnitSetup = () =>
 	coreApp.acts.setAct({
 		schema: "unit",
-		actName: "removeCity",
+		actName: "removeUnit",
 		fn: removeUnitFn,
 		preAct: [justGhost],
 		validator: removeUnitValidator(),

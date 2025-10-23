@@ -163,7 +163,7 @@ export const tempUserFn: ActFn = async (body) => {
 			position: {
 				_ids: [positionId!._id as ObjectId],
 				relatedRelations: {
-					users: true,
+					user: true,
 				},
 			},
 		},

@@ -1,6 +1,6 @@
 import { ActFn } from "share/deps.ts";
 import { province } from "../../../../mod.ts";
-import { throwError } from "@deps";
+import { throwError } from "utils/throwError.ts";
 
 export const addProvinceFn: ActFn = async (body) => {
 	const {

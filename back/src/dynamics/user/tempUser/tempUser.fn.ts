@@ -12,10 +12,10 @@ export const tempUserFn: ActFn = async (body) => {
 		get,
 	} = body.details;
 
-	const tempExist = await user.find({ filters: {} }).limit(1).toArray();
+	const existTemp = await user.find({ filters: {} }).limit(1).toArray();
 
-	if (tempExist.length > 0) {
-		return throwError("can't do this.");
+	if (existTemp.length > 0) {
+		return throwError("can't do this work.");
 	}
 
 	const provinceId = await province.insertOne({

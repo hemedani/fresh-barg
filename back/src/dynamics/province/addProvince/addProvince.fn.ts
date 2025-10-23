@@ -1,6 +1,6 @@
 import { ActFn } from "share/deps.ts";
 import { province } from "../../../../mod.ts";
-import { throwError } from "https://deno.land/x/lesan@v0.1.13/src/utils/throwError.ts";
+import { throwError } from "@deps";
 
 export const addProvinceFn: ActFn = async (body) => {
 	const {

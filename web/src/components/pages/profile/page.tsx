@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Mail,
   Circle,
@@ -14,9 +14,8 @@ import {
   Edit3,
   Shield,
   Download,
-  Camera,
 } from "lucide-react";
-import Image from "next/image";
+import { AvatarUpload } from "@/components/mulecules/AvatarUpload";
 
 interface UserProfileProps {
   first_name: string;
@@ -49,6 +48,39 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   organ,
   unit,
 }) => {
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+
+  const handleAvatarChange = (file: File | null) => {
+    setAvatarFile(file);
+    // Just store the file - no automatic upload
+    console.log('Avatar file changed:', file);
+
+    // If you want to upload later, you can use this file
+    // For example, when user clicks "Save Changes" button
+  };
+
+  // Function to handle avatar upload when needed
+  const handleSaveAvatar = async () => {
+    if (avatarFile) {
+      // Upload avatarFile to your backend here
+      const formData = new FormData();
+      formData.append('avatar', avatarFile);
+
+      try {
+        const response = await fetch('/api/user/avatar', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          console.log('Avatar uploaded successfully');
+        }
+      } catch (error) {
+        console.error('Error uploading avatar:', error);
+      }
+    }
+  };
+
   return (
     <div className="mx-auto px-4 py-8">
       {/* Profile Card */}
@@ -60,31 +92,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
         <div className="relative px-6 pb-8 -mt-16">
           <div className="flex flex-col sm:flex-row items-center sm:items-end space-y-4 sm:space-y-0 sm:space-x-6">
-            {/* Avatar with Edit Button on Border */}
-            <div className="relative group">
-              <div className="bg-white/10 backdrop-blur-sm p-1 rounded-full border border-white/20 relative">
-                <div className="w-32 h-32 rounded-full bg-linear-to-br from-green-500/20 to-emerald-600/20 border-4 border-white/10 overflow-hidden shadow-2xl">
-                  <Image
-                    src={"/vercel.svg"}
-                    alt={`${first_name} ${last_name}`}
-                    width={128}
-                    height={128}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
-                </div>
-
-                {/* Edit Profile Button on Border */}
-                <button className="absolute -bottom-2 -right-2 w-10 h-10 bg-linear-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center border-4 border-white/10 shadow-2xl hover:scale-110 transition-all duration-300 group-hover:from-green-600 group-hover:to-emerald-700">
-                  <Camera size={18} className="text-white" />
-                </button>
-
-                {/* Edit Overlay */}
-                <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Edit3 size={24} className="text-white" />
-                </div>
-              </div>
-            </div>
+            {/* Avatar Component */}
+            <AvatarUpload
+              initialAvatar={avatar || "/images/noPhoto.png"}
+              onAvatarChange={handleAvatarChange}
+              size="md"
+            />
 
             {/* Name & Status */}
             <div className="text-center sm:text-left flex-1">
@@ -99,18 +112,16 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
               <div className="flex items-center justify-center sm:justify-start gap-3 mt-2">
                 <span
-                  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                    is_active
-                      ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                      : "bg-red-500/20 text-red-300 border border-red-500/30"
-                  }`}
+                  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${is_active
+                    ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                    : "bg-red-500/20 text-red-300 border border-red-500/30"
+                    }`}
                 >
                   <Circle
-                    className={`w-2 h-2 mr-1 ${
-                      is_active
-                        ? "text-green-400 fill-green-400"
-                        : "text-red-400 fill-red-400"
-                    }`}
+                    className={`w-2 h-2 mr-1 ${is_active
+                      ? "text-green-400 fill-green-400"
+                      : "text-red-400 fill-red-400"
+                      }`}
                   />
                   {is_active ? "فعال" : "غیرفعال"}
                 </span>
@@ -285,10 +296,16 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 ویرایش اطلاعات
               </button>
 
-              <button className="inline-flex items-center px-6 py-3 bg-green-500/20 text-green-300 border border-green-500/30 font-medium rounded-xl hover:bg-green-500/30 transition-all duration-300 hover:scale-105">
-                <Camera className="w-5 h-5 ml-2" />
-                ویرایش پروفایل
-              </button>
+              {/* Save Avatar Button - Only show when there's a new avatar */}
+              {avatarFile && (
+                <button
+                  onClick={handleSaveAvatar}
+                  className="inline-flex items-center px-6 py-3 bg-green-500/20 text-green-300 border border-green-500/30 font-medium rounded-xl hover:bg-green-500/30 transition-all duration-300 hover:scale-105"
+                >
+                  <Download className="w-5 h-5 ml-2" />
+                  ذخیره عکس پروفایل
+                </button>
+              )}
 
               <button className="inline-flex items-center px-6 py-3 bg-blue-500/20 text-blue-300 border border-blue-500/30 font-medium rounded-xl hover:bg-blue-500/30 transition-all duration-300 hover:scale-105">
                 <Download className="w-5 h-5 ml-2" />

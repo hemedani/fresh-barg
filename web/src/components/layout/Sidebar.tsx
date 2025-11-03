@@ -5,6 +5,7 @@ import {
   Network,
   UserCog,
   Mail,
+  User,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -58,6 +59,16 @@ export const Sidebar = () => {
           >
             <Network className="text-slate-400 group-hover:text-green-400 transition-colors ml-3" size={20} />
             <span className="font-medium">واحد</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            href={`/dashboard/user`}
+            className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
+          >
+            <User className="text-slate-400 group-hover:text-green-400 transition-colors ml-3" size={20} />
+            <span className="font-medium">کاربران</span>
           </Link>
         </li>
 

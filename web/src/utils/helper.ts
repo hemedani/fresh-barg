@@ -2,7 +2,7 @@ export function cn(...inputs: (string | undefined | null | boolean)[]): string {
     return inputs.filter(Boolean).join(" ");
 }
 
-const formatPersianTime = (date: Date): string => {
+export const formatPersianTime = (date: Date): string => {
     const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     const timeString = date.toLocaleTimeString("fa-IR", {
         hour: "2-digit",
@@ -58,4 +58,8 @@ export const translateOrganType = (organType: string): string => {
         default:
             return "نامشخص";
     }
+};
+
+export const getGenderText = (gender: string) => {
+    return gender === "Male" ? "مرد" : "زن";
 };

@@ -12,7 +12,7 @@ interface SelectBoxProps {
     errMsg?: string;
 }
 
-const customStyles = {
+export const CustomStyles = {
     control: (base: any, state: any) => ({
         ...base,
         backgroundColor: 'rgb(15 23 42 / 0.8)',
@@ -84,7 +84,7 @@ export const SelectBox = ({
                 placeholder={placeholder}
                 classNamePrefix="react-select"
                 className={`text-sm ${errMsg ? "border-red-500" : ""}`}
-                styles={customStyles}
+                styles={CustomStyles}
                 isClearable
             />
             {errMsg && <span className="text-red-500 text-xs">{errMsg}</span>}

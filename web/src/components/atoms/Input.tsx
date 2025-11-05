@@ -43,10 +43,9 @@ export const MyInput = <T extends FieldValues = FieldValues>({
             transition-all duration-300 ease-in-out
             focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent
             hover:bg-white/10 hover:border-white/30
-            ${
-              errMsg
-                ? "border-red-400/60 bg-red-500/10 focus:ring-red-500"
-                : "border-white/20 focus:border-transparent"
+            ${errMsg
+              ? "border-red-400/60 bg-red-500/10 focus:ring-red-500"
+              : "border-white/20 focus:border-transparent"
             }
           `}
           rows={4}
@@ -64,10 +63,9 @@ export const MyInput = <T extends FieldValues = FieldValues>({
             transition-all duration-300 ease-in-out
             focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent
             hover:bg-white/10 hover:border-white/30
-            ${
-              errMsg
-                ? "border-red-400/60 bg-red-500/10 focus:ring-red-500"
-                : "border-white/20 focus:border-transparent"
+            ${errMsg
+              ? "border-red-400/60 bg-red-500/10 focus:ring-red-500"
+              : "border-white/20 focus:border-transparent"
             }
             ${type === "date" ? "text-left direction-ltr" : ""}
             ${type === "number" ? "direction-ltr text-left" : ""}
@@ -77,7 +75,7 @@ export const MyInput = <T extends FieldValues = FieldValues>({
 
       {errMsg && (
         <span className="text-red-400 text-xs font-medium text-right mt-1 flex items-center gap-2">
-          <div className="w-2 h-2 bg-red-400 rounded-full flex-shrink-0"></div>
+          <div className="w-2 h-2 bg-red-400 rounded-full shrink-0"></div>
           {errMsg}
         </span>
       )}

@@ -15,7 +15,6 @@ const Page = async () => {
             is_active: 1,
         }, set: { limit: 10, page: 1, }
     })
-    console.log({ responseUser });
 
     return <UsersPage users={responseUser} />
 }

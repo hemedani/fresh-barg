@@ -77,12 +77,11 @@ export const GetMe = async (
         success: false,
       };
     } else {
-      if (!token) {
+      if (token.value) {
         (await cookieStore).set("user", JSON.stringify(response.body), {
           maxAge: 60 * 60 * 24 * 7, // 7 days
         });
       }
-
       return {
         user: response.body,
         success: true,

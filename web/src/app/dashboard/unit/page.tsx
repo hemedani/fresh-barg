@@ -7,8 +7,8 @@ import { redirect } from "next/navigation";
 export const UnitPage = async () => {
   const userCookie = (await cookies()).get("user");
   const user = userCookie ? JSON.parse(userCookie.value) : null;
-
-  const userPosition = user.position[0]
+  // if (!user) redirect("/")
+  const userPosition = user?.position[0]
 
   if (userPosition.level === "staff") redirect("/")
 

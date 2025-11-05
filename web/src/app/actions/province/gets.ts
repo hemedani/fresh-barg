@@ -1,3 +1,4 @@
+"use server"
 import { http } from "@/services/Api";
 import { ReqType } from "@/types/declarations/selectInp";
 import { cookies } from "next/headers";

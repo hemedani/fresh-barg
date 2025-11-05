@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 import Cookies from "js-cookie";
 import { GetMe } from "@/app/actions/user/getMe";
 import { GetMeResponse, UserLevel } from "@/types/types";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -31,6 +31,7 @@ export const AuthProvider = ({
     initialUser: GetMeResponse["user"] | null;
 }) => {
     const [user, setUser] = useState(initialUser);
+    const router = useRouter()
     const [userLevel, setUserLevel] = useState<UserLevel>(
         initialUser?.position?.[0]?.level || null
     );
@@ -40,6 +41,7 @@ export const AuthProvider = ({
 
     const clearAuth = () => {
         Cookies.remove("token");
+        Cookies.remove("user");
         setUser(null);
         setUserLevel(null);
     };
@@ -60,7 +62,7 @@ export const AuthProvider = ({
 
     const logout = () => {
         clearAuth()
-        redirect("/")
+        router.replace("/login")
     }
 
     const refresh = async () => {

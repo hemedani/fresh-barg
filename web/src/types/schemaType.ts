@@ -1,4 +1,4 @@
-// schemas/userSchema.ts
+// user schema
 import { z } from "zod";
 
 export const userSchema = z.object({
@@ -17,3 +17,22 @@ export const userSchema = z.object({
 
 export type UserForm = z.infer<typeof userSchema>;
 export type User = UserForm & { _id: string };
+
+// organ schema 
+export const organizationSchema = z.object({
+    name: z.string().min(2, "نام باید حداقل ۲ کاراکتر باشد"),
+    address: z.string().min(5, "آدرس باید حداقل ۵ کاراکتر باشد"),
+    ownership: z.enum(["private", "government", "semi-private"])
+        .refine(val => !!val, { message: "انتخاب نوع مالکیت الزامی است" }),
+    type: z.enum(["service", "industrial", "trading", "technology", "financial", "healthcare"])
+        .refine(val => !!val, { message: "انتخاب نوع سازمان الزامی است" }),
+    longitude: z.string().regex(/^-?(\d+)(\.\d+)?$/, "طول جغرافیایی معتبر وارد کنید"),
+    latitude: z.string().regex(/^-?(\d+)(\.\d+)?$/, "عرض جغرافیایی معتبر وارد کنید"),
+    description: z.string().min(10, "توضیحات باید حداقل ۱۰ کاراکتر باشد"),
+    provinceId: z.string().min(1, "انتخاب استان الزامی است"),
+    cityId: z.string().min(1, "انتخاب شهر الزامی است"),
+});
+
+export type OrganizationForm = z.infer<typeof organizationSchema>;
+
+// 

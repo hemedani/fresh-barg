@@ -13,23 +13,7 @@ import { OrganizationCard } from "@/components/organisms/OrganCard";
 import toast from "react-hot-toast";
 import { getCities } from "@/app/actions/city/gets";
 import { createOrgan } from "@/app/actions/organ/create";
-
-// اسکیمای اعتبارسنجی
-export const organizationSchema = z.object({
-    name: z.string().min(2, "نام باید حداقل ۲ کاراکتر باشد"),
-    address: z.string().min(5, "آدرس باید حداقل ۵ کاراکتر باشد"),
-    ownership: z.enum(["private", "government", "semi-private"])
-        .refine(val => !!val, { message: "انتخاب نوع مالکیت الزامی است" }),
-    type: z.enum(["service", "industrial", "trading", "technology", "financial", "healthcare"])
-        .refine(val => !!val, { message: "انتخاب نوع سازمان الزامی است" }),
-    longitude: z.string().regex(/^-?(\d+)(\.\d+)?$/, "طول جغرافیایی معتبر وارد کنید"),
-    latitude: z.string().regex(/^-?(\d+)(\.\d+)?$/, "عرض جغرافیایی معتبر وارد کنید"),
-    description: z.string().min(10, "توضیحات باید حداقل ۱۰ کاراکتر باشد"),
-    provinceId: z.string().min(1, "انتخاب استان الزامی است"),
-    cityId: z.string().min(1, "انتخاب شهر الزامی است"),
-});
-
-export type OrganizationForm = z.infer<typeof organizationSchema>;
+import { OrganizationForm, organizationSchema } from "@/types/schemaType";
 
 // انواع داده‌ها
 export type TOrganization = {
@@ -56,17 +40,16 @@ export type TOrganizationsProps = {
 const ownershipTypes = [
     { _id: "government", name: "دولتی" },
     { _id: "private", name: "خصوصی" },
-    { _id: "cooperative", name: "تعاونی" },
-    { _id: "other", name: "سایر" }
+    { _id: "semi-private", name: "نیمه خصوصی" },
 ];
 
 const organizationTypes = [
     { _id: "service", name: "خدماتی" },
     { _id: "industrial", name: "صنعتی" },
-    { _id: "commercial", name: "تجاری" },
-    { _id: "educational", name: "آموزشی" },
-    { _id: "health", name: "بهداشتی" },
-    { _id: "other", name: "سایر" }
+    { _id: "trading", name: "تجاری" },
+    { _id: "technology", name: "فناوری" },
+    { _id: "financial", name: "مالی" },
+    { _id: "healthcare", name: "بهداشتی" },
 ];
 
 export const OrganizationClient: FC<TOrganizationsProps> = ({

@@ -44,29 +44,32 @@ export type TDevicesProps = {
 
 // داده‌های تستی
 const panels = [
-    { _id: "admin", name: "پنل مدیریت" },
-    { _id: "user", name: "پنل کاربری" },
-    { _id: "monitor", name: "پنل نظارتی" },
-    { _id: "report", name: "پنل گزارش‌گیری" },
-    { _id: "analytics", name: "پنل تحلیل داده" }
+    { _id: "darya", name: "پنل مدیریت" },
+    { _id: "johar", name: "پنل کاربری" },
+    { _id: "nameh", name: "پنل نظارتی" },
+    { _id: "anbar", name: "پنل گزارش‌گیری" },
+    { _id: "bita", name: "پنل تحلیل داده" }
 ];
 
 const levels = [
-    { _id: "basic", name: "سطح پایه" },
-    { _id: "standard", name: "سطح استاندارد" },
-    { _id: "advanced", name: "سطح پیشرفته" },
-    { _id: "enterprise", name: "سطح سازمانی" }
+    { _id: "Ghost", name: "سوپر ادمین" },
+    { _id: "Orghead", name: "مدیر سازمان" },
+    { _id: "Unithead", name: "مدیر واحد" },
+    { _id: "Staff", name: "کارکنان عادی" }
 ];
 
 const featuresList = [
-    { _id: "monitoring", name: "مانیتورینگ" },
-    { _id: "reporting", name: "گزارش‌گیری" },
-    { _id: "analytics", name: "تحلیل داده" },
-    { _id: "alerts", name: "هشدارها" },
-    { _id: "api", name: "API دسترسی" },
-    { _id: "export", name: "خروجی داده" },
-    { _id: "customization", name: "سفارشی‌سازی" },
-    { _id: "mobile", name: "پشتیبانی موبایل" }
+    { _id: "create unit", name: "مانیتورینگ" },
+    { _id: "create chart", name: "گزارش‌گیری" },
+    { _id: "read letters", name: "تحلیل داده" },
+    { _id: "create letters", name: "هشدارها" },
+    { _id: "reffer letters", name: "API دسترسی" },
+    { _id: "add staff", name: "خروجی داده" },
+    { _id: "add position to user", name: "سفارشی‌سازی" },
+    { _id: "read positions", name: "پشتیبانی موبایل" },
+    { _id: "add position", name: "پشتیبانی موبایل" },
+    { _id: "edit org", name: "پشتیبانی موبایل" },
+    { _id: "edit unit", name: "پشتیبانی موبایل" },
 ];
 
 const positions = [

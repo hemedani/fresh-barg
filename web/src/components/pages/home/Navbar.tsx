@@ -1,10 +1,29 @@
 "use client"
-import { useAuth } from "@/context/authContext";
+import { ProfileDropDown } from "@/components/mulecules";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import Cookie from "js-cookie";
+
+
+interface IUser {
+  first_name: string
+  last_name: string
+  email: string
+}
 
 export const Navbar = () => {
-  const { isAuthenticated } = useAuth()
+  const [user, setUser] = useState<IUser>();
 
+  const [mounted, setMounted] = useState(false);
+
+  // فقط در کلاینت اجرا شود
+  useEffect(() => {
+    setMounted(true);
+    const userData = Cookie.get("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
   return (
     <nav className="fixed top-0 w-full z-50 glass px-6 py-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -23,16 +42,14 @@ export const Navbar = () => {
           </Link>
         </div>
         {
-          !isAuthenticated ?
+          !user ?
             <Link
               href="/login"
               className="text-white glass cursor-pointer hover:text-green-400  px-6 py-2 rounded-full transition"
             >
               برای شروع وارد شوید
             </Link> :
-            <Link href="/dashboard" className="hover:text-green-400 transition">
-              پنل مدیریت
-            </Link>
+            <ProfileDropDown email={user?.email} first_name={user?.first_name} last_name={user?.last_name} />
         }
       </div>
     </nav>

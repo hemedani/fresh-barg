@@ -4,3 +4,4 @@ export * from "./EntityCard";
 export * from "./Modal";
 export * from "./AvatarUpload";
 export * from "./FileUpload";
+export * from "./ProfileDropDown";

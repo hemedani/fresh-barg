@@ -7,7 +7,7 @@ import Underline from '@tiptap/extension-underline'
 import Image from '@tiptap/extension-image'
 import Dropcursor from '@tiptap/extension-dropcursor'
 import { ResizableImage } from 'tiptap-extension-resizable-image'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, FC } from 'react'
 
 // Extensions
 import { TextFormatter } from '../extensions/TextFormatter'
@@ -15,7 +15,12 @@ import { TextList } from '../extensions/TextList'
 import { DateInserter } from '../extensions/Date'
 import { SimpleImageUploader } from '../extensions/SimpleImageUploader'
 
-export const Editor = () => {
+
+export interface EditorProps {
+    onContentChange?: (content: string) => void;
+}
+
+export const Editor: FC<EditorProps> = ({ onContentChange }) => {
     const [wordCount, setWordCount] = useState(0)
     const [charCount, setCharCount] = useState(0)
 
@@ -62,6 +67,7 @@ export const Editor = () => {
             const text = editor.getText()
             setWordCount(text.trim() ? text.trim().split(/\s+/).length : 0)
             setCharCount(text.length)
+            onContentChange?.(editor.getHTML())
         },
     })
 

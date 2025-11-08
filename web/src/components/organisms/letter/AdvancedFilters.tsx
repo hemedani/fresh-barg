@@ -1,38 +1,18 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
-import { Filter, Search, X } from 'lucide-react'
+import { Search, Filter, X, Calendar } from 'lucide-react'
 
-export function AdvancedFilters() {
-    const [isOpen, setIsOpen] = useState(false)
+export const AdvancedFilters = () => {
     const [filters, setFilters] = useState({
+        search: '',
+        status: '',
         type: '',
         dateFrom: '',
-        dateTo: '',
-        users: '',
-        organization: '',
-        unit: ''
+        dateTo: ''
     })
 
-    const filterOptions = {
-        types: [
-            { value: 'sent', label: 'ارسالی' },
-            { value: 'received', label: 'دریافتی' },
-            { value: 'referred', label: 'ارجاعی' }
-        ],
-        users: [
-            { value: 'user1', label: 'کاربر ۱' },
-            { value: 'user2', label: 'کاربر ۲' }
-        ],
-        organizations: [
-            { value: 'org1', label: 'سازمان ۱' },
-            { value: 'org2', label: 'سازمان ۲' }
-        ],
-        units: [
-            { value: 'unit1', label: 'واحد ۱' },
-            { value: 'unit2', label: 'واحد ۲' }
-        ]
-    }
+    const [showAdvanced, setShowAdvanced] = useState(false)
 
     const handleFilterChange = (key: string, value: string) => {
         setFilters(prev => ({ ...prev, [key]: value }))
@@ -40,152 +20,124 @@ export function AdvancedFilters() {
 
     const clearFilters = () => {
         setFilters({
+            search: '',
+            status: '',
             type: '',
             dateFrom: '',
-            dateTo: '',
-            users: '',
-            organization: '',
-            unit: ''
+            dateTo: ''
         })
     }
 
+    const hasActiveFilters = Object.values(filters).some(value => value !== '')
+
     return (
-        <div className="bg-slate-800 rounded-2xl p-6">
-            {/* هدر فیلتر */}
-            <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                    <Filter className="text-blue-400" size={24} />
-                    <h3 className="text-lg font-semibold text-white">فیلتر پیشرفته</h3>
+        <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
+            <div className="flex flex-col lg:flex-row gap-4">
+                {/* جستجو */}
+                <div className="flex-1 relative">
+                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
+                    <input
+                        type="text"
+                        value={filters.search}
+                        onChange={(e) => handleFilterChange('search', e.target.value)}
+                        placeholder="جستجو در نامه‌ها (موضوع، شماره، محتوا)..."
+                        className="w-full bg-slate-700 border border-slate-600 rounded-xl pl-4 pr-12 py-3 text-white 
+              focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    />
                 </div>
-                <div className="flex items-center gap-3">
+
+                {/* دکمه‌ها */}
+                <div className="flex gap-3">
                     <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 
-                     text-white rounded-xl transition-colors"
+                        onClick={() => setShowAdvanced(!showAdvanced)}
+                        className={`px-4 py-3 rounded-xl border transition-colors flex items-center gap-2 ${showAdvanced
+                            ? 'bg-blue-500 border-blue-500 text-white'
+                            : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'
+                            }`}
                     >
-                        <Search size={18} />
-                        جستجو
+                        <Filter size={18} />
+                        فیلتر پیشرفته
                     </button>
-                    <button
-                        onClick={clearFilters}
-                        className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 
-                     text-white rounded-xl transition-colors"
-                    >
-                        <X size={18} />
-                        پاک کردن
-                    </button>
+
+                    {hasActiveFilters && (
+                        <button
+                            onClick={clearFilters}
+                            className="px-4 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white transition-colors flex items-center gap-2"
+                        >
+                            <X size={18} />
+                            پاک کردن فیلترها
+                        </button>
+                    )}
                 </div>
             </div>
 
-            {/* فرم فیلتر */}
-            {isOpen && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 border-t border-slate-700">
-                    {/* نوع نامه */}
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                            نوع نامه
-                        </label>
-                        <select
-                            value={filters.type}
-                            onChange={(e) => handleFilterChange('type', e.target.value)}
-                            className="w-full bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 
-                       text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        >
-                            <option value="">همه</option>
-                            {filterOptions.types.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+            {/* فیلترهای پیشرفته */}
+            {showAdvanced && (
+                <div className="mt-6 pt-6 border-t border-slate-700">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {/* وضعیت */}
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">وضعیت</label>
+                            <select
+                                value={filters.status}
+                                onChange={(e) => handleFilterChange('status', e.target.value)}
+                                className="w-full bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 text-white 
+                  focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                                <option value="">همه وضعیت‌ها</option>
+                                <option value="draft">پیش‌نویس</option>
+                                <option value="sent">ارسال شده</option>
+                                <option value="referenced">ارجاع داده شده</option>
+                                <option value="archived">آرشیو شده</option>
+                            </select>
+                        </div>
 
-                    {/* تاریخ از */}
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                            تاریخ از
-                        </label>
-                        <input
-                            type="date"
-                            value={filters.dateFrom}
-                            onChange={(e) => handleFilterChange('dateFrom', e.target.value)}
-                            className="w-full bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 
-                       text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                    </div>
+                        {/* نوع نامه */}
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">نوع نامه</label>
+                            <select
+                                value={filters.type}
+                                onChange={(e) => handleFilterChange('type', e.target.value)}
+                                className="w-full bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 text-white 
+                  focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                                <option value="">همه انواع</option>
+                                <option value="official">اداری</option>
+                                <option value="personal">شخصی</option>
+                                <option value="urgent">فوری</option>
+                                <option value="confidential">محرمانه</option>
+                            </select>
+                        </div>
 
-                    {/* تاریخ تا */}
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                            تاریخ تا
-                        </label>
-                        <input
-                            type="date"
-                            value={filters.dateTo}
-                            onChange={(e) => handleFilterChange('dateTo', e.target.value)}
-                            className="w-full bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 
-                       text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                    </div>
+                        {/* تاریخ از */}
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">از تاریخ</label>
+                            <div className="relative">
+                                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
+                                <input
+                                    type="date"
+                                    value={filters.dateFrom}
+                                    onChange={(e) => handleFilterChange('dateFrom', e.target.value)}
+                                    className="w-full bg-slate-700 border border-slate-600 rounded-xl pl-12 pr-3 py-2 text-white 
+                    focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                            </div>
+                        </div>
 
-                    {/* کاربران */}
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                            کاربران
-                        </label>
-                        <select
-                            value={filters.users}
-                            onChange={(e) => handleFilterChange('users', e.target.value)}
-                            className="w-full bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 
-                       text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        >
-                            <option value="">همه کاربران</option>
-                            {filterOptions.users.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {/* سازمان */}
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                            سازمان
-                        </label>
-                        <select
-                            value={filters.organization}
-                            onChange={(e) => handleFilterChange('organization', e.target.value)}
-                            className="w-full bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 
-                       text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        >
-                            <option value="">همه سازمان‌ها</option>
-                            {filterOptions.organizations.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {/* واحد */}
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">
-                            واحد
-                        </label>
-                        <select
-                            value={filters.unit}
-                            onChange={(e) => handleFilterChange('unit', e.target.value)}
-                            className="w-full bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 
-                       text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        >
-                            <option value="">همه واحدها</option>
-                            {filterOptions.units.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
+                        {/* تاریخ تا */}
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">تا تاریخ</label>
+                            <div className="relative">
+                                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
+                                <input
+                                    type="date"
+                                    value={filters.dateTo}
+                                    onChange={(e) => handleFilterChange('dateTo', e.target.value)}
+                                    className="w-full bg-slate-700 border border-slate-600 rounded-xl pl-12 pr-3 py-2 text-white 
+                    focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}

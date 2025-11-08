@@ -1,59 +1,60 @@
-"use client"
+import { FileText, Send, Users, Mail, Plus } from 'lucide-react'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+const StatCard = ({ title, value, change, icon: Icon, color }: any) => (
+    <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-slate-600 transition-all duration-300">
+        <div className="flex items-center justify-between">
+            <div>
+                <p className="text-slate-400 text-sm mb-1">{title}</p>
+                <p className="text-2xl font-bold text-white">{value}</p>
+                {change && (
+                    <p className={`text-xs mt-1 ${change > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                        {change > 0 ? '↑' : '↓'} {Math.abs(change)}% از ماه گذشته
+                    </p>
+                )}
+            </div>
+            <div className={`p-3 rounded-lg ${color}`}>
+                <Icon size={24} className="text-white" />
+            </div>
+        </div>
+    </div>
+)
 
-export function LetterStats() {
-    const pathname = usePathname()
-
+export const LetterStats = () => {
     const stats = [
         {
-            title: 'ارسالی‌ها',
-            count: 1247,
-            path: '/dashboard/letter/send',
-            color: 'from-blue-500 to-cyan-500',
-            active: pathname === '/dashboard/letter/send'
+            title: 'کل نامه‌ها',
+            value: '۱,۲۴۸',
+            change: +12,
+            icon: FileText,
+            color: 'bg-blue-500'
         },
         {
-            title: 'دریافتی‌ها',
-            count: 856,
-            path: '/dashboard/letter/received',
-            color: 'from-green-500 to-emerald-500',
-            active: pathname === '/dashboard/letter/received'
+            title: 'نامه‌های ارسالی',
+            value: '۸۹۲',
+            change: +8,
+            icon: Send,
+            color: 'bg-green-500'
         },
         {
-            title: 'ارجاعی‌ها',
-            count: 423,
-            path: '/dashboard/letter/referred',
-            color: 'from-purple-500 to-pink-500',
-            active: pathname === '/dashboard/letter/referred'
+            title: 'ارجاع داده شده',
+            value: '۳۲۴',
+            change: -3,
+            icon: Users,
+            color: 'bg-purple-500'
         },
         {
-            title: 'قالب ها',
-            count: 26,
-            path: '/dashboard/letter/template-letter',
-            color: 'from-purple-500 to-pink-500',
-            active: pathname === '/dashboard/letter/template-letter'
+            title: 'قالب‌های ذخیره شده',
+            value: '۱۵',
+            change: +5,
+            icon: Mail,
+            color: 'bg-orange-500'
         }
     ]
+
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-                <Link
-                    key={index}
-                    href={stat.path}
-                    className={`block p-6 rounded-2xl bg-linear-to-r ${stat.color} 
-            transition-all duration-300 hover:scale-105 hover:shadow-2xl
-            ${stat.active ? 'ring-2 ring-white ring-opacity-50' : ''}`}
-                >
-                    <div className="text-white">
-                        <h3 className="text-lg font-semibold mb-2">{stat.title}</h3>
-                        <p className="text-3xl font-bold">{stat.count.toLocaleString()}</p>
-                        <div className="mt-2 text-sm opacity-90">
-                            مشاهده همه →
-                        </div>
-                    </div>
-                </Link>
+                <StatCard key={index} {...stat} />
             ))}
         </div>
     )

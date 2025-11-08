@@ -1,19 +1,66 @@
 // components/organisms/UserCard.tsx
-import { FC } from "react";
-import { Edit, Trash2, User as UserIcon } from "lucide-react";
-import { Button } from "@/components/atoms";
+import { FC, useState } from "react";
+import { Edit, Trash2, User as UserIcon, Shield } from "lucide-react";
+import { Button, SelectBox } from "@/components/atoms";
 import { User } from "@/types/schemaType";
 import { getGenderText } from "@/utils/helper";
+import { UserLevel } from "@/types/types";
 
 interface UserCardProps {
     user: User;
+    level: UserLevel
     onEdit: (user: User) => void;
     onDelete: (id: string) => void;
+    onRoleChange: (userId: string, role: UserLevel) => void;
 }
 
-export const UserCard: FC<UserCardProps> = ({ user, onEdit, onDelete }) => {
+const roleOptions = [
+    { _id: "Ghost", name: "شبح" },
+    { _id: "Orghead", name: "رئیس سازمان" },
+    { _id: "Unithead", name: "رئیس واحد" },
+    { _id: "Staff", name: "کارمند" },
+];
+
+export const UserCard: FC<UserCardProps> = ({ user, level, onEdit, onDelete, onRoleChange }) => {
+    const [selectedRole, setSelectedRole] = useState<UserLevel>(level || "Staff");
+
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('fa-IR');
+    };
+
+    const handleRoleChange = (role: string) => {
+        const userLevel = role as UserLevel;
+        onRoleChange(user._id, userLevel);
+    };
+
+    const getRoleBadgeColor = (role: UserLevel) => {
+        const colors = {
+            Ghost: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+            Orghead: "bg-red-500/20 text-red-400 border-red-500/30",
+            Unithead: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+            Staff: "bg-green-500/20 text-green-400 border-green-500/30",
+        };
+        return colors[role as keyof typeof colors] || colors.Staff;
+    };
+
+    const getRoleText = (role: UserLevel) => {
+        const roleMap: { [key: string]: string } = {
+            Ghost: "شبح",
+            Orghead: "رئیس سازمان",
+            Unithead: "رئیس واحد",
+            Staff: "کارمند",
+        };
+        return roleMap[role as string] || "نامشخص";
+    };
+
+    const getRoleIcon = (role: UserLevel) => {
+        const icons = {
+            Ghost: "👻",
+            Orghead: "👑",
+            Unithead: "⭐",
+            Staff: "👨‍💼",
+        };
+        return icons[role as keyof typeof icons] || "👤";
     };
 
     return (
@@ -63,6 +110,33 @@ export const UserCard: FC<UserCardProps> = ({ user, onEdit, onDelete }) => {
                 <div className="flex justify-between items-center">
                     <span className="text-slate-400 text-sm">تاریخ تولد:</span>
                     <span className="text-white font-medium">{formatDate(user.birth_date)}</span>
+                </div>
+
+                {/* بخش سطح کاربر */}
+                <div className="flex justify-between items-center">
+                    <span className="text-slate-400 text-sm">سطح دسترسی:</span>
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm">{getRoleIcon(selectedRole)}</span>
+                        <span className={`px-2 py-1 rounded-md text-xs border ${getRoleBadgeColor(selectedRole)}`}>
+                            {getRoleText(selectedRole)}
+                        </span>
+                    </div>
+                </div>
+
+                {/* دراپ داون تغییر سطح دسترسی */}
+                <div className="mt-3 pt-3 border-t border-slate-700">
+                    <label className="block text-slate-400 text-sm mb-2">
+                        <Shield size={14} className="inline ml-1" />
+                        تغییر سطح دسترسی
+                    </label>
+                    <SelectBox
+                        label="نقش"
+                        name="position"
+                        value={selectedRole || ""}
+                        onChange={handleRoleChange}
+                        options={roleOptions}
+                        placeholder="انتخاب سطح دسترسی"
+                    />
                 </div>
 
                 {user.email && (

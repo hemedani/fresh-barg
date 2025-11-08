@@ -23,6 +23,8 @@ type MyAsyncSelectProps<T extends FieldValues = FieldValues> = {
     defaultOptions?: OptionsOrGroups<SelectOption, GroupBase<SelectOption>> | boolean;
     defaultValue?: PropsValue<SelectOption>;
     className?: string;
+    isDisabled?: boolean
+
 };
 
 const MyAsyncMultiSelect = <T extends FieldValues = FieldValues>({
@@ -36,6 +38,7 @@ const MyAsyncMultiSelect = <T extends FieldValues = FieldValues>({
     defaultValue,
     className,
     placeholder,
+    isDisabled
 }: MyAsyncSelectProps<T>) => {
     return (
         <div className={`flex flex-col gap-2 ${className || ""}`}>

@@ -13,10 +13,8 @@ interface IUser {
 
 export const Navbar = () => {
   const [user, setUser] = useState<IUser>();
-
   const [mounted, setMounted] = useState(false);
 
-  // فقط در کلاینت اجرا شود
   useEffect(() => {
     setMounted(true);
     const userData = Cookie.get("user");
@@ -25,26 +23,25 @@ export const Navbar = () => {
     }
   }, []);
 
-
-
-  // تا زمانی که در کلاینت mount نشده، چیزی نمایش نده
   if (!mounted) {
     return (
-      <header className="bg-white/10 border-b border-white/20 px-5 py-4 flex justify-end items-center backdrop-blur-sm relative z-40">
+      <header className="sticky top-0 bg-slate-800/90 border-b border-slate-700 px-6 py-4 flex justify-end items-center backdrop-blur-sm z-20">
         <div className="flex items-center gap-4">
-          <div className="w-8 h-8 bg-gray-300 rounded-full animate-pulse"></div>
-          <div className="w-24 h-4 bg-gray-300 rounded animate-pulse"></div>
+          <div className="w-8 h-8 bg-slate-600 rounded-full animate-pulse"></div>
+          <div className="w-24 h-4 bg-slate-600 rounded animate-pulse"></div>
         </div>
       </header>
     );
   }
 
-
-
   return (
-    <header className="bg-white/10 border-b border-white/20 px-5 py-4 flex justify-end items-center backdrop-blur-sm relative z-40">
+    <header className="sticky top-0 bg-slate-800/90 border-b border-slate-700 px-6 py-4 flex justify-end items-center backdrop-blur-sm z-20">
       <div className="flex items-center gap-4">
-        <ProfileDropDown email={user?.email} first_name={user?.first_name} last_name={user?.last_name} />
+        <ProfileDropDown
+          email={user?.email}
+          first_name={user?.first_name}
+          last_name={user?.last_name}
+        />
       </div>
     </header>
   );

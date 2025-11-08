@@ -45,7 +45,6 @@ export const ProvinceClient: FC<TProvinces> = ({ provinces }) => {
 
   const onSubmit = async (data: ProvinceForm) => {
     const response = await createProvince({ set: data, get: { _id: 1, abb: 1, enName: 1, name: 1 } })
-    console.log({ response });
     router.refresh()
 
     reset();
@@ -56,7 +55,7 @@ export const ProvinceClient: FC<TProvinces> = ({ provinces }) => {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">استان‌ها</h1>
-        <Button className="" onClick={open}>ایجاد استان</Button>
+        <Button className="px-5 bg-linear-to-r from-green-500 to-emerald-500 text-white py-3.5 rounded-xl font-bold text-lg hover:from-green-600 hover:to-emerald-600 transition-all duration-300 flex items-center justify-center gap-2 disabled:from-green-400 disabled:to-emerald-400 disabled:cursor-not-allowed" onClick={open}>ایجاد استان</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -88,10 +87,14 @@ export const ProvinceClient: FC<TProvinces> = ({ provinces }) => {
             errMsg={errors.enName?.message}
           />
           <div className="flex justify-end gap-2 mt-4">
-            <Button type="button" className="" onClick={close}>
+            <Button type="button" className="px-6 py-3 bg-slate-600 hover:bg-slate-500 text-white rounded-xl transition-colors 
+ duration-200 font-medium border border-slate-500"
+              onClick={close}>
               لغو
             </Button>
-            <Button className="" type="submit">ذخیره</Button>
+            <Button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all duration-200 
+ hover:shadow-lg hover:shadow-blue-500/25 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              type="submit">ذخیره</Button>
           </div>
         </form>
       </Modal>

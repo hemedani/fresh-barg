@@ -116,12 +116,11 @@ export const Editor = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-slate-800 rounded-xl shadow-lg border border-slate-700">
+        <div className=" mx-auto p-6 bg-slate-800 rounded-xl shadow-lg border border-slate-700">
             {/* Header */}
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-700">
                 <div>
                     <h1 className="text-xl font-bold text-white">ویرایشگر نامه‌نگاری</h1>
-                    <p className="text-slate-400 text-sm">آپلود، ریسایز و جابه‌جایی تصاویر با Tailwind</p>
                 </div>
             </div>
 
@@ -136,18 +135,6 @@ export const Editor = () => {
             {/* Editor */}
             <div className="bg-slate-800 border border-slate-600 rounded-xl overflow-hidden mb-4">
                 <EditorContent editor={editor} />
-            </div>
-
-            {/* راهنما */}
-            <div className="p-4 bg-amber-900/30 border border-amber-700 rounded-lg text-amber-300 text-sm mb-4">
-                <p className="font-bold mb-2">راهنمای تصاویر:</p>
-                <ul className="space-y-1 list-disc list-inside">
-                    <li>دکمه "آپلود عکس" را بزنید</li>
-                    <li>عکس را انتخاب کنید</li>
-                    <li>بعد از درج، <span className="font-bold text-blue-400">گوشه‌های آبی</span> ظاهر می‌شوند</li>
-                    <li>گوشه‌ها را بکشید تا اندازه تغییر کند</li>
-                    <li>عکس را بگیرید و در متن جابه‌جا کنید</li>
-                </ul>
             </div>
 
             {/* Stats */}

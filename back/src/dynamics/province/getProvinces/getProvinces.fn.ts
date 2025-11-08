@@ -16,7 +16,12 @@ export const getProvincesFn: ActFn = async (body) => {
 	pipeline.push({ $limit: limit });
 	pipeline.push({ $skip: (page - 1) * limit });
 	pipeline.push({ $sort: { _id: -1 } });
-	name && pipeline.push({ $match: { name } });
+	name &&
+		pipeline.push({
+			$match: {
+				name: { $regex: new RegExp(name, "i") },
+			},
+		});
 
 	return await province.aggregation({
 		pipeline,

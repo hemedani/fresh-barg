@@ -55,7 +55,13 @@ export const ProvinceClient: FC<TProvinces> = ({ provinces }) => {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">استان‌ها</h1>
-        <Button className="px-5 bg-linear-to-r from-green-500 to-emerald-500 text-white py-3.5 rounded-xl font-bold text-lg hover:from-green-600 hover:to-emerald-600 transition-all duration-300 flex items-center justify-center gap-2 disabled:from-green-400 disabled:to-emerald-400 disabled:cursor-not-allowed" onClick={open}>ایجاد استان</Button>
+        <Button
+          onClick={open}
+          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25"
+        >
+          <span className="ml-2">➕</span>
+          ایجاد استان جدید
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -35,4 +35,26 @@ export const organizationSchema = z.object({
 
 export type OrganizationForm = z.infer<typeof organizationSchema>;
 
-// 
+// letter
+export const letterSchema = z.object({
+    number: z.string().min(1, "شماره نامه الزامی است"),
+    subject: z.string().min(1, "موضوع نامه الزامی است"),
+    recieversId: z.string().min(1, "انتخاب گیرنده الزامی است"),
+    orgId: z.string().optional(),
+    unitId: z.string().optional(),
+    tags: z.string().optional(),
+    leed: z.string().optional(),
+    content: z.string().min(1, "محتوای نامه الزامی است"),
+});
+
+export type LetterFormType = z.infer<typeof letterSchema>;
+
+// city
+export const citySchema = z.object({
+    name: z.string().min(2, "نام باید حداقل ۲ کاراکتر باشد"),
+    enName: z.string().min(2, "نام انگلیسی الزامی است"),
+    abb: z.string().min(2).max(5, "مخفف باید ۲ تا ۵ کاراکتر باشد"),
+    province: z.string().min(1, "انتخاب استان الزامی است"),
+});
+
+export type CityForm = z.infer<typeof citySchema>;

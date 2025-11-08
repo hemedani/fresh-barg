@@ -1,40 +1,9 @@
-import { GetMe } from "@/app/actions/user/getMe";
 import { UserProfile } from "@/components/pages";
+import { cookies } from "next/headers";
 
 const Page = async () => {
-  const me = await GetMe({
-    _id: 1,
-    email: 1,
-    first_name: 1,
-    last_name: 1,
-    birth_date: 1,
-    gender: 1,
-    phone: 1,
-    personnel_code: 1,
-    is_active: 1,
-    province: {
-      _id: 1,
-      name: 1,
-    },
-    city: {
-      _id: 1,
-      name: 1,
-    },
-    org: {
-      _id: 1,
-      name: 1,
-    },
-    unit: {
-      _id: 1,
-      name: 1,
-    },
-    avatar: {
-      _id: 1,
-      name: 1,
-    },
-  });
-
-  const { user } = me;
+  const userCookie = (await cookies()).get("user");
+  const user = userCookie ? JSON.parse(userCookie.value) : null;
 
   return (
     <UserProfile

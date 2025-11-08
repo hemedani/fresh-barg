@@ -234,39 +234,6 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
         }
     }, [watchProvinceId, provinceOptions]);
 
-    // const customStyles = {
-    //     control: (base: any) => ({
-    //         ...base,
-    //         backgroundColor: '#1e293b',
-    //         borderColor: '#334155',
-    //         color: 'white',
-    //         minHeight: '42px',
-    //     }),
-    //     menu: (base: any) => ({
-    //         ...base,
-    //         backgroundColor: '#1e293b',
-    //         zIndex: 50,
-    //     }),
-    //     option: (base: any, state: any) => ({
-    //         ...base,
-    //         backgroundColor: state.isFocused ? '#334155' : '#1e293b',
-    //         color: 'white',
-    //         cursor: 'pointer',
-    //     }),
-    //     singleValue: (base: any) => ({
-    //         ...base,
-    //         color: 'white',
-    //     }),
-    //     input: (base: any) => ({
-    //         ...base,
-    //         color: 'white',
-    //     }),
-    //     placeholder: (base: any) => ({
-    //         ...base,
-    //         color: '#9ca3af',
-    //     }),
-    // };
-
     return (
         <>
             {/* هدر */}

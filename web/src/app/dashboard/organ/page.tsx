@@ -15,7 +15,6 @@ export const OrganPage = async () => {
 
   const response = await getOrgans({ get: { _id: 1, address: 1, description: 1, ownership: 1, type: 1, location: 1 }, set: { page: 1, limit: 10, positionId: userPosition._id } })
   const responseProvinces = await getProvinces({ set: { limit: 10, page: 1 }, get: { _id: 1, name: 1 } })
-  console.log({ data: response.body[1].location });
 
   return <OrganizationClient positionId={userPosition._id} organizations={response.body} provinces={responseProvinces.body} />
 

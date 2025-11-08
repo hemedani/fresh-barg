@@ -9,6 +9,7 @@ export type OrganizationCardProps = {
     description: string;
     ownership: string;
     type: string;
+    name: string;
     location?: {
         longitude?: number;
         latitude?: number;
@@ -21,7 +22,8 @@ export const OrganizationCard: FC<OrganizationCardProps> = ({
     description,
     ownership,
     type,
-    location
+    location,
+    name
 }) => {
     return (
         <div className="group bg-linear-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-5 hover:from-blue-500/10 hover:to-indigo-500/10 hover:border-blue-400/50 transition-all duration-300 cursor-pointer">
@@ -33,7 +35,7 @@ export const OrganizationCard: FC<OrganizationCardProps> = ({
                 <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                         <h3 className="text-white font-bold text-lg group-hover:text-blue-300 transition-colors">
-                            {translateOrganType(type)}
+                            {name}
                         </h3>
                         <ExternalLink
                             className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"

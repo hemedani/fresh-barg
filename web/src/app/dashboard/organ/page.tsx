@@ -1,4 +1,3 @@
-import { getCities } from "@/app/actions/city/gets";
 import { getOrgans } from "@/app/actions/organ/gets";
 import { getProvinces } from "@/app/actions/province/gets";
 import { OrganizationClient } from "@/components/pages/organ/organPage";
@@ -13,7 +12,7 @@ export const OrganPage = async () => {
 
   if (userPosition.level === "staff" || userPosition.level === "Unithead") redirect("/")
 
-  const response = await getOrgans({ get: { _id: 1, address: 1, description: 1, ownership: 1, type: 1, location: 1 }, set: { page: 1, limit: 10, positionId: userPosition._id } })
+  const response = await getOrgans({ get: { _id: 1, name: 1, address: 1, description: 1, ownership: 1, type: 1, location: 1 }, set: { page: 1, limit: 10, positionId: userPosition._id } })
   const responseProvinces = await getProvinces({ set: { limit: 10, page: 1 }, get: { _id: 1, name: 1 } })
 
   return <OrganizationClient positionId={userPosition._id} organizations={response.body} provinces={responseProvinces.body} />

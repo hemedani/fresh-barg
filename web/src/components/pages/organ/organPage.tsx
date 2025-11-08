@@ -2,15 +2,15 @@
 import { useForm, Controller } from "react-hook-form";
 import { FC, useState } from "react";
 import { Building2 } from "lucide-react";
-import { z } from "zod";
 import { useRouter } from "next/navigation";
-
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MyInput, Button, SelectBox } from "@/components/atoms";
+import toast from "react-hot-toast";
+import AsyncSelect from "react-select/async";
+
+import { MyInput, Button, SelectBox, CustomStyles } from "@/components/atoms";
 import { useModal } from "@/hooks/useModal";
 import { Modal } from "@/components/mulecules";
 import { OrganizationCard } from "@/components/organisms/OrganCard";
-import toast from "react-hot-toast";
 import { getCities } from "@/app/actions/city/gets";
 import { createOrgan } from "@/app/actions/organ/create";
 import { OrganizationForm, organizationSchema } from "@/types/schemaType";
@@ -52,12 +52,55 @@ const organizationTypes = [
     { _id: "healthcare", name: "بهداشتی" },
 ];
 
+// استایل‌های فارسی برای react-select
+const customStyles = {
+    control: (base: any) => ({
+        ...base,
+        backgroundColor: '#1e293b',
+        borderColor: '#475569',
+        color: 'white',
+        minHeight: '44px',
+        '&:hover': {
+            borderColor: '#64748b'
+        }
+    }),
+    menu: (base: any) => ({
+        ...base,
+        backgroundColor: '#1e293b',
+        color: 'white',
+        zIndex: 50
+    }),
+    option: (base: any, state: any) => ({
+        ...base,
+        backgroundColor: state.isFocused ? '#334155' : '#1e293b',
+        color: 'white',
+        '&:hover': {
+            backgroundColor: '#475569'
+        }
+    }),
+    singleValue: (base: any) => ({
+        ...base,
+        color: 'white'
+    }),
+    input: (base: any) => ({
+        ...base,
+        color: 'white'
+    }),
+    placeholder: (base: any) => ({
+        ...base,
+        color: '#94a3b8'
+    })
+};
+
 export const OrganizationClient: FC<TOrganizationsProps> = ({
     organizations,
     provinces,
     positionId
 }) => {
-    const [cityData, setCityData] = useState([])
+    const [selectedProvince, setSelectedProvince] = useState<string>("");
+    const [cities, setCities] = useState<{ value: string, label: string }[]>([]);
+    const [selectedProvinceOption, setSelectedProvinceOption] = useState<any>(null);
+    const [selectedCityOption, setSelectedCityOption] = useState<any>(null);
     const router = useRouter()
     const { isOpen, open, close } = useModal();
 
@@ -66,30 +109,101 @@ export const OrganizationClient: FC<TOrganizationsProps> = ({
         handleSubmit,
         control,
         formState: { errors },
+        setValue,
+        reset
     } = useForm<OrganizationForm>({
         resolver: zodResolver(organizationSchema),
     });
 
-    const handleProvinceChange = async (label: string) => {
-        const response = await getCities({ set: { limit: 10, page: 1, positionId: positionId, provinceId: label }, get: { _id: 1, name: 1 } })
-        setCityData(response.body)
+    // تابع برای لود کردن استان‌ها در AsyncSelect
+    const loadProvinces = (inputValue: string): Promise<any[]> => {
+        return new Promise((resolve) => {
+            const filteredProvinces = provinces.filter(province =>
+                province.name.includes(inputValue)
+            ).map(province => ({
+                value: province._id,
+                label: province.name
+            }));
+            resolve(filteredProvinces);
+        });
+    };
 
+    // تابع برای لود کردن شهرها بر اساس استان انتخاب شده
+    const loadCities = (inputValue: string): Promise<any[]> => {
+        return new Promise(async (resolve) => {
+            if (!selectedProvince) {
+                resolve([]);
+                return;
+            }
+
+            try {
+                const response = await getCities({
+                    set: {
+                        limit: 50,
+                        page: 1,
+                        positionId: positionId,
+                        provinceId: selectedProvince
+                    },
+                    get: { _id: 1, name: 1 }
+                });
+
+                const citiesList = response.body.map((city: any) => ({
+                    value: city._id,
+                    label: city.name
+                }));
+
+                setCities(citiesList);
+
+                const filteredCities = citiesList.filter((city: any) =>
+                    city.label.includes(inputValue)
+                );
+
+                resolve(filteredCities);
+            } catch (error) {
+                console.error('Error loading cities:', error);
+                resolve([]);
+            }
+        });
+    };
+
+    // پیدا کردن نام استان و شهر برای نمایش
+    const findProvinceName = (provinceId: string) => {
+        return provinces.find(p => p._id === provinceId)?.name || "";
+    };
+
+    const findCityName = (cityId: string) => {
+        return cities.find(c => c.value === cityId)?.label || "";
     };
 
     const onSubmit = async (data: OrganizationForm) => {
         const response = await createOrgan({
             set: {
-                address: data.address, cityId: data.cityId, description: data.description, name: data.description, ownership: data.ownership, provinceId: data.provinceId, type: data.type, latitude: +data.latitude, longitude: +data.longitude
-            }, get: { _id: 1, address: 1, description: 1, name: 1, ownership: 1, type: 1 }
+                address: data.address,
+                cityId: data.cityId,
+                description: data.description,
+                name: data.name,
+                ownership: data.ownership,
+                provinceId: data.provinceId,
+                type: data.type,
+                latitude: +data.latitude,
+                longitude: +data.longitude
+            },
+            get: { _id: 1, address: 1, description: 1, name: 1, ownership: 1, type: 1 }
         });
+
         console.log(response);
         if (response.success) {
             toast.success("سازمان جدید ایجاد شد");
             router.refresh();
+            reset();
+            setSelectedProvince("");
+            setSelectedProvinceOption(null);
+            setSelectedCityOption(null);
+            setCities([]);
+            close();
         } else {
             toast.error("خطا در انجام عملیات");
         }
-        close();
     };
 
     return (
@@ -113,6 +227,7 @@ export const OrganizationClient: FC<TOrganizationsProps> = ({
                     <OrganizationCard
                         key={organization._id}
                         _id={organization._id}
+                        name={organization.name}
                         address={organization.address}
                         description={organization.description}
                         ownership={organization.ownership}
@@ -217,40 +332,66 @@ export const OrganizationClient: FC<TOrganizationsProps> = ({
 
                     {/* ردیف چهارم: استان و شهر */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <Controller
-                            name="provinceId"
-                            control={control}
-                            render={({ field }) => (
-                                <SelectBox
-                                    label="استان"
-                                    name={field.name}
-                                    value={field.value || ""}
-                                    onChange={(value: string) => {
-                                        handleProvinceChange(value)
-                                        field.onChange(value)
-                                    }}
-                                    options={provinces}
-                                    placeholder="انتخاب استان"
-                                    errMsg={errors.provinceId?.message}
-                                />
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                استان
+                            </label>
+                            <Controller
+                                name="provinceId"
+                                control={control}
+                                render={({ field }) => (
+                                    <AsyncSelect
+                                        cacheOptions
+                                        defaultOptions
+                                        loadOptions={loadProvinces}
+                                        placeholder="استان را انتخاب کنید..."
+                                        styles={CustomStyles}
+                                        value={selectedProvinceOption}
+                                        onChange={(selected: any) => {
+                                            field.onChange(selected?.value || "");
+                                            setSelectedProvince(selected?.value || "");
+                                            setSelectedProvinceOption(selected);
+                                            setValue("cityId", "");
+                                            setSelectedCityOption(null);
+                                            setCities([]);
+                                        }}
+                                        onBlur={field.onBlur}
+                                    />
+                                )}
+                            />
+                            {errors.provinceId && (
+                                <p className="text-red-500 text-sm mt-1">{errors.provinceId.message}</p>
                             )}
-                        />
+                        </div>
 
-                        <Controller
-                            name="cityId"
-                            control={control}
-                            render={({ field }) => (
-                                <SelectBox
-                                    label="شهر"
-                                    name={field.name}
-                                    value={field.value || ""}
-                                    onChange={field.onChange}
-                                    options={cityData}
-                                    placeholder="انتخاب شهر"
-                                    errMsg={errors.cityId?.message}
-                                />
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                شهر
+                            </label>
+                            <Controller
+                                name="cityId"
+                                control={control}
+                                render={({ field }) => (
+                                    <AsyncSelect
+                                        cacheOptions
+                                        defaultOptions
+                                        loadOptions={loadCities}
+                                        placeholder={selectedProvince ? "شهر را انتخاب کنید..." : "ابتدا استان را انتخاب کنید"}
+                                        styles={CustomStyles}
+                                        isDisabled={!selectedProvince}
+                                        value={selectedCityOption}
+                                        onChange={(selected: any) => {
+                                            field.onChange(selected?.value || "");
+                                            setSelectedCityOption(selected);
+                                        }}
+                                        onBlur={field.onBlur}
+                                    />
+                                )}
+                            />
+                            {errors.cityId && (
+                                <p className="text-red-500 text-sm mt-1">{errors.cityId.message}</p>
                             )}
-                        />
+                        </div>
                     </div>
 
                     {/* توضیحات */}

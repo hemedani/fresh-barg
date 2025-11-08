@@ -5,7 +5,6 @@ import {
 	object,
 	objectIdValidation,
 	optional,
-	size,
 	string,
 } from "share/deps.ts";
 import { selectStruct } from "../../../../mod.ts";

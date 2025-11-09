@@ -1,10 +1,19 @@
+"use server"
 import { http } from "@/services/Api";
-import { DeepPartial, ReqType } from "@/types/declarations/selectInp";
+import { ReqType } from "@/types/declarations/selectInp";
+import { cookies } from "next/headers";
 
-export type AddUserSet = ReqType["main"]["user"]["addUser"]["set"];
-export type AddUserGet = DeepPartial<ReqType["main"]["user"]["addUser"]["get"]>;
 
-export const AddUser = async (set: AddUserSet, get: AddUserGet) => {
+export const createUser = async ({ set, get }: ReqType["main"]["user"]["addUser"]) => {
+  console.log({ set });
+
+  const token = (await cookies()).get("token");
+  if (!token?.value) {
+    return {
+      success: false,
+      error: "کاربر احراز هویت نشده است، لطفاً وارد حساب کاربری خود شوید",
+    };
+  }
   const response = await http.send({
     service: "main",
     model: "user",
@@ -13,7 +22,15 @@ export const AddUser = async (set: AddUserSet, get: AddUserGet) => {
       set,
       get,
     },
-  });
+  }, { token: token.value });
 
-  return response;
+  if (!response.success) {
+    return {
+      error: response.body.message || "Failed to get user information",
+      success: false,
+    };
+  } else {
+    return response
+  }
+
 };

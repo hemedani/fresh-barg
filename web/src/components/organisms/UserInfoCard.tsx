@@ -1,6 +1,6 @@
 // components/organisms/UserCard.tsx
 import { FC, useState } from "react";
-import { Edit, Trash2, User as UserIcon, Shield } from "lucide-react";
+import { Edit, Trash2, User as UserIcon, Shield, Check, X } from "lucide-react";
 import { Button, SelectBox } from "@/components/atoms";
 import { User } from "@/types/schemaType";
 import { getGenderText } from "@/utils/helper";
@@ -8,14 +8,14 @@ import { UserLevel } from "@/types/types";
 
 interface UserCardProps {
     user: User;
-    level: UserLevel
+    level: UserLevel;
     onEdit: (user: User) => void;
     onDelete: (id: string) => void;
     onRoleChange: (userId: string, role: UserLevel) => void;
 }
 
 const roleOptions = [
-    { _id: "Ghost", name: "شبح" },
+    { _id: "Ghost", name: "سوپر ادمین" },
     { _id: "Orghead", name: "رئیس سازمان" },
     { _id: "Unithead", name: "رئیس واحد" },
     { _id: "Staff", name: "کارمند" },
@@ -23,14 +23,32 @@ const roleOptions = [
 
 export const UserCard: FC<UserCardProps> = ({ user, level, onEdit, onDelete, onRoleChange }) => {
     const [selectedRole, setSelectedRole] = useState<UserLevel>(level || "Staff");
+    const [isEditingRole, setIsEditingRole] = useState(false);
+    const [tempRole, setTempRole] = useState<UserLevel>(level || "Staff");
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('fa-IR');
     };
 
-    const handleRoleChange = (role: string) => {
+    const handleRoleChangeStart = () => {
+        setTempRole(selectedRole);
+        setIsEditingRole(true);
+    };
+
+    const handleRoleChangeConfirm = () => {
+        setSelectedRole(tempRole);
+        onRoleChange(user._id, tempRole);
+        setIsEditingRole(false);
+    };
+
+    const handleRoleChangeCancel = () => {
+        setTempRole(selectedRole);
+        setIsEditingRole(false);
+    };
+
+    const handleTempRoleChange = (role: string) => {
         const userLevel = role as UserLevel;
-        onRoleChange(user._id, userLevel);
+        setTempRole(userLevel);
     };
 
     const getRoleBadgeColor = (role: UserLevel) => {
@@ -45,7 +63,7 @@ export const UserCard: FC<UserCardProps> = ({ user, level, onEdit, onDelete, onR
 
     const getRoleText = (role: UserLevel) => {
         const roleMap: { [key: string]: string } = {
-            Ghost: "شبح",
+            Ghost: "سوپر ادمین",
             Orghead: "رئیس سازمان",
             Unithead: "رئیس واحد",
             Staff: "کارمند",
@@ -55,13 +73,15 @@ export const UserCard: FC<UserCardProps> = ({ user, level, onEdit, onDelete, onR
 
     const getRoleIcon = (role: UserLevel) => {
         const icons = {
-            Ghost: "👻",
-            Orghead: "👑",
+            Ghost: "👑",
+            Orghead: "🏢",
             Unithead: "⭐",
             Staff: "👨‍💼",
         };
         return icons[role as keyof typeof icons] || "👤";
     };
+
+    const hasRoleChanged = tempRole !== selectedRole;
 
     return (
         <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-slate-600 transition-all duration-300 hover:shadow-lg">
@@ -125,18 +145,68 @@ export const UserCard: FC<UserCardProps> = ({ user, level, onEdit, onDelete, onR
 
                 {/* دراپ داون تغییر سطح دسترسی */}
                 <div className="mt-3 pt-3 border-t border-slate-700">
-                    <label className="block text-slate-400 text-sm mb-2">
-                        <Shield size={14} className="inline ml-1" />
-                        تغییر سطح دسترسی
-                    </label>
-                    <SelectBox
-                        label="نقش"
-                        name="position"
-                        value={selectedRole || ""}
-                        onChange={handleRoleChange}
-                        options={roleOptions}
-                        placeholder="انتخاب سطح دسترسی"
-                    />
+                    <div className="flex items-center justify-between mb-2">
+                        <label className="block text-slate-400 text-sm">
+                            <Shield size={14} className="inline ml-1" />
+                            تغییر سطح دسترسی
+                        </label>
+
+                        {!isEditingRole ? (
+                            <Button
+                                onClick={handleRoleChangeStart}
+                                className="text-blue-400 hover:text-blue-300 text-xs px-3 py-1"
+                            >
+                                تغییر
+                            </Button>
+                        ) : (
+                            <div className="flex gap-1">
+                                <Button
+                                    onClick={handleRoleChangeConfirm}
+                                    className={`text-xs px-2 py-1 ${hasRoleChanged
+                                        ? "text-green-400 hover:text-green-300 hover:bg-green-500/20"
+                                        : "text-gray-400 cursor-not-allowed"
+                                        }`}
+                                >
+                                    <Check size={14} />
+                                </Button>
+                                <Button
+                                    onClick={handleRoleChangeCancel}
+                                    className="text-xs px-2 py-1 text-red-400 hover:text-red-300 hover:bg-red-500/20"
+                                >
+                                    <X size={14} />
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+
+                    {isEditingRole ? (
+                        <div className="space-y-2">
+                            <SelectBox
+                                label="نقش"
+                                name="position"
+                                value={tempRole || ""}
+                                onChange={handleTempRoleChange}
+                                options={roleOptions}
+                                placeholder="انتخاب سطح دسترسی"
+                            />
+                            {hasRoleChanged && (
+                                <div className="flex items-center gap-2 text-xs text-slate-400">
+                                    <span>تغییر از:</span>
+                                    <span className={`px-2 py-1 rounded border ${getRoleBadgeColor(selectedRole)}`}>
+                                        {getRoleText(selectedRole)}
+                                    </span>
+                                    <span>به:</span>
+                                    <span className={`px-2 py-1 rounded border ${getRoleBadgeColor(tempRole)}`}>
+                                        {getRoleText(tempRole)}
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="text-xs text-slate-500 text-center py-2">
+                            برای تغییر سطح دسترسی روی دکمه "تغییر" کلیک کنید
+                        </div>
+                    )}
                 </div>
 
                 {user.email && (

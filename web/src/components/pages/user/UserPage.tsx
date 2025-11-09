@@ -1,31 +1,41 @@
 // app/users/page.tsx
 "use client";
-import { FC, useState, useEffect } from "react";
-import { UserForm, User } from "@/types/schemaType";
+import { FC, useState } from "react";
+import { UserForm, UserType } from "@/types/schemaType";
 import { UserCard } from "@/components/organisms/UserInfoCard";
 import { Button } from "@/components/atoms";
 import { UserPlus, Users } from "lucide-react";
 import toast from "react-hot-toast";
 import { UserModal } from "./UserModal";
+import { UserLevel } from "@/types/types";
+import { createUser } from "@/app/actions/user/create";
+import { useRouter } from "next/navigation";
 
 interface IUsersProps {
-    users: User[]
+    users: UserType[]
+    userPosition: { _id: string, level: UserLevel }
+    organs: { _id: string; name: string }[];
+    units: { _id: string; name: string }[];
+    positions: { _id: string; name: string }[];
 }
 
-const UsersPage: FC<IUsersProps> = ({ users }) => {
-    // const [users, setUsers] = useState<User[]>([]);
+const UsersPage: FC<IUsersProps> = ({ users, userPosition, positions, organs, units }) => {
+    const router = useRouter()
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingUser, setEditingUser] = useState<User | null>(null);
+    const [editingUser, setEditingUser] = useState<UserType | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
 
     const handleCreateUser = async (data: UserForm) => {
-        console.log({ data });
-
         setIsLoading(true);
         try {
-            // در عمل اینجا API call داریم
-            toast.success("کاربر جدید با موفقیت ایجاد شد");
+            const response = await createUser({ set: { city: data.cityId, first_name: data.first_name, last_name: data.last_name, gender: data.gender, orgIds: [data.orgId], personnel_code: data.personnel_code, phone: +data.phone, position: data.position, positionId: userPosition._id, province: data.provinceId, email: data.email, unitIds: [data.unitId], birth_date: (new Date(data.birth_date)) }, get: { _id: 1, birth_date: 1, first_name: 1, last_name: 1, } })
+            if (response.success) {
+                toast.success("کاربر جدید با موفقیت ایجاد شد");
+                router.refresh();
+            } else {
+                toast.error(response.error.message)
+            }
             setIsModalOpen(false);
         } catch (error) {
             toast.error("خطا در ایجاد کاربر");
@@ -61,7 +71,7 @@ const UsersPage: FC<IUsersProps> = ({ users }) => {
         }
     };
 
-    const handleEditClick = (user: User) => {
+    const handleEditClick = (user: UserType) => {
         setEditingUser(user);
         setIsModalOpen(true);
     };
@@ -72,6 +82,8 @@ const UsersPage: FC<IUsersProps> = ({ users }) => {
     };
 
     const handleSubmit = (data: UserForm) => {
+        console.log("data");
+
         if (editingUser) {
             handleEditUser(data);
         } else {
@@ -99,10 +111,12 @@ const UsersPage: FC<IUsersProps> = ({ users }) => {
             {/* لیست کاربران */}
             {users.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {users.map((user) => (
+                    {users?.map((user) => (
                         <UserCard
                             key={user._id}
                             user={user}
+                            level={"Ghost"}
+                            onRoleChange={() => { }}
                             onEdit={handleEditClick}
                             onDelete={handleDeleteUser}
                         />
@@ -135,6 +149,10 @@ const UsersPage: FC<IUsersProps> = ({ users }) => {
                 onClose={handleCloseModal}
                 onSubmit={handleSubmit}
                 user={editingUser}
+                positionId={userPosition._id}
+                organs={organs}
+                units={units}
+                positions={positions}
                 isLoading={isLoading}
             />
         </div>

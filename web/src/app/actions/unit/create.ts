@@ -29,6 +29,8 @@ export const createUnit = async ({
             { token: token?.value },
         );
 
+        console.log(response);
+
         if (!response.success) {
             return { success: false, message: response.body.message };
         } else {

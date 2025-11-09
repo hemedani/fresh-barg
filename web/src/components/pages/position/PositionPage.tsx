@@ -180,7 +180,6 @@ export const DeviceClient: FC<TDevicesProps> = ({
                         orgId={device.orgId}
                         panel={device.panel}
                         level={device.level}
-                        features={device.features}
                         positionId={device.positionId}
                     />
                 ))}

@@ -1,3 +1,4 @@
+import { getPositions } from "@/app/actions/position/gets";
 import { DeviceClient } from "@/components/pages/position/PositionPage";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -11,51 +12,9 @@ export const PositionPage = async () => {
 
   if (userPosition.level === "staff") redirect("/")
 
-  const testDevices = [
-    {
-      _id: "dev001",
-      name: "سرور مرکزی دیتابیس",
-      unitId: "1",
-      orgId: "1",
-      panel: "admin",
-      level: "enterprise",
-      features: ["monitoring", "alerts", "api", "export"],
-      positionId: "1"
-    },
-    {
-      _id: "dev002",
-      name: "ایستگاه کاری مدیر",
-      unitId: "4",
-      orgId: "2",
-      panel: "user",
-      level: "advanced",
-      features: ["reporting", "analytics", "customization"],
-      positionId: "3"
-    },
-    {
-      _id: "dev003",
-      name: "دستگاه نظارتی شبکه",
-      unitId: "1",
-      orgId: "3",
-      panel: "monitor",
-      level: "standard",
-      features: ["monitoring", "alerts"],
-      positionId: "4"
-    },
-    {
-      _id: "dev004",
-      name: "سرور پشتیبان",
-      unitId: "5",
-      orgId: "4",
-      panel: "admin",
-      level: "enterprise",
-      features: ["monitoring", "api", "export", "mobile"],
-      positionId: "5"
-    }
-  ];
-
+  const response = await getPositions({ get: { _id: 1, level: 1, name: 1, panel: 1, features: 1 }, set: { page: 1, limit: 10, filterPositions: "all" } })
   return (
-    <DeviceClient devices={testDevices} />
+    <DeviceClient devices={response.body} />
   );
 };
 

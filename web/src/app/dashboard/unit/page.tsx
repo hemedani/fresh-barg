@@ -12,8 +12,10 @@ export const UnitPage = async () => {
 
   if (userPosition.level === "staff") redirect("/")
 
-  const response = await getUnits({ get: { _id: 1, categories: 1, name: 1, org: { _id: 1, name: 1 }, city: { _id: 1, name: 1 }, province: { _id: 1, name: 1 } }, set: { limit: 10, page: 1, positionId: userPosition._id, cityId: user.city._id, orgId: user.org[0]._id, provinceId: user.province._id } })
+  const response = await getUnits({ get: { _id: 1, categories: 1, name: 1, org: { _id: 1, name: 1 }, city: { _id: 1, name: 1 }, province: { _id: 1, name: 1 } }, set: { limit: 10, page: 1, positionId: userPosition._id, } })
   const responseOrgan = await getOrgans({ set: { page: 1, limit: 10, positionId: userPosition._id }, get: { _id: 1, name: 1 } })
+  console.log(response);
+
   return (
     <UnitClient units={response.body} organs={responseOrgan.body} position={userPosition} />
   );

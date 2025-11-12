@@ -114,14 +114,6 @@ export const DeviceCard: FC<DeviceCardProps> = ({
                 </div>
             </div>
 
-            <div className="mt-3 pt-3 border-t border-white/10 flex justify-between items-center">
-                <span className="text-slate-500 text-xs">
-                    {positionMap[positionId] || positionId}
-                </span>
-                <span className="text-slate-500 text-xs font-mono">
-                    ID: {_id.slice(-6)}
-                </span>
-            </div>
         </div>
     );
 };

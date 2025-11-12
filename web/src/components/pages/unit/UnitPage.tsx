@@ -61,11 +61,9 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
     const onSubmit = async (data: UnitForm) => {
         try {
             const response = await createUnit({ set: { ...data, positionId: position._id }, get: { _id: 1, categories: 1, name: 1, positions: { _id: 1, level: 1, name: 1 } } })
-            console.log({ response });
             if (response.success) {
                 toast.success("واحد جدید ایجاد شد");
                 router.refresh();
-                console.log(1);
             } else {
                 toast.success(response.error.message);
             }

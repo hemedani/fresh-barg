@@ -1,5 +1,7 @@
+import { getOrgans } from "@/app/actions/organ/gets";
 import { getPositions } from "@/app/actions/position/gets";
-import { DeviceClient } from "@/components/pages/position/PositionPage";
+import { getUnits } from "@/app/actions/unit/gets";
+import { RoleClient } from "@/components/pages/position/PositionPage";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -12,9 +14,14 @@ export const PositionPage = async () => {
 
   if (userPosition.level === "staff") redirect("/")
 
-  const response = await getPositions({ get: { _id: 1, level: 1, name: 1, panel: 1, features: 1 }, set: { page: 1, limit: 10, filterPositions: "all" } })
+  const [responsePositions, responseَUser, responseOrgans, responseUnits] = await Promise.all([getPositions({ get: { _id: 1, level: 1, name: 1, panel: 1, features: 1, org: { name: 1, _id: 1 }, unit: { name: 1, _id: 1 } }, set: { page: 1, limit: 10, filterPositions: "all" } }),
+  getPositions({ get: { _id: 1, level: 1, name: 1, panel: 1, features: 1 }, set: { page: 1, limit: 10, filterPositions: "all" } }),
+  getOrgans({ get: { _id: 1, name: 1, }, set: { page: 1, limit: 10, positionId: userPosition._id } }),
+  getUnits({ get: { _id: 1, name: 1, }, set: { page: 1, limit: 10, positionId: userPosition._id } })
+  ])
+
   return (
-    <DeviceClient devices={response.body} />
+    <RoleClient organs={responseOrgans.body} units={responseUnits.body} users={responseَUser.body} roles={responsePositions.body} />
   );
 };
 

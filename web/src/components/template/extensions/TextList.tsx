@@ -10,6 +10,7 @@ export const TextList = ({ editor }: TextListProps) => {
         <div className="flex items-center gap-1 p-2 bg-slate-600 rounded-lg">
             {/* Bullet List */}
             <button
+                type='button'
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 className={`p-2 rounded transition-colors ${editor.isActive('bulletList')
                     ? 'bg-blue-500 text-white'
@@ -22,6 +23,7 @@ export const TextList = ({ editor }: TextListProps) => {
 
             {/* Ordered List */}
             <button
+                type='button'
                 onClick={() => editor.chain().focus().toggleOrderedList().run()}
                 className={`p-2 rounded transition-colors ${editor.isActive('orderedList')
                     ? 'bg-blue-500 text-white'

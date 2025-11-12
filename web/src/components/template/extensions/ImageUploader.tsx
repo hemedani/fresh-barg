@@ -41,6 +41,7 @@ export const ImageUploader = ({ editor }: ImageUploaderProps) => {
     return (
         <div className="flex items-center gap-1 p-2 bg-slate-600 rounded-lg">
             <button
+                type='button'
                 onClick={triggerFileInput}
                 className="flex items-center gap-2 px-3 py-2 rounded text-slate-300 hover:bg-slate-500 transition-colors text-sm"
                 title="افزودن تصویر"

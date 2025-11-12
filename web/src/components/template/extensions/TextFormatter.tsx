@@ -45,6 +45,7 @@ export const TextFormatter = ({ editor }: TextFormatterProps) => {
         <div className="flex items-center gap-1 p-2 bg-slate-600 rounded-lg">
             {/* Bold */}
             <button
+                type='button'
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 className={`p-2 rounded transition-colors ${activeStyles.bold
                     ? 'bg-green-500 text-white shadow-lg shadow-green-500/25'
@@ -57,6 +58,7 @@ export const TextFormatter = ({ editor }: TextFormatterProps) => {
 
             {/* Italic */}
             <button
+                type='button'
                 onClick={() => editor.chain().focus().toggleItalic().run()}
                 className={`p-2 rounded transition-colors ${activeStyles.italic
                     ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/25'
@@ -69,6 +71,7 @@ export const TextFormatter = ({ editor }: TextFormatterProps) => {
 
             {/* Underline */}
             <button
+                type='button'
                 onClick={() => editor.chain().focus().toggleUnderline().run()}
                 className={`p-2 rounded transition-colors ${activeStyles.underline
                     ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25'
@@ -83,6 +86,7 @@ export const TextFormatter = ({ editor }: TextFormatterProps) => {
 
             {/* Text Alignment */}
             <button
+                type='button'
                 onClick={() => editor.chain().focus().setTextAlign('right').run()}
                 className={`p-2 rounded transition-colors ${activeStyles.alignRight
                     ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'
@@ -95,6 +99,7 @@ export const TextFormatter = ({ editor }: TextFormatterProps) => {
 
 
             <button
+                type='button'
                 onClick={() => editor.chain().focus().setTextAlign('center').run()}
                 className={`p-2 rounded transition-colors ${activeStyles.alignCenter
                     ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'
@@ -106,6 +111,7 @@ export const TextFormatter = ({ editor }: TextFormatterProps) => {
             </button>
 
             <button
+                type='button'
                 onClick={() => editor.chain().focus().setTextAlign('left').run()}
                 className={`p-2 rounded transition-colors ${activeStyles.alignLeft
                     ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'
@@ -117,6 +123,7 @@ export const TextFormatter = ({ editor }: TextFormatterProps) => {
             </button>
 
             <button
+                type='button'
                 onClick={() => editor.chain().focus().setTextAlign('justify').run()}
                 className={`p-2 rounded transition-colors ${activeStyles.alignJustify
                     ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'

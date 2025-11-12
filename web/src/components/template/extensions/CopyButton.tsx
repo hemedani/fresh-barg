@@ -24,6 +24,7 @@ export const CopyButton = ({ editor }: CopyButtonProps) => {
     return (
         <div className="flex items-center gap-1">
             <button
+                type='button'
                 onClick={() => handleCopy('html')}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 title="کپی HTML"
@@ -33,6 +34,7 @@ export const CopyButton = ({ editor }: CopyButtonProps) => {
             </button>
 
             <button
+                type='button'
                 onClick={() => handleCopy('text')}
                 className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
                 title="کپی متن ساده"

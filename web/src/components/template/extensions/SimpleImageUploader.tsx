@@ -22,6 +22,7 @@ export const SimpleImageUploader = ({ onUpload }: Props) => {
                 className="hidden"
             />
             <Button
+                type='button'
                 className="flex items-center gap-2 border-slate-500 text-slate-300 hover:bg-slate-600 hover:text-white transition"
             >
                 <ImageIcon className="w-4 h-4" />

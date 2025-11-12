@@ -13,7 +13,6 @@ import { useState, useCallback, FC } from 'react'
 import { TextFormatter } from '../extensions/TextFormatter'
 import { TextList } from '../extensions/TextList'
 import { DateInserter } from '../extensions/Date'
-import { SimpleImageUploader } from '../extensions/SimpleImageUploader'
 
 
 export interface EditorProps {
@@ -43,17 +42,7 @@ export const Editor: FC<EditorProps> = ({ onContentChange }) => {
             Dropcursor,
             ResizableImage,
         ],
-        content: `
-      <div dir="rtl">
-        <h1 class="text-center text-slate-200 mb-8">عنوان نامه</h1>
-        <p class="text-left text-slate-500 mb-8">تاریخ: ___________</p>
-        <p class="text-slate-300 leading-8">با سلام و احترام،</p>
-        <p class="text-slate-300 leading-8 mt-4">متن نامه خود را در این قسمت بنویسید...</p>
-        <p class="text-slate-300 leading-8 mt-8">با تشکر و احترام</p>
-        <p class="text-slate-300 mt-12">[نام و نام خانوادگی]</p>
-        <p class="text-slate-300">[سمت سازمانی]</p>
-      </div>
-    `,
+        content: ``,
         immediatelyRender: false,
         editorProps: {
             attributes: {
@@ -61,7 +50,6 @@ export const Editor: FC<EditorProps> = ({ onContentChange }) => {
                 dir: 'rtl',
             },
             handlePaste: (view, event) => handleClipboard(event),
-            handleDrop: (view, event, slice, moved) => handleFileDrop(event, moved),
         },
         onUpdate: ({ editor }) => {
             const text = editor.getText()
@@ -96,18 +84,6 @@ export const Editor: FC<EditorProps> = ({ onContentChange }) => {
         return false
     }
 
-    const handleFileDrop = (event: DragEvent, moved: boolean) => {
-        if (!moved && event.dataTransfer?.files?.length) {
-            event.preventDefault()
-            const file = event.dataTransfer.files[0]
-            if (file.type.startsWith('image/')) {
-                handleImageUpload(file)
-                return true
-            }
-        }
-        return false
-    }
-
     if (!editor) {
         return (
             <div className="max-w-4xl mx-auto p-6 bg-slate-800 rounded-xl shadow-lg border border-slate-700">
@@ -135,7 +111,6 @@ export const Editor: FC<EditorProps> = ({ onContentChange }) => {
                 <TextFormatter editor={editor} />
                 <TextList editor={editor} />
                 <DateInserter editor={editor} />
-                <SimpleImageUploader onUpload={handleImageUpload} />
             </div>
 
             {/* Editor */}

@@ -8,11 +8,13 @@ export function Modal({
   onClose,
   title,
   children,
+  className = ""
 }: {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   children: ReactNode;
+  className?: string;
 }) {
   const modalRef = useRef<HTMLDivElement>(null);
   useClickOutside(modalRef, onClose);
@@ -23,7 +25,7 @@ export function Modal({
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div
         ref={modalRef}
-        className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 scale-100"
+        className={`bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 scale-100 ${className}`}
       >
         {/* Header */}
         <div className="bg-linear-to-r from-green-500 to-emerald-600 px-6 py-4 rounded-t-2xl">

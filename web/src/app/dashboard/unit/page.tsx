@@ -7,17 +7,17 @@ import { redirect } from "next/navigation";
 export const UnitPage = async () => {
   const userCookie = (await cookies()).get("user");
   const user = userCookie ? JSON.parse(userCookie.value) : null;
-  // if (!user) redirect("/")
   const userPosition = user?.position[0]
 
   if (userPosition.level === "staff") redirect("/")
 
-  const response = await getUnits({ get: { _id: 1, categories: 1, name: 1, org: { _id: 1, name: 1 }, city: { _id: 1, name: 1 }, province: { _id: 1, name: 1 } }, set: { limit: 10, page: 1, positionId: userPosition._id, } })
-  const responseOrgan = await getOrgans({ set: { page: 1, limit: 10, positionId: userPosition._id }, get: { _id: 1, name: 1 } })
-  console.log(response);
+  const [responseUnit, responseOrgan] = await Promise.all([
+    getUnits({ get: { _id: 1, categories: 1, name: 1, org: { _id: 1, name: 1 }, city: { _id: 1, name: 1 }, province: { _id: 1, name: 1 } }, set: { limit: 10, page: 1, positionId: userPosition._id, } }),
+    getOrgans({ set: { page: 1, limit: 10, positionId: userPosition._id }, get: { _id: 1, name: 1 } })
+  ])
 
   return (
-    <UnitClient units={response.body} organs={responseOrgan.body} position={userPosition} />
+    <UnitClient units={responseUnit.body} organs={responseOrgan.body} position={userPosition} />
   );
 };
 

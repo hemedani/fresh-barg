@@ -1,6 +1,36 @@
+import { getLetters } from "@/app/actions/letter/gets";
 import { AdvancedFilters, LettersList, LetterStats } from "@/components/organisms/letter";
+import { cookies } from "next/headers";
 
-export default function LettersPage() {
+export default async function LettersPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+
+  const page = Number(searchParams.page) || 1;
+  const userCookie = (await cookies()).get("user");
+  const user = userCookie ? JSON.parse(userCookie.value) : null;
+
+  const userPosition = user.position[0]
+  const response = await getLetters({
+    get: {
+      _id: 1,
+      number: 1,
+      subject: 1,
+      leed: 1,
+      tags: 1,
+      created_at: 1,
+      delivered: 1,
+      is_end: 1,
+      content: 1,
+    },
+    set: {
+      positionId: userPosition._id,
+
+    },
+  });
+
   return (
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
@@ -9,9 +39,9 @@ export default function LettersPage() {
 
       <LetterStats />
 
-      <AdvancedFilters />
+      {/* <AdvancedFilters /> */}
 
-      <LettersList />
+      <LettersList currentPage={1} initialLetters={response.body} totalPages={2} />
     </div>
   )
 }

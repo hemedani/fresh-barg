@@ -1,239 +1,198 @@
 "use client";
 
-import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import AsyncSelect from "react-select/async";
+import { z } from "zod";
 import { Editor } from "../template/editor/Editor";
+import { MyInput, Button, SelectBox, CustomStyles } from "@/components/atoms";
+import { FC, useEffect, useState } from "react"; // فقط این خط اضافه شد
+import { createLetter } from "@/app/actions/letter/create";
+import toast from "react-hot-toast";
 
-export function LetterForm() {
-    const [formData, setFormData] = useState({
-        number: "",
-        subject: "",
-        authorId: "",
-        recieversId: "",
-        tags: "",
-        leed: "",
-        orgId: "",
-        unitId: "",
-        content: "",
-    });
+const letterSchema = z.object({
+    number: z.string().min(1, "شماره نامه الزامی است"),
+    subject: z.string().min(1, "موضوع الزامی است"),
+    receiversId: z.string().min(1, "گیرنده الزامی است"),
+    orgId: z.string().min(1, "سازمان الزامی است"),
+    unitId: z.string().min(1, "واحد الزامی است"),
+    tags: z.array(z.string()).min(1, "حداقل یک برچسب انتخاب کنید"),
+    leed: z.string().min(1, "خلاصه الزامی است"),
+    content: z.string().min(1, "محتوا الزامی است"),
+});
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
+type LetterFormType = z.infer<typeof letterSchema>;
 
-    const handleChange = (key: string, value: string) => {
-        setFormData((prev) => ({ ...prev, [key]: value }));
-    };
+type Props = {
+    userPosition: { _id: string, level: string }
+    orgs: { _id: string; name: string }[];
+    units: { _id: string; name: string }[];
+    receivers: { _id: string; name: string }[];
+    tagOptions: { value: string; label: string }[];
+    authorId: string
+};
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
+export const LetterForm: FC<Props> = ({ userPosition, orgs, units, receivers, tagOptions, authorId }) => {
+    const [mounted, setMounted] = useState(false); // فقط این خط اضافه شد
 
-        try {
-            // شبیه‌سازی ارسال داده
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            console.log("داده‌های فرم:", formData);
-            alert("نامه با موفقیت ثبت شد!");
-        } catch (error) {
-            console.error("خطا در ثبت نامه:", error);
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+    useEffect(() => {
+        setMounted(true); // فقط این خط اضافه شد
+    }, []);
 
-    const handleReset = () => {
-        setFormData({
+    const {
+        register,
+        handleSubmit,
+        control,
+        setValue,
+        watch,
+        reset,
+        formState: { errors, isSubmitting, isValid },
+    } = useForm<LetterFormType>({
+        resolver: zodResolver(letterSchema),
+        mode: "onChange",
+        defaultValues: {
             number: "",
             subject: "",
-            authorId: "",
-            recieversId: "",
-            tags: "",
-            leed: "",
+            receiversId: "",
             orgId: "",
             unitId: "",
+            tags: [],
+            leed: "",
             content: "",
-        });
+        },
+    });
+
+    const onSubmit = async (data: LetterFormType) => {
+        console.log("نامه ثبت شد:", data);
+        const responseLetter = await createLetter({
+            set: {
+                authorId: authorId, content: data.content, leed: data.leed, number: +data.number, orgId: data.orgId, positionId: userPosition._id, recieversId: data.receiversId, subject: data.subject, tags: data.tags, unitId: data.unitId
+            }, get: { _id: 1, content: 1 }
+        })
+        if (responseLetter.success) {
+            toast.success("عملیات با موفقیت انجام شد")
+        }
+
+        reset();
     };
+    console.log({ errors });
+
+    // فقط این قسمت رو تغییر دادم — از mounted استفاده کردم
+    const previewContent = watch("content") || "";
+    const displayContent = mounted ? previewContent : "";
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="bg-slate-800 rounded-2xl p-6 border border-slate-700 space-y-6"
-        >
-            {/* هدر */}
-            <div className="flex items-center justify-between border-b border-slate-700 pb-4">
-                <div>
-                    <h2 className="text-2xl font-bold text-white">ثبت نامه جدید</h2>
-                    <p className="text-slate-400 text-sm mt-1">فرم ثبت و مدیریت نامه‌های اداری</p>
-                </div>
-            </div>
-
-            {/* اطلاعات اصلی */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* شماره نامه */}
-                <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                        شماره نامه *
-                    </label>
-                    <input
-                        type="text"
-                        value={formData.number}
-                        onChange={(e) => handleChange("number", e.target.value)}
-                        className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white 
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                        placeholder="مثال: ۱۴۰۳/۱۲/۳۴۵"
-                        required
-                    />
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
+            <h2 className="text-3xl font-bold text-white mb-8 text-center">ثبت نامه جدید</h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <MyInput
+                        name="number"
+                        label="شماره نامه *"
+                        register={register}
+                        errMsg={errors.number?.message}
+                        placeholder="۱۴۰۳/۱۲۳" />
+                    <MyInput name="subject" register={register} label="موضوع *" errMsg={errors.subject?.message} placeholder="موضوع نامه..." />
                 </div>
 
-                {/* موضوع */}
-                <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                        موضوع نامه *
-                    </label>
-                    <input
-                        type="text"
-                        value={formData.subject}
-                        onChange={(e) => handleChange("subject", e.target.value)}
-                        className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white 
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                        placeholder="موضوع نامه را وارد کنید"
-                        required
-                    />
-                </div>
-
-                {/* گیرندگان */}
-                <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                        گیرندگان *
-                    </label>
-                    <select
-                        value={formData.recieversId}
-                        onChange={(e) => handleChange("recieversId", e.target.value)}
-                        className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white 
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                        required
-                    >
-                        <option value="">انتخاب گیرنده</option>
-                        <option value="user1">مدیریت منابع انسانی</option>
-                        <option value="user2">واحد فناوری اطلاعات</option>
-                        <option value="user3">مدیریت مالی</option>
-                        <option value="user4">واحد بازاریابی</option>
-                    </select>
-                </div>
-
-                {/* سازمان */}
-                <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                        سازمان مبدا
-                    </label>
-                    <select
-                        value={formData.orgId}
-                        onChange={(e) => handleChange("orgId", e.target.value)}
-                        className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white 
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                    >
-                        <option value="">انتخاب سازمان</option>
-                        <option value="org1">سازمان مرکزی</option>
-                        <option value="org2">شعبه شمال</option>
-                        <option value="org3">شعبه جنوب</option>
-                    </select>
-                </div>
-
-                {/* واحد */}
-                <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                        واحد مربوطه
-                    </label>
-                    <select
-                        value={formData.unitId}
-                        onChange={(e) => handleChange("unitId", e.target.value)}
-                        className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white 
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                    >
-                        <option value="">انتخاب واحد</option>
-                        <option value="unit1">واحد توسعه</option>
-                        <option value="unit2">واحد پشتیبانی</option>
-                        <option value="unit3">واحد QA</option>
-                    </select>
-                </div>
-
-                {/* برچسب‌ها */}
-                <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                        برچسب‌ها
-                    </label>
-                    <select
-                        value={formData.tags}
-                        onChange={(e) => handleChange("tags", e.target.value)}
-                        className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white 
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                    >
-                        <option value="">انتخاب برچسب</option>
-                        <option value="urgent">فوری</option>
-                        <option value="official">اداری</option>
-                        <option value="confidential">محرمانه</option>
-                        <option value="normal">عادی</option>
-                    </select>
-                </div>
-            </div>
-
-            {/* لید */}
-            <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
-                    خلاصه نامه (لید)
-                </label>
-                <textarea
-                    value={formData.leed}
-                    onChange={(e) => handleChange("leed", e.target.value)}
-                    rows={3}
-                    className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white 
-                        focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
-                    placeholder="خلاصه یا مقدمه مختصری از نامه..."
-                />
-            </div>
-
-            {/* محتوای اصلی با ادیتور */}
-            <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
-                    محتوای نامه *
-                </label>
-                <div className="bg-slate-800 border border-slate-600 rounded-xl overflow-hidden">
-                    <Editor />
-                </div>
-                <p className="text-slate-400 text-xs mt-2">
-                    از ابزارهای فوق برای فرمت‌بندی متن و افزودن تصاویر استفاده کنید
-                </p>
-            </div>
-
-            {/* دکمه‌های action */}
-            <div className="flex justify-end gap-3 pt-6 border-t border-slate-700">
-                <button
-                    type="button"
-                    onClick={handleReset}
-                    className="px-6 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-white 
-                        transition-colors duration-200 font-medium"
-                    disabled={isSubmitting}
-                >
-                    پاک کردن فرم
-                </button>
-
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white 
-                        flex items-center gap-2 transition-colors duration-200 font-medium
-                        disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    {isSubmitting ? (
-                        <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            در حال ثبت...
-                        </>
-                    ) : (
-                        "ثبت نامه"
+                <Controller
+                    name="receiversId"
+                    control={control}
+                    render={({ field }) => (
+                        <SelectBox
+                            name="receiversId"
+                            label="گیرنده *"
+                            value={field.value}
+                            onChange={field.onChange}
+                            options={receivers}
+                            errMsg={errors.receiversId?.message}
+                            placeholder="جستجو و انتخاب گیرنده..."
+                        />
                     )}
-                </button>
-            </div>
+                />
 
-        </form>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Controller
+                        name="orgId"
+                        control={control}
+                        render={({ field }) => (
+                            <SelectBox name="orgId" label="سازمان *" value={field.value} onChange={field.onChange} options={orgs} errMsg={errors.orgId?.message} />
+                        )}
+                    />
+                    <Controller
+                        name="unitId"
+                        control={control}
+                        render={({ field }) => (
+                            <SelectBox name="unitId" label="واحد *" value={field.value} onChange={field.onChange} options={units} errMsg={errors.unitId?.message} />
+                        )}
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-white mb-3">برچسب‌ها *</label>
+                    <Controller
+                        name="tags"
+                        control={control}
+                        render={({ field }) => (
+                            <AsyncSelect
+                                isMulti
+                                cacheOptions
+                                defaultOptions={tagOptions}
+                                loadOptions={(input) =>
+                                    new Promise<any[]>((resolve) => {
+                                        setTimeout(() => {
+                                            const filtered = tagOptions.filter(
+                                                (t) => t.label.includes(input) || t.value.includes(input)
+                                            );
+                                            resolve(filtered);
+                                        }, 200);
+                                    })
+                                }
+                                placeholder="جستجو و انتخاب برچسب..."
+                                styles={CustomStyles}
+                                value={tagOptions.filter((opt) => (field.value || []).includes(opt.value))}
+                                onChange={(vals) => field.onChange(vals?.map((v) => v.value) || [])}
+                                className="text-black"
+                            />
+                        )}
+                    />
+                    {errors.tags && <p className="text-red-400 text-sm mt-2">{errors.tags.message}</p>}
+                </div>
+
+                <MyInput name="leed" label="خلاصه نامه *" register={register} errMsg={errors.leed?.message} type="textarea" placeholder="خلاصه کوتاه..." />
+
+                <div>
+                    <label className="block text-sm font-medium text-white mb-3">محتوای نامه *</label>
+                    <div className="bg-white rounded-xl overflow-hidden">
+                        <Editor onContentChange={(c) => setValue("content", c, { shouldValidate: true })} />
+                    </div>
+                    {errors.content && <p className="text-red-400 text-sm mt-2">{errors.content.message}</p>}
+                </div>
+
+                {/* فقط اینجا تغییر دادم — از displayContent استفاده کردم */}
+                <div className="bg-slate-800/50 rounded-xl p-6">
+                    <p className="text-slate-300 text-sm mb-3">پیش‌نمایش محتوا:</p>
+                    <div
+                        className="prose prose-invert max-w-none text-sm"
+                        dangerouslySetInnerHTML={{
+                            __html: displayContent || "<p className='text-slate-500'>هنوز محتوایی وارد نشده</p>"
+                        }}
+                    />
+                </div>
+
+                <div className="flex justify-end gap-4 pt-6 border-t border-white/10">
+                    <Button type="button" onClick={() => reset()} className="bg-gray-600 hover:bg-gray-700 px-8 py-3">
+                        پاک کردن
+                    </Button>
+                    <button
+                        type="submit"
+                        disabled={!isValid || isSubmitting}
+                        className="bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-10 py-3 font-bold disabled:opacity-50"
+                    >
+                        {isSubmitting ? "در حال ثبت..." : "ثبت نامه"}
+                    </button>
+                </div>
+            </form>
+        </div>
     );
-}
+};

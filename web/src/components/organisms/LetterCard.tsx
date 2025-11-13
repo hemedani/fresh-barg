@@ -1,6 +1,7 @@
 "use client"
 
 import { Clock, Edit, Eye, Mail, Tag, Trash2, User } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export interface Letter {
@@ -19,6 +20,7 @@ export interface Letter {
 }
 
 export const LetterCard = ({ letter }: { letter: Letter }) => {
+    const router = useRouter()
     const [showActions, setShowActions] = useState(false);
 
     const getStatusColor = (status: string) => {
@@ -78,7 +80,7 @@ export const LetterCard = ({ letter }: { letter: Letter }) => {
 
                     {showActions && (
                         <div className="flex gap-1">
-                            <button className="p-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors">
+                            <button onClick={() => router.push(`/dashboard/letter/${letter._id}`)} className="p-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors">
                                 <Eye size={16} />
                             </button>
                             <button className="p-2 text-green-400 hover:bg-green-500/20 rounded-lg transition-colors">

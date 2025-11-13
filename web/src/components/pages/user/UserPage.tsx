@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 
 interface IUsersProps {
     users: UserType[]
-    userPosition: { _id: string, level: UserLevel }
+    userPosition: { _id: string, level: string }
     organs: { _id: string; name: string }[];
     units: { _id: string; name: string }[];
     positions: { _id: string; name: string }[];

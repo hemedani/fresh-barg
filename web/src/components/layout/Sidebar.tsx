@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import {
   MapPin,
@@ -11,17 +10,82 @@ import {
   User,
   Menu,
   X,
-} from "lucide-react";
-import Link from "next/link";
+} from "lucide-react"
+import Link from "next/link"
+import { usePosition } from "@/context/PositionContext"
+
+interface MenuItem {
+  href: string
+  label: string
+  icon: React.ReactNode
+  roles: string[] // نقش‌هایی که دسترسی دارن
+}
 
 export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { activePosition, loading } = usePosition()
 
   const toggleSidebar = () => setIsOpen(!isOpen)
 
+  // تعریف منوها با دسترسی‌ها
+  const menuItems: MenuItem[] = [
+    {
+      href: "/dashboard/province",
+      label: "استان",
+      icon: <MapPin className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />,
+      roles: ["Ghost"]
+    },
+    {
+      href: "/dashboard/city",
+      label: "شهر",
+      icon: <Building2 className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />,
+      roles: ["Ghost"]
+    },
+    {
+      href: "/dashboard/organ",
+      label: "سازمان",
+      icon: <Landmark className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />,
+      roles: ["Ghost", "Orghead"]
+    },
+    {
+      href: "/dashboard/unit",
+      label: "واحد",
+      icon: <Network className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />,
+      roles: ["Ghost", "Orghead", "Unithead"]
+    },
+    {
+      href: "/dashboard/user",
+      label: "کاربران",
+      icon: <User className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />,
+      roles: ["Ghost", "Orghead", "Unithead"]
+    },
+    {
+      href: "/dashboard/position",
+      label: "نقش",
+      icon: <UserCog className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />,
+      roles: ["Ghost", "Orghead"]
+    },
+    {
+      href: "/dashboard/letter",
+      label: "نامه",
+      icon: <Mail className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />,
+      roles: ["Ghost", "Orghead", "Unithead", "Staff"]
+    },
+  ]
+
+  // اگر لودینگ باشه یا نقش فعال نباشه → فقط منوهای عمومی
+  if (loading || !activePosition) {
+    return null // یا یه اسکلتون ساده
+  }
+
+  // فیلتر منوها بر اساس نقش فعال
+  const allowedItems = menuItems.filter(item =>
+    item.roles.includes(activePosition.level!)
+  )
+
   return (
     <>
-      {/* Mobile Menu Button - On left for RTL */}
+      {/* Mobile Menu Button */}
       <button
         onClick={toggleSidebar}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-slate-800 border border-slate-600 rounded-xl text-white shadow-lg"
@@ -37,12 +101,12 @@ export const Sidebar = () => {
         />
       )}
 
-      {/* Sidebar - Fixed on right */}
+      {/* Sidebar */}
       <nav className={`
-        fixed top-0 right-0 h-screen 
+        fixed top-0 right-0 h-screen
         w-80 lg:w-72
-        bg-linear-to-b from-slate-900/95 to-slate-800/95 
-        border-l border-slate-700/50 
+        bg-linear-to-b from-slate-900/95 to-slate-800/95
+        border-l border-slate-700/50
         p-6 overflow-y-auto backdrop-blur-sm
         z-30
         transform transition-transform duration-300 ease-in-out
@@ -65,84 +129,20 @@ export const Sidebar = () => {
           <p className="text-slate-400 text-sm mt-2">سیستم یکپارچه سازمانی</p>
         </div>
 
-        {/* Menu Items */}
+        {/* Filtered Menu Items */}
         <ul className="list-none p-0 m-0 space-y-2">
-          <li>
-            <Link
-              href="/dashboard/province"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
-            >
-              <MapPin className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />
-              <span className="font-medium">استان</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/dashboard/city"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
-            >
-              <Building2 className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />
-              <span className="font-medium">شهر</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/dashboard/organ"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
-            >
-              <Landmark className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />
-              <span className="font-medium">سازمان</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/dashboard/unit"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
-            >
-              <Network className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />
-              <span className="font-medium">واحد</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/dashboard/user"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
-            >
-              <User className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />
-              <span className="font-medium">کاربران</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/dashboard/position"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
-            >
-              <UserCog className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />
-              <span className="font-medium">نقش</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/dashboard/letter"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
-            >
-              <Mail className="text-slate-400 group-hover:text-green-400 transition-colors mr-3" size={20} />
-              <span className="font-medium">نامه</span>
-            </Link>
-          </li>
+          {allowedItems.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
+              >
+                {item.icon}
+                <span className="font-medium">{item.label}</span>
+              </Link>
+            </li>
+          ))}
         </ul>
 
         {/* Footer */}
@@ -154,5 +154,5 @@ export const Sidebar = () => {
         </div>
       </nav>
     </>
-  );
-};
+  )
+}

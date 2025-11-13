@@ -63,3 +63,18 @@ export const translateOrganType = (organType: string): string => {
 export const getGenderText = (gender: string) => {
     return gender === "Male" ? "مرد" : "زن";
 };
+
+export const translateLevelType = (levelType: string): string => {
+    switch (levelType) {
+        case "Ghost":
+            return "روح";
+        case "Orghead":
+            return "مدیر سازمان";
+        case "Unithead":
+            return "مدیر واحد"
+        case "staff":
+            return "عادی"
+        default:
+            return "نامشخص";
+    }
+};

@@ -1,28 +1,38 @@
 import { getCities } from "@/app/actions/city/gets";
+import { getActivePositionId } from "@/app/actions/position/getActivePosition";
 import { getProvinces } from "@/app/actions/province/gets";
 import { CityClient } from "@/components/pages/province";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const CityPage = async () => {
-  const userCookie = (await cookies()).get("user");
-  const user = userCookie ? JSON.parse(userCookie.value) : null;
+  const cookieStore = await cookies()
+  const userCookie = cookieStore.get("user")
 
-  const userPosition = user.position[0]
+  if (!userCookie?.value) redirect("/login")
 
-  if (userPosition.level !== "Ghost") redirect("/")
+  const user = JSON.parse(userCookie.value) as { position: Array<{ _id: string; level: string }> }
 
-  const response = await getCities({
-    get: { _id: 1, name: 1, enName: 1, abb: 1 },
-    set: { page: 1, limit: 10, positionId: userPosition._id },
-  });
+  const activePositionId = await getActivePositionId()
 
-  const responseProvince = await getProvinces({
-    get: { _id: 1, name: 1 },
-    set: { page: 1, limit: 10, },
-  });
+  const activePosition = activePositionId ? user.position.find(p => p._id === activePositionId) : user.position[0]
 
-  return <CityClient provinces={responseProvince.body} cities={response.body} />;
+  if (!activePosition?.level) redirect("/dashboard")
+
+  if (activePosition?.level !== "Ghost") redirect("/dashboard")
+
+  const [responseCities, responseProvince] = await Promise.all([
+    getCities({
+      get: { _id: 1, name: 1, enName: 1, abb: 1 },
+      set: { page: 1, limit: 10, positionId: activePosition._id },
+    }),
+    getProvinces({
+      get: { _id: 1, name: 1 },
+      set: { page: 1, limit: 10, },
+    })
+  ])
+
+  return <CityClient provinces={responseProvince.body ?? []} cities={responseCities.body ?? []} />;
 };
 
 export default CityPage;

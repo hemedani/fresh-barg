@@ -1,16 +1,22 @@
+import { getActivePositionId } from "@/app/actions/position/getActivePosition";
 import { getProvinces } from "@/app/actions/province/gets";
 import { ProvinceClient } from "@/components/pages/province/ProvincePage";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const ProvincePage = async () => {
-  const userCookie = (await cookies()).get("user");
-  const user = userCookie ? JSON.parse(userCookie.value) : null;
+  const cookieStore = await cookies()
+  const userCookie = cookieStore.get("user")
 
-  const userPosition = user.position[0]
+  if (!userCookie?.value) redirect("/")
 
-  if (userPosition.level !== "Ghost") redirect("/")
+  const user = JSON.parse(userCookie.value) as { position: Array<{ _id: string; level: string }> }
 
+  const activePositionId = await getActivePositionId()
+
+  const activePosition = activePositionId ? user.position.find(p => p._id === activePositionId) : user.position[0]
+
+  if (activePosition?.level !== "Ghost") redirect("/dashboard")
 
   const response = await getProvinces({
     set: { page: 1, limit: 10 },

@@ -16,17 +16,13 @@ export default async function Page() {
 
   const activePositionId = await getActivePositionId()
 
-  // 3. انتخاب نقش فعال
   const activePosition = activePositionId ? user.position.find(p => p._id === activePositionId) : user.position[0]
 
   if (!activePosition) redirect("/dashboard")
 
-  // 4. دسترسی: فقط Ghost و Orghead
   const allowedRoles = ["Ghost", "Orghead"]
   if (!allowedRoles.includes(activePosition.level)) redirect("/dashboard")
-  console.log(activePosition._id);
 
-  // 5. درخواست‌ها (موازی)
   const [organsRes, provincesRes] = await Promise.all([
     getOrgans({
       get: { _id: 1, name: 1, address: 1, description: 1, ownership: 1, type: 1, location: 1, },
@@ -37,9 +33,6 @@ export default async function Page() {
       set: { page: 1, limit: 10 },
     }),
   ])
-
-  // console.log(organsRes);
-
 
   return (
     <OrganizationClient

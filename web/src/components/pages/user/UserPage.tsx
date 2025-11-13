@@ -82,8 +82,6 @@ const UsersPage: FC<IUsersProps> = ({ users, userPosition, positions, organs, un
     };
 
     const handleSubmit = (data: UserForm) => {
-        console.log("data");
-
         if (editingUser) {
             handleEditUser(data);
         } else {

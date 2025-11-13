@@ -63,7 +63,6 @@ export const LetterForm: FC<Props> = ({ userPosition, orgs, units, receivers, ta
     });
 
     const onSubmit = async (data: LetterFormType) => {
-        console.log("نامه ثبت شد:", data);
         const responseLetter = await createLetter({
             set: {
                 authorId: authorId, content: data.content, leed: data.leed, number: +data.number, orgId: data.orgId, positionId: userPosition._id, recieversId: data.receiversId, subject: data.subject, tags: data.tags, unitId: data.unitId
@@ -75,7 +74,6 @@ export const LetterForm: FC<Props> = ({ userPosition, orgs, units, receivers, ta
 
         reset();
     };
-    console.log({ errors });
 
     // فقط این قسمت رو تغییر دادم — از mounted استفاده کردم
     const previewContent = watch("content") || "";

@@ -191,7 +191,6 @@ export const OrganizationClient: FC<TOrganizationsProps> = ({
             get: { _id: 1, address: 1, description: 1, name: 1, ownership: 1, type: 1 }
         });
 
-        console.log(response);
         if (response.success) {
             toast.success("سازمان جدید ایجاد شد");
             router.refresh();

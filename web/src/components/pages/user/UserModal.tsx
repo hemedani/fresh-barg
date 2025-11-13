@@ -181,8 +181,6 @@ export const UserModal: FC<UserModalProps> = ({
     }, [setValue]);
 
     const handleFormSubmit = (data: UserForm) => {
-        console.log('Form data submitted:', data);
-        // مطمئن شو هیچ undefined ای وجود ندارد
         const cleanedData: UserForm = {
             ...data,
             first_name: data.first_name || "",

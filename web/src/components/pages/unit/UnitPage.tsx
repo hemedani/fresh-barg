@@ -277,7 +277,6 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
                                         loadingMessage={() => "در حال جستجو..."}
                                         noOptionsMessage={() => "استانی یافت نشد"}
                                         onChange={(option: OptionType | null) => {
-                                            console.log("Province selected:", option);
                                             field.onChange(option?.value || "");
                                             setSelectedProvinceOption(option);
                                         }}
@@ -309,7 +308,6 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
                                         noOptionsMessage={() => "شهری یافت نشد"}
                                         isDisabled={!selectedProvinceOption}
                                         onChange={(option: OptionType | null) => {
-                                            console.log("City selected:", option);
                                             field.onChange(option?.value || "");
                                             setSelectedCityOption(option);
                                         }}

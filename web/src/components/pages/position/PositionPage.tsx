@@ -143,11 +143,8 @@ export const RoleClient: FC<TRolesProps> = ({
     }, [setValue]);
 
     const onSubmit = async (data: RoleForm) => {
-        console.log("داده‌های فرم نقش:", data);
         try {
-            // در عمل اینجا API call داریم
             const responsePosition = await createPosition({ set: { name: data.name, level: data.level, orgId: data.orgId, panel: data.panel, positionId: "" }, get: { _id: 1, level: 1 } })
-            console.log({ responsePosition });
 
             if (responsePosition.success) {
                 toast.success("نقش جدید با موفقیت ایجاد شد");

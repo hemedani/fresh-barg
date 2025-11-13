@@ -53,7 +53,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   const handleAvatarChange = (file: File | null) => {
     setAvatarFile(file);
     // Just store the file - no automatic upload
-    console.log('Avatar file changed:', file);
 
     // If you want to upload later, you can use this file
     // For example, when user clicks "Save Changes" button

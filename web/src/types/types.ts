@@ -45,3 +45,11 @@ export interface GetMeResponse {
 }
 
 export type ReactSelectOption = { label: string; value: string }
+
+
+export interface Position {
+  _id: string
+  level: string
+  unit?: string
+  permissions?: string[]
+}

@@ -8,6 +8,7 @@ export const getCities = async ({
   get,
 }: ReqType["main"]["city"]["getCities"]) => {
   const token = (await cookies()).get("token");
+  console.log(set);
 
   const response = await http.send(
     {

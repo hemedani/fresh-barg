@@ -7,15 +7,19 @@ import Underline from '@tiptap/extension-underline'
 import Image from '@tiptap/extension-image'
 import Dropcursor from '@tiptap/extension-dropcursor'
 import { ResizableImage } from 'tiptap-extension-resizable-image'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, FC } from 'react'
 
 // Extensions
 import { TextFormatter } from '../extensions/TextFormatter'
 import { TextList } from '../extensions/TextList'
 import { DateInserter } from '../extensions/Date'
-import { SimpleImageUploader } from '../extensions/SimpleImageUploader'
 
-export const Editor = () => {
+
+export interface EditorProps {
+    onContentChange?: (content: string) => void;
+}
+
+export const Editor: FC<EditorProps> = ({ onContentChange }) => {
     const [wordCount, setWordCount] = useState(0)
     const [charCount, setCharCount] = useState(0)
 
@@ -38,17 +42,7 @@ export const Editor = () => {
             Dropcursor,
             ResizableImage,
         ],
-        content: `
-      <div dir="rtl">
-        <h1 class="text-center text-slate-200 mb-8">عنوان نامه</h1>
-        <p class="text-left text-slate-500 mb-8">تاریخ: ___________</p>
-        <p class="text-slate-300 leading-8">با سلام و احترام،</p>
-        <p class="text-slate-300 leading-8 mt-4">متن نامه خود را در این قسمت بنویسید...</p>
-        <p class="text-slate-300 leading-8 mt-8">با تشکر و احترام</p>
-        <p class="text-slate-300 mt-12">[نام و نام خانوادگی]</p>
-        <p class="text-slate-300">[سمت سازمانی]</p>
-      </div>
-    `,
+        content: ``,
         immediatelyRender: false,
         editorProps: {
             attributes: {
@@ -56,12 +50,12 @@ export const Editor = () => {
                 dir: 'rtl',
             },
             handlePaste: (view, event) => handleClipboard(event),
-            handleDrop: (view, event, slice, moved) => handleFileDrop(event, moved),
         },
         onUpdate: ({ editor }) => {
             const text = editor.getText()
             setWordCount(text.trim() ? text.trim().split(/\s+/).length : 0)
             setCharCount(text.length)
+            onContentChange?.(editor.getHTML())
         },
     })
 
@@ -85,18 +79,6 @@ export const Editor = () => {
                     handleImageUpload(file)
                     return true
                 }
-            }
-        }
-        return false
-    }
-
-    const handleFileDrop = (event: DragEvent, moved: boolean) => {
-        if (!moved && event.dataTransfer?.files?.length) {
-            event.preventDefault()
-            const file = event.dataTransfer.files[0]
-            if (file.type.startsWith('image/')) {
-                handleImageUpload(file)
-                return true
             }
         }
         return false
@@ -129,7 +111,6 @@ export const Editor = () => {
                 <TextFormatter editor={editor} />
                 <TextList editor={editor} />
                 <DateInserter editor={editor} />
-                <SimpleImageUploader onUpload={handleImageUpload} />
             </div>
 
             {/* Editor */}

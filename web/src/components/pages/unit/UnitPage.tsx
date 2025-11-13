@@ -2,7 +2,6 @@
 import { useForm, Controller } from "react-hook-form";
 import { FC, useCallback, useEffect, useState } from "react";
 import { Briefcase } from "lucide-react";
-import { z } from "zod";
 import { useRouter } from "next/navigation";
 import AsyncSelect from "react-select/async";
 
@@ -14,19 +13,8 @@ import { UnitCard } from "@/components/organisms/UnitCard";
 import toast from "react-hot-toast";
 import { getProvinces } from "@/app/actions/province/gets";
 import { getCities } from "@/app/actions/city/gets";
-import { getOrgans } from "@/app/actions/organ/gets";
-
-// اسکیمای اعتبارسنجی
-export const jobSchema = z.object({
-    name: z.string().min(2, "نام باید حداقل ۲ کاراکتر باشد"),
-    categories: z.array(z.string()).min(1, "حداقل یک دسته‌بندی انتخاب کنید"),
-    positionId: z.string().min(1, "انتخاب موقعیت الزامی است"),
-    provinceId: z.string().min(1, "انتخاب استان الزامی است"),
-    cityId: z.string().min(1, "انتخاب شهر الزامی است"),
-    orgId: z.string().min(1, "انتخاب سازمان الزامی است"),
-});
-
-export type JobForm = z.infer<typeof jobSchema>;
+import { UnitForm, UnitSchema } from "@/types/schemaType";
+import { createUnit } from "@/app/actions/unit/create";
 
 // انواع داده‌ها
 export type TUnit = {
@@ -52,41 +40,37 @@ type OptionType = {
 export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
     const router = useRouter();
     const { isOpen, open, close } = useModal();
-    const [cityOptions, setCityOptions] = useState<OptionType[]>([]);
-    const [provinceOptions, setProvinceOptions] = useState<OptionType[]>([]);
-    const [organOptions, setOrganOptions] = useState<OptionType[]>([]);
-    const [positionOptions, setPositionOptions] = useState<OptionType[]>([]);
-    const [selectedProvince, setSelectedProvince] = useState<OptionType | null>(null);
+    const [selectedProvinceOption, setSelectedProvinceOption] = useState<OptionType | null>(null);
+    const [selectedCityOption, setSelectedCityOption] = useState<OptionType | null>(null);
+    const [cities, setCities] = useState<OptionType[]>([]);
 
     const {
         register,
         handleSubmit,
         control,
-        watch,
         setValue,
+        reset,
         formState: { errors, isSubmitting },
-    } = useForm<JobForm>({
-        resolver: zodResolver(jobSchema),
+    } = useForm<UnitForm>({
+        resolver: zodResolver(UnitSchema),
         defaultValues: {
             categories: [],
         }
     });
 
-    const watchProvinceId = watch("provinceId");
-
-    // ریست کردن شهر وقتی استان تغییر می‌کند
-    useEffect(() => {
-        if (watchProvinceId) {
-            setValue("cityId", "");
-            setCityOptions([]);
-        }
-    }, [watchProvinceId, setValue]);
-
-    const onSubmit = async (data: JobForm) => {
+    const onSubmit = async (data: UnitForm) => {
         try {
-            console.log("داده‌های فرم:", data);
-            toast.success("واحد جدید ایجاد شد");
-            router.refresh();
+            const response = await createUnit({ set: { ...data, positionId: position._id }, get: { _id: 1, categories: 1, name: 1, positions: { _id: 1, level: 1, name: 1 } } })
+            if (response.success) {
+                toast.success("واحد جدید ایجاد شد");
+                router.refresh();
+            } else {
+                toast.success(response.error.message);
+            }
+            reset();
+            setSelectedProvinceOption(null);
+            setSelectedCityOption(null);
+            setCities([]);
             close();
         } catch (error) {
             toast.error("خطا در ایجاد واحد");
@@ -109,6 +93,7 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
 
     const hasUnits = units && units.length > 0;
 
+    // تابع برای لود کردن استان‌ها
     const loadProvinceOptions = useCallback(async (inputValue: string) => {
         try {
             const result = await getProvinces({
@@ -123,77 +108,22 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
                 },
             });
 
-            const options = result.body.map((p: { _id: string; name: string }) => ({
+            const options = result.body?.map((p: { _id: string; name: string }) => ({
                 value: p._id,
                 label: p.name,
             }));
 
-            setProvinceOptions(options);
-            return options;
+            return options || [];
         } catch (error) {
             console.error("Error loading provinces:", error);
             return [];
         }
     }, []);
 
-    const loadOrganOptions = useCallback(async (inputValue: string) => {
-        try {
-            const result = await getOrgans({
-                set: {
-                    page: 1,
-                    limit: 20,
-                    // name: inputValue,
-                    positionId: position._id
-                },
-                get: {
-                    _id: 1,
-                    name: 1,
-                },
-            });
-
-            const options = result.body.map((p: { _id: string; name: string }) => ({
-                value: p._id,
-                label: p.name,
-            }));
-
-            setProvinceOptions(options);
-            return options;
-        } catch (error) {
-            console.error("Error loading provinces:", error);
-            return [];
-        }
-    }, []);
-
-    const loadPositionOptions = useCallback(async (inputValue: string) => {
-        try {
-            const result = await getProvinces({
-                set: {
-                    page: 1,
-                    limit: 20,
-                    name: inputValue,
-                },
-                get: {
-                    _id: 1,
-                    name: 1,
-                },
-            });
-
-            const options = result.body.map((p: { _id: string; name: string }) => ({
-                value: p._id,
-                label: p.name,
-            }));
-
-            setProvinceOptions(options);
-            return options;
-        } catch (error) {
-            console.error("Error loading provinces:", error);
-            return [];
-        }
-    }, []);
-
+    // تابع برای لود کردن شهرها
     const loadCityOptions = useCallback(async (inputValue: string) => {
         try {
-            if (!watchProvinceId) {
+            if (!selectedProvinceOption?.value) {
                 return [];
             }
 
@@ -201,7 +131,7 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
                 set: {
                     page: 1,
                     limit: 20,
-                    provinceId: watchProvinceId,
+                    provinceId: selectedProvinceOption.value,
                     name: inputValue,
                     positionId: position._id
                 },
@@ -211,28 +141,33 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
                 },
             });
 
-            const cities = result.body.map((city: { _id: string; name: string }) => ({
+            const citiesList = result.body.map((city: { _id: string; name: string }) => ({
                 value: city._id,
                 label: city.name,
             }));
 
-            setCityOptions(cities);
-            return cities;
+            setCities(citiesList);
+
+            // فیلتر کردن بر اساس inputValue
+            const filteredCities = citiesList.filter((city: { value: string; label: string }) =>
+                city.label.includes(inputValue)
+            );
+
+            return filteredCities;
         } catch (error) {
             console.error("Error loading cities:", error);
             return [];
         }
-    }, [watchProvinceId]);
+    }, [selectedProvinceOption, position._id]);
 
-    // پیدا کردن province انتخاب شده برای نمایش label
+    // ریست کردن شهر وقتی استان تغییر می‌کند
     useEffect(() => {
-        if (watchProvinceId && provinceOptions.length > 0) {
-            const foundProvince = provinceOptions.find(opt => opt.value === watchProvinceId);
-            setSelectedProvince(foundProvince || null);
-        } else {
-            setSelectedProvince(null);
+        if (selectedProvinceOption) {
+            setValue("cityId", "");
+            setSelectedCityOption(null);
+            setCities([]);
         }
-    }, [watchProvinceId, provinceOptions]);
+    }, [selectedProvinceOption, setValue]);
 
     return (
         <>
@@ -305,7 +240,8 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {/* دسته‌بندی‌ها */}
+                    <div>
                         <Controller
                             name="categories"
                             control={control}
@@ -321,34 +257,18 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
                                 />
                             )}
                         />
-
-                        <Controller
-                            name="positionId"
-                            control={control}
-                            render={({ field }) => (
-                                <SelectBox
-                                    label="موقعیت"
-                                    name={field.name}
-                                    value={field.value || ""}
-                                    onChange={(value) => handleSingleSelectChange(value, field)}
-                                    options={[]}
-                                    placeholder="انتخاب موقعیت"
-                                    errMsg={errors.positionId?.message}
-                                />
-                            )}
-                        />
                     </div>
 
                     {/* استان و شهر */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <Controller
-                            name="provinceId"
-                            control={control}
-                            render={({ field }) => (
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-1">
-                                        استان
-                                    </label>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                استان
+                            </label>
+                            <Controller
+                                name="provinceId"
+                                control={control}
+                                render={({ field }) => (
                                     <AsyncSelect
                                         cacheOptions
                                         defaultOptions
@@ -359,52 +279,53 @@ export const UnitClient: FC<TUnitsProps> = ({ units, organs, position }) => {
                                         onChange={(option: OptionType | null) => {
                                             console.log("Province selected:", option);
                                             field.onChange(option?.value || "");
-                                            setSelectedProvince(option);
+                                            setSelectedProvinceOption(option);
                                         }}
-                                        value={selectedProvince}
+                                        value={selectedProvinceOption}
                                         styles={CustomStyles}
                                         isClearable
                                     />
-                                    {errors.provinceId && (
-                                        <p className="text-red-500 text-xs mt-1">{errors.provinceId.message}</p>
-                                    )}
-                                </div>
+                                )}
+                            />
+                            {errors.provinceId && (
+                                <p className="text-red-500 text-xs mt-1">{errors.provinceId.message}</p>
                             )}
-                        />
+                        </div>
 
-                        <Controller
-                            name="cityId"
-                            control={control}
-                            render={({ field }) => (
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-1">
-                                        شهر
-                                    </label>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
+                                شهر
+                            </label>
+                            <Controller
+                                name="cityId"
+                                control={control}
+                                render={({ field }) => (
                                     <AsyncSelect
                                         cacheOptions
                                         defaultOptions
                                         loadOptions={loadCityOptions}
-                                        placeholder={watchProvinceId ? "جستجوی شهر..." : "ابتدا استان انتخاب کنید"}
+                                        placeholder={selectedProvinceOption ? "جستجوی شهر..." : "ابتدا استان انتخاب کنید"}
                                         loadingMessage={() => "در حال جستجو..."}
                                         noOptionsMessage={() => "شهری یافت نشد"}
-                                        isDisabled={!watchProvinceId}
+                                        isDisabled={!selectedProvinceOption}
                                         onChange={(option: OptionType | null) => {
                                             console.log("City selected:", option);
                                             field.onChange(option?.value || "");
+                                            setSelectedCityOption(option);
                                         }}
-                                        value={cityOptions.find(opt => opt.value === field.value) || null}
+                                        value={selectedCityOption}
                                         styles={CustomStyles}
                                         isClearable
                                     />
-                                    {errors.cityId && (
-                                        <p className="text-red-500 text-xs mt-1">{errors.cityId.message}</p>
-                                    )}
-                                </div>
+                                )}
+                            />
+                            {errors.cityId && (
+                                <p className="text-red-500 text-xs mt-1">{errors.cityId.message}</p>
                             )}
-                        />
+                        </div>
                     </div>
 
-                    {/* سازمان */}
+                    {/* سازمان - به حالت قبلی برگشت */}
                     <div>
                         <Controller
                             name="orgId"

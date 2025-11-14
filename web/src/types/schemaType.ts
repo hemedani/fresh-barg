@@ -1,6 +1,16 @@
-// user schema
 import { z } from "zod";
 
+// province schema
+export const provinceSchema = z.object({
+    name: z.string().min(2, "نام باید حداقل 2 کاراکتر باشد"),
+    enName: z.string().min(2),
+    abb: z.string().min(2).max(5),
+});
+
+export type ProvinceForm = z.infer<typeof provinceSchema>;
+
+
+// user schema
 export const userSchema = z.object({
     first_name: z.string().min(2, "نام باید حداقل ۲ کاراکتر باشد"),
     last_name: z.string().min(2, "نام خانوادگی باید حداقل ۲ کاراکتر باشد"),

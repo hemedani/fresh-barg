@@ -13,7 +13,7 @@ export const getOrgsSetup = () =>
 		preAct: [
 			setTokens,
 			setUser,
-			grantAccess({ levels: ["Ghost", "Orghead", "Unithead"] }),
+			grantAccess({ levels: ["Ghost", "Orghead", "Unithead", "Staff"] }),
 		],
 		validator: getOrgsValidator(),
 	});

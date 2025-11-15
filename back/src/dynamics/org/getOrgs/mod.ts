@@ -17,6 +17,3 @@ export const getOrgsSetup = () =>
 		],
 		validator: getOrgsValidator(),
 	});
-
-export * from "./getOrgs.fn.ts";
-export * from "./getOrgs.val.ts";

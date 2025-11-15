@@ -13,10 +13,3 @@ export const unitSetup = () => {
 	removeUnitSetup();
 	countUnitsSetup();
 };
-
-export * from "./addUnit/mod.ts";
-export * from "./getUnit/mod.ts";
-export * from "./getUnits/mod.ts";
-export * from "./updateUnit/mod.ts";
-export * from "./removeUnit/mod.ts";
-export * from "./countUnits/mod.ts";

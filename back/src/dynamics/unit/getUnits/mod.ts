@@ -14,8 +14,8 @@ export const getUnitsSetup = () =>
 			setTokens,
 			setUser,
 			grantAccess({
-				levels: ["Orghead", "Ghost"],
-				features: ["create unit"],
+				levels: ["Orghead", "Ghost", "Unithead", "Staff"],
+				features: ["create unit", "create letters", "read letters"],
 			}),
 		],
 		validator: getUnitsValidator(),

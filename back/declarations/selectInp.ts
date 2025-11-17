@@ -8730,8 +8730,10 @@ level?: (0 | 1 );
             updatePosition: {
 set: {
 _id: string;
-name: string;
+name?: string;
 positionId: string;
+panel?: ("darya" | "johar" | "nameh" | "anbar" | "bita" );
+features?: ("create unit" | "create chart" | "read letters" | "create letters" | "reffer letters" | "add staff" | "add position" | "add position to user" | "read positions" | "edit org" | "edit unit" )[];
 };
 get: {
 _id?: (0 | 1 );

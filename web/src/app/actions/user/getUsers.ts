@@ -1,9 +1,7 @@
+"use server"
 import { http } from "@/services/Api";
-import { DeepPartial, ReqType } from "@/types/declarations/selectInp";
+import { ReqType } from "@/types/declarations/selectInp";
 import { cookies } from "next/headers";
-
-export type GetUsersSet = ReqType["main"]["user"]["getUsers"]["set"];
-export type GetUsersGet = DeepPartial<ReqType["main"]["user"]["getUsers"]["get"]>;
 
 export const getUsers = async ({ set, get }: ReqType["main"]["user"]["getUsers"]) => {
     try {

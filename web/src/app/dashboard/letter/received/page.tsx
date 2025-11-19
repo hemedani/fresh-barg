@@ -25,6 +25,9 @@ const Page = async ({ }) => {
         },
     });
 
+    console.log({ response });
+
+
     return (
         <div className="p-6 space-y-6">
             <div className="flex justify-between items-center">

@@ -68,7 +68,7 @@ export const UserModal: FC<UserModalProps> = ({
                 first_name: user.first_name || "",
                 last_name: user.last_name || "",
                 phone: user.phone || "",
-                gender: user.gender || "male",
+                gender: user.gender || "Male",
                 birth_date: user.birth_date || "",
                 personnel_code: user.personnel_code || "",
                 email: user.email || "",
@@ -181,6 +181,8 @@ export const UserModal: FC<UserModalProps> = ({
     }, [setValue]);
 
     const handleFormSubmit = (data: UserForm) => {
+        console.log('Form data submitted:', data);
+        // مطمئن شو هیچ undefined ای وجود ندارد
         const cleanedData: UserForm = {
             ...data,
             first_name: data.first_name || "",

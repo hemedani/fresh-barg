@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UserLevel } from "./types";
 
 // province schema
 export const provinceSchema = z.object({
@@ -10,7 +11,6 @@ export const provinceSchema = z.object({
 export type ProvinceForm = z.infer<typeof provinceSchema>;
 
 
-// user schema
 export const userSchema = z.object({
     first_name: z.string().min(2, "نام باید حداقل ۲ کاراکتر باشد"),
     last_name: z.string().min(2, "نام خانوادگی باید حداقل ۲ کاراکتر باشد"),

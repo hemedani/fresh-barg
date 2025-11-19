@@ -82,6 +82,8 @@ const UsersPage: FC<IUsersProps> = ({ users, userPosition, positions, organs, un
     };
 
     const handleSubmit = (data: UserForm) => {
+        console.log("data");
+
         if (editingUser) {
             handleEditUser(data);
         } else {
@@ -113,7 +115,6 @@ const UsersPage: FC<IUsersProps> = ({ users, userPosition, positions, organs, un
                         <UserCard
                             key={user._id}
                             user={user}
-                            level={"Ghost"}
                             onRoleChange={() => { }}
                             onEdit={handleEditClick}
                             onDelete={handleDeleteUser}

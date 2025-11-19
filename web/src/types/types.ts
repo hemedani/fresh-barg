@@ -1,5 +1,26 @@
-export type UserLevel = "Ghost" | "Orghead" | "Unithead" | "Staff" | null;
+// types/types.ts
+export type UserLevel = "Ghost" | "Orghead" | "Unithead" | "Staff";
 
+export const userLevelLabels: Record<UserLevel, string> = {
+  Ghost: "سوپر ادمین",
+  Orghead: "رئیس سازمان",
+  Unithead: "رئیس واحد",
+  Staff: "کارمند",
+};
+
+export const userLevelIcons: Record<UserLevel, string> = {
+  Ghost: "👑",
+  Orghead: "🏢",
+  Unithead: "⭐",
+  Staff: "👨‍💼",
+};
+
+export const userLevelColors: Record<UserLevel, string> = {
+  Ghost: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+  Orghead: "bg-red-500/20 text-red-400 border-red-500/30",
+  Unithead: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  Staff: "bg-green-500/20 text-green-400 border-green-500/30",
+};
 
 export interface GetMeResponse {
   error?: string;

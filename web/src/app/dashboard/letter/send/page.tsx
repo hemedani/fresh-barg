@@ -20,7 +20,7 @@ export default async function SentLettersPage() {
             content: 1,
         },
         set: {
-            authorId: userPosition._id,
+            senderId: userPosition._id,
             positionId: userPosition._id
         },
     });

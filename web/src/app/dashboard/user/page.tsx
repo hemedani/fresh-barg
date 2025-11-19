@@ -2,27 +2,55 @@ import { getOrgans } from "@/app/actions/organ/gets";
 import { getActivePositionId } from "@/app/actions/position/getActivePosition";
 import { getPositions } from "@/app/actions/position/gets";
 import { getUnits } from "@/app/actions/unit/gets";
-import { getUsers } from "@/app/actions/user/getUsers"
+import { getUsers } from "@/app/actions/user/getUsers";
 import UsersPage from "@/components/pages/user/UserPage";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { UserLevel } from "@/types/types"; // ✅ اضافه کن
+
+// تابع کمکی برای تأیید اینکه مقدار یک UserLevel معتبر است
+function isValidUserLevel(level: string): level is UserLevel {
+    return ["Ghost", "Orghead", "Unithead", "Staff"].includes(level);
+}
 
 const Page = async () => {
-    const cookieStore = await cookies()
-    const userCookie = cookieStore.get("user")
+    const cookieStore = await cookies();
+    const userCookie = cookieStore.get("user");
 
-    if (!userCookie?.value) redirect("/login")
+    if (!userCookie?.value) redirect("/login");
 
-    const user = JSON.parse(userCookie.value) as { position: Array<{ _id: string; level: string }> }
-    const activePositionId = await getActivePositionId()
-    const activePosition = activePositionId ? user.position.find(p => p._id === activePositionId) : user.position[0]
+    let user;
+    try {
+        user = JSON.parse(userCookie.value) as { position: Array<{ _id: string; level: string }> };
+    } catch {
+        redirect("/login");
+    }
 
-    if (!activePosition) redirect("/dashboard")
+    const activePositionId = await getActivePositionId();
+    const foundPosition = activePositionId
+        ? user.position.find(p => p._id === activePositionId)
+        : user.position[0];
 
-    // 3. دسترسی: فقط Ghost, Orghead, Unithead
-    const allowedRoles = ["Ghost", "Orghead", "Unithead"]
-    if (!allowedRoles.includes(activePosition.level)) redirect("/dashboard")
+    if (!foundPosition) redirect("/dashboard");
 
+    // ✅ تأیید اینکه `level` معتبر است
+    if (!isValidUserLevel(foundPosition.level)) {
+        redirect("/dashboard"); // یا نمایش خطا
+    }
+
+    // حالا می‌توانیم به صورت ایمن به `UserLevel` تبدیل کنیم
+    const activePosition = {
+        _id: foundPosition._id,
+        level: foundPosition.level, // حالا این `UserLevel` است
+    };
+
+    // دسترسی: فقط Ghost, Orghead, Unithead
+    const allowedRoles: UserLevel[] = ["Ghost", "Orghead", "Unithead"];
+    if (!allowedRoles.includes(activePosition.level)) {
+        redirect("/dashboard");
+    }
+
+    // درخواست داده‌ها
     const responseUser = await getUsers({
         get: {
             _id: 1,
@@ -34,13 +62,34 @@ const Page = async () => {
             phone: 1,
             personnel_code: 1,
             is_active: 1,
-        }, set: { limit: 10, page: 1, }
+        },
+        set: { limit: 10, page: 1 },
     });
-    const responseOrg = await getOrgans({ get: { _id: 1, name: 1 }, set: { page: 1, limit: 10, positionId: activePosition._id } })
-    const responseUnit = await getUnits({ get: { _id: 1, name: 1 }, set: { page: 1, limit: 10, positionId: activePosition._id } })
-    const responsePositions = await getPositions({ get: { _id: 1, name: 1 }, set: { page: 1, limit: 10, filterPositions: "all" } })
 
-    return <UsersPage positions={responsePositions.body} units={responseUnit.body} organs={responseOrg.body} userPosition={activePosition} users={responseUser} />
-}
+    const responseOrg = await getOrgans({
+        get: { _id: 1, name: 1 },
+        set: { page: 1, limit: 10, positionId: activePosition._id },
+    });
+
+    const responseUnit = await getUnits({
+        get: { _id: 1, name: 1 },
+        set: { page: 1, limit: 10, positionId: activePosition._id },
+    });
+
+    const responsePositions = await getPositions({
+        get: { _id: 1, name: 1 },
+        set: { page: 1, limit: 10, filterPositions: "all" },
+    });
+
+    return (
+        <UsersPage
+            positions={responsePositions.body}
+            units={responseUnit.body}
+            organs={responseOrg.body}
+            userPosition={activePosition}
+            users={responseUser}
+        />
+    );
+};
 
 export default Page;

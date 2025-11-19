@@ -9,6 +9,7 @@ export default async function LettersPage({ params }: { params: Promise<{ id: st
     const paramsId = (await params).id
 
     const responseLetter = await getLetter({ get: { _id: 1, author: 1, content: 1, created_at: 1, delivered: 1, is_end: 1, leed: 1, number: 1, recievers: 1, sender: 1, subject: 1, tags: 1, updated_at: 1 }, set: { positionId: activePosition, _id: paramsId } })
+    console.log(responseLetter);
 
     return <LetterDetailsPage initialLetter={responseLetter.body} />
 }

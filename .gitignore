@@ -40,3 +40,4 @@ Thumbs.db
 
 front/static/styles
 back/dump.rdb
+web/dev.log

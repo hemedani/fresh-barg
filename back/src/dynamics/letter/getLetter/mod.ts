@@ -2,11 +2,11 @@ import { coreApp, letter } from "../../../../mod.ts";
 import { getLetterFn } from "./getLetter.fn.ts";
 import { getLetterValidator } from "./getLetter.val.ts";
 import { MyContext } from "interfaces/context.ts";
-import { ObjectId } from "https://deno.land/x/lesan@v0.1.1/mod.ts";
 import { setTokens } from "utils/setToken.ts";
 import { setUser } from "utils/setUser.ts";
 import { isPositionInUser } from "utils/isPositionInUser.ts";
-import { throwError } from "https://deno.land/x/lesan@v0.1.1/src/utils/throwError.ts";
+import { ObjectId } from "share/deps.ts";
+import { throwError } from "utils/throwError.ts";
 
 const checkGetLetterRule = async () => {
 	const { body, position }: MyContext = coreApp.contextFns
@@ -24,14 +24,10 @@ const checkGetLetterRule = async () => {
 		return;
 	}
 
-	if (
-		foundedLetter && foundedLetter.recievers &&
-		foundedLetter.recievers.includes(({ _id }: any) =>
-			position?._id.equals(_id)
-		)
-	) {
+	if (position?._id.equals(foundedLetter!.sender._id)) {
 		return;
 	}
+
 	throwError("can not do this");
 };
 

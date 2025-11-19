@@ -65,6 +65,7 @@ export const getGenderText = (gender: string) => {
 };
 
 export const translateLevelType = (levelType: string): string => {
+    console.log(levelType)
     switch (levelType) {
         case "Ghost":
             return "روح";
@@ -72,7 +73,7 @@ export const translateLevelType = (levelType: string): string => {
             return "مدیر سازمان";
         case "Unithead":
             return "مدیر واحد"
-        case "staff":
+        case "Staff":
             return "عادی"
         default:
             return "نامشخص";

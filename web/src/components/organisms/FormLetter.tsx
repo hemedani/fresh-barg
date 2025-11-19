@@ -9,6 +9,7 @@ import { MyInput, Button, SelectBox, CustomStyles } from "@/components/atoms";
 import { FC, useEffect, useState } from "react"; // فقط این خط اضافه شد
 import { createLetter } from "@/app/actions/letter/create";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const letterSchema = z.object({
     number: z.string().min(1, "شماره نامه الزامی است"),
@@ -34,6 +35,7 @@ type Props = {
 
 export const LetterForm: FC<Props> = ({ userPosition, orgs, units, receivers, tagOptions, authorId }) => {
     const [mounted, setMounted] = useState(false); // فقط این خط اضافه شد
+    const router = useRouter()
 
     useEffect(() => {
         setMounted(true); // فقط این خط اضافه شد
@@ -63,19 +65,19 @@ export const LetterForm: FC<Props> = ({ userPosition, orgs, units, receivers, ta
     });
 
     const onSubmit = async (data: LetterFormType) => {
-        console.log("نامه ثبت شد:", data);
         const responseLetter = await createLetter({
             set: {
                 authorId: authorId, content: data.content, leed: data.leed, number: +data.number, orgId: data.orgId, positionId: userPosition._id, recieversId: data.receiversId, subject: data.subject, tags: data.tags, unitId: data.unitId
             }, get: { _id: 1, content: 1 }
         })
+        console.log(responseLetter);
+
         if (responseLetter.success) {
             toast.success("عملیات با موفقیت انجام شد")
         }
-
+        router.push("/dashboard/letter")
         reset();
     };
-    console.log({ errors });
 
     // فقط این قسمت رو تغییر دادم — از mounted استفاده کردم
     const previewContent = watch("content") || "";
@@ -95,22 +97,6 @@ export const LetterForm: FC<Props> = ({ userPosition, orgs, units, receivers, ta
                     <MyInput name="subject" register={register} label="موضوع *" errMsg={errors.subject?.message} placeholder="موضوع نامه..." />
                 </div>
 
-                <Controller
-                    name="receiversId"
-                    control={control}
-                    render={({ field }) => (
-                        <SelectBox
-                            name="receiversId"
-                            label="گیرنده *"
-                            value={field.value}
-                            onChange={field.onChange}
-                            options={receivers}
-                            errMsg={errors.receiversId?.message}
-                            placeholder="جستجو و انتخاب گیرنده..."
-                        />
-                    )}
-                />
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Controller
                         name="orgId"
@@ -127,6 +113,22 @@ export const LetterForm: FC<Props> = ({ userPosition, orgs, units, receivers, ta
                         )}
                     />
                 </div>
+
+                <Controller
+                    name="receiversId"
+                    control={control}
+                    render={({ field }) => (
+                        <SelectBox
+                            name="receiversId"
+                            label="گیرنده *"
+                            value={field.value}
+                            onChange={field.onChange}
+                            options={receivers}
+                            errMsg={errors.receiversId?.message}
+                            placeholder="جستجو و انتخاب گیرنده..."
+                        />
+                    )}
+                />
 
                 <div>
                     <label className="block text-sm font-medium text-white mb-3">برچسب‌ها *</label>

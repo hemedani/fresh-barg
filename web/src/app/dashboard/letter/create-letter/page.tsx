@@ -18,7 +18,6 @@ export default async function LettersPage() {
     const user = userCookie ? JSON.parse(userCookie.value) : null;
 
     const userPosition = user.position[0]
-    console.log({ userPosition });
 
     const [responsePositions, responseUnits, responseOrgans] = await Promise.all([
         getPositions({ get: { _id: 1, name: 1 }, set: { page: 1, limit: 50, filterPositions: "all" } }),

@@ -1,8 +1,8 @@
-"use client"
+'use client';
 
-import { Clock, Edit, Eye, Mail, Tag, Trash2, User } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Clock, Edit, Eye, Mail, Tag, Trash2, User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export interface Letter {
     _id: string;
@@ -19,100 +19,99 @@ export interface Letter {
     author: string;
 }
 
+const statusConfig = {
+    draft: { text: 'پیش‌نویس', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
+    sent: { text: 'ارسال شده', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
+    referenced: { text: 'ارجاع داده شده', color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
+    archived: { text: 'آرشیو شده', color: 'bg-slate-500/20 text-slate-400 border-slate-500/30' },
+};
+
 export const LetterCard = ({ letter }: { letter: Letter }) => {
-    const router = useRouter()
-    const [showActions, setShowActions] = useState(false);
-
-    const getStatusColor = (status: string) => {
-        const colors = {
-            draft: 'bg-yellow-500 text-yellow-100',
-            sent: 'bg-green-500 text-green-100',
-            referenced: 'bg-blue-500 text-blue-100',
-            archived: 'bg-slate-500 text-slate-100'
-        };
-        return colors[status as keyof typeof colors] || 'bg-slate-500 text-slate-100';
-    };
-
-    const getStatusText = (status: string) => {
-        const texts = {
-            draft: 'پیش‌نویس',
-            sent: 'ارسال شده',
-            referenced: 'ارجاع داده شده',
-            archived: 'آرشیو شده'
-        };
-        return texts[status as keyof typeof texts] || status;
-    };
+    const router = useRouter();
+    const [openActions, setOpenActions] = useState(false);
 
     const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
         return new Intl.DateTimeFormat('fa-IR', {
+            day: 'numeric',
+            month: 'short',
             year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        }).format(date);
+        }).format(new Date(dateString));
     };
 
+    const { text: statusText, color: statusColor } = statusConfig[letter.status] || statusConfig.draft;
+
     return (
-        <div
-            className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-slate-600 transition-all duration-300"
-            onMouseEnter={() => setShowActions(true)}
-            onMouseLeave={() => setShowActions(false)}
-        >
-            <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
-                            <Mail size={20} className="text-white" />
+        <div className="bg-slate-800/60 hover:bg-slate-800 rounded-xl p-5 border border-slate-700/70 hover:border-slate-600 transition-all duration-200 group">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                {/* محتوای اصلی */}
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-start gap-3 mb-3">
+                        <div className="mt-0.5 shrink-0 w-9 h-9 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                            <Mail size={16} className="text-blue-400" />
                         </div>
-                        <div>
-                            <h3 className="text-white font-semibold text-lg">{letter.subject}</h3>
-                            <p className="text-slate-400 text-sm">شماره: {letter.number}</p>
+                        <div className="min-w-0">
+                            <h3 className="text-white font-semibold text-base leading-tight truncate">{letter.subject}</h3>
+                            <p className="text-slate-400 text-sm mt-1">شماره: {letter.number}</p>
                         </div>
                     </div>
 
-                    <p className="text-slate-300 line-clamp-2 mb-3">{letter.leed}</p>
+                    <p className="text-slate-300 text-sm line-clamp-2 mt-1">{letter.leed}</p>
+
+                    {/* متادیتای پایین */}
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-slate-400 text-xs">
+                        <div className="flex items-center gap-1">
+                            <User size={12} className="shrink-0" />
+                            <span className="truncate">{letter.sender}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <Mail size={12} className="shrink-0" />
+                            <span>{letter.receivers?.length || 0} گیرنده</span>
+                        </div>
+                        {letter.tags?.length > 0 && (
+                            <div className="flex items-center gap-1">
+                                <Tag size={12} className="shrink-0" />
+                                <span>{letter.tags.join('، ')}</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(letter.status)}`}>
-                        {getStatusText(letter.status)}
+                {/* ستون راست (وضعیت + اقدامات) */}
+                <div className="flex flex-col items-end gap-2">
+                    <span
+                        className={`px-2.5 py-1 rounded-full text-xs font-medium border ${statusColor}`}
+                    >
+                        {statusText}
                     </span>
 
-                    {showActions && (
-                        <div className="flex gap-1">
-                            <button onClick={() => router.push(`/dashboard/letter/${letter._id}`)} className="p-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors">
-                                <Eye size={16} />
-                            </button>
-                            <button className="p-2 text-green-400 hover:bg-green-500/20 rounded-lg transition-colors">
-                                <Edit size={16} />
-                            </button>
-                            <button className="p-2 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors">
-                                <Trash2 size={16} />
-                            </button>
-                        </div>
-                    )}
+                    {/* دکمه‌های اقدام */}
+                    <div className="flex gap-1">
+                        <button
+                            onClick={() => router.push(`/dashboard/letter/${letter._id}`)}
+                            className="p-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors"
+                            aria-label="مشاهده جزئیات"
+                        >
+                            <Eye size={16} />
+                        </button>
+                        <button
+                            className="p-2 text-green-400 hover:bg-green-500/20 rounded-lg transition-colors"
+                            aria-label="ویرایش نامه"
+                        >
+                            <Edit size={16} />
+                        </button>
+                        <button
+                            className="p-2 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors"
+                            aria-label="حذف نامه"
+                        >
+                            <Trash2 size={16} />
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div className="flex items-center justify-between text-slate-400 text-sm">
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-1">
-                        <User size={14} />
-                        <span>{letter.sender}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <Mail size={14} />
-                        <span>{letter.receivers?.length} گیرنده</span>
-                    </div>
-                    {letter.tags.length > 0 && (
-                        <div className="flex items-center gap-1">
-                            <Tag size={14} />
-                            <span>{letter.tags.join('، ')}</span>
-                        </div>
-                    )}
-                </div>
-
-                <div className="flex items-center gap-1">
+            {/* تاریخ در پایین (ریسپانسیو) */}
+            <div className="mt-4 pt-3 border-t border-slate-700/50 flex justify-end">
+                <div className="flex items-center gap-1 text-slate-500 text-xs">
                     <Clock size={14} />
                     <span>{formatDate(letter.created_at)}</span>
                 </div>

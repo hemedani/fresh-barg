@@ -68,7 +68,7 @@ export const UserModal: FC<UserModalProps> = ({
                 first_name: user.first_name || "",
                 last_name: user.last_name || "",
                 phone: user.phone || "",
-                gender: user.gender || "male",
+                gender: user.gender || "Male",
                 birth_date: user.birth_date || "",
                 personnel_code: user.personnel_code || "",
                 email: user.email || "",

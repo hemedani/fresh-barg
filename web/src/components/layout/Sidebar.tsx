@@ -130,7 +130,7 @@ export const Sidebar = () => {
         </div>
 
         {/* Filtered Menu Items */}
-        <ul className="list-none p-0 m-0 space-y-2">
+        <ul className="list-none space-y-2">
           {allowedItems.map((item) => (
             <li key={item.href}>
               <Link
@@ -139,7 +139,7 @@ export const Sidebar = () => {
                 className="flex items-center text-slate-300 no-underline p-3 rounded-xl transition-all duration-300 hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-green-500/10 group border border-transparent hover:border-white/10"
               >
                 {item.icon}
-                <span className="font-medium">{item.label}</span>
+                <span className="px-3 font-medium">{item.label}</span>
               </Link>
             </li>
           ))}

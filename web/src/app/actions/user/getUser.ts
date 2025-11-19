@@ -3,7 +3,7 @@ import { http } from "@/services/Api";
 import { ReqType } from "@/types/declarations/selectInp";
 import { cookies } from "next/headers";
 
-export const getUsers = async ({ set, get }: ReqType["main"]["user"]["getUsers"]) => {
+export const getUser = async ({ set, get }: ReqType["main"]["user"]["getUser"]) => {
     try {
         const cookieStore = cookies()
         const token = (await cookieStore).get("token");
@@ -18,7 +18,7 @@ export const getUsers = async ({ set, get }: ReqType["main"]["user"]["getUsers"]
         const response = await http.send({
             service: "main",
             model: "user",
-            act: "getUsers",
+            act: "getUser",
             details: {
                 set,
                 get,

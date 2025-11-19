@@ -42,6 +42,7 @@ export const AuthProvider = ({
     const clearAuth = () => {
         Cookies.remove("token");
         Cookies.remove("user");
+        Cookies.remove("active_position_id");
         setUser(null);
         setUserLevel(null);
     };

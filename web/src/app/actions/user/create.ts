@@ -5,8 +5,6 @@ import { cookies } from "next/headers";
 
 
 export const createUser = async ({ set, get }: ReqType["main"]["user"]["addUser"]) => {
-  console.log({ set });
-
   const token = (await cookies()).get("token");
   if (!token?.value) {
     return {

@@ -115,7 +115,6 @@ const UsersPage: FC<IUsersProps> = ({ users, userPosition, positions, organs, un
                         <UserCard
                             key={user._id}
                             user={user}
-                            level={"Ghost"}
                             onRoleChange={() => { }}
                             onEdit={handleEditClick}
                             onDelete={handleDeleteUser}

@@ -1,18 +1,12 @@
 import { getLetters } from "@/app/actions/letter/gets";
-import { AdvancedFilters, LettersList, LetterStats } from "@/components/organisms/letter";
-import { cookies } from "next/headers";
+import { getActivePositionId } from "@/app/actions/position/getActivePosition";
+import { LettersList, LetterStats } from "@/components/organisms/letter";
+import { redirect } from "next/navigation";
 
-export default async function LettersPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default async function LettersPage({ }: {}) {
 
-  const page = Number(searchParams.page) || 1;
-  const userCookie = (await cookies()).get("user");
-  const user = userCookie ? JSON.parse(userCookie.value) : null;
-
-  const userPosition = user.position[0]
+  const activePosition = await getActivePositionId()
+  if (!activePosition) redirect("/dashboard")
   const response = await getLetters({
     get: {
       _id: 1,
@@ -26,8 +20,8 @@ export default async function LettersPage({
       content: 1,
     },
     set: {
-      positionId: userPosition._id,
-
+      authorId: activePosition,
+      positionId: activePosition
     },
   });
 
@@ -39,9 +33,7 @@ export default async function LettersPage({
 
       <LetterStats />
 
-      {/* <AdvancedFilters /> */}
-
-      <LettersList currentPage={1} initialLetters={response.body} totalPages={2} />
+      <LettersList initialLetters={response.body} />
     </div>
   )
 }

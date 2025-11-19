@@ -85,7 +85,7 @@ export const ProfileDropDown = ({
 
 
                     <button
-                        onClick={() => { logout(); close(); router.refresh(); }}
+                        onClick={() => { close(); router.refresh(); logout(); }}
                         className="w-full px-4 py-3 text-right text-red-400 hover:bg-red-400/10 flex items-center gap-3"
                     >
                         <LogOut size={18} />
